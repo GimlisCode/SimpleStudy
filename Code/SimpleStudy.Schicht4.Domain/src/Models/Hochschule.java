@@ -1,5 +1,11 @@
 package Models;
 
-public class Hochschule {
+import java.util.ArrayList;
+
+public class Hochschule extends Entity{
+	
+	private String name;
+	private ArrayList<Dozent> dozenten= new ArrayList<>();
+	
 
 }

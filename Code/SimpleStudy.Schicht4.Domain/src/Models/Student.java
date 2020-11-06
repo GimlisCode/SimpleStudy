@@ -1,5 +1,7 @@
 package Models;
 
-public class Student {
+public class Student extends Entity{
+	
+	private String name;
 
 }

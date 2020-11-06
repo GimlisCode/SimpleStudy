@@ -19,6 +19,7 @@ abstract class Verwaltung {
 	public void update(Entity entity) {
 	}
 	
-	a
+	abstract Entity get(int id);
+	abstract void delete(int id);
 	
 }

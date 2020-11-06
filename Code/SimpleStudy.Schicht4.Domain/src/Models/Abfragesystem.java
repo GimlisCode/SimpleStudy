@@ -2,8 +2,9 @@ package Models;
 
 public enum Abfragesystem {
 	
-	SYS1("System1",1),
-	SYS2("System2",2);
+	RANDOM("Random",1),
+	LINEAR("Linear",2),
+	STEP("Step",3);
 	
 	
 	private int id;

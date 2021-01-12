@@ -17,7 +17,56 @@ public class Frage extends Entity {
 		this.typ = typ;
 		this.antworten = antworten;
 	}
+
+
+	public int getNr() {
+		return nr;
+	}
+
+
+	public void setNr(int nr) {
+		this.nr = nr;
+	}
+
+
+	public String getText() {
+		return text;
+	}
+
+
+	public void setText(String text) {
+		this.text = text;
+	}
+
+
+	public int getTyp() {
+		return typ;
+	}
+
+
+	public void setTyp(int typ) {
+		this.typ = typ;
+	}
+
+
+	public ArrayList<Antwort> getAntworten() {
+		return antworten;
+	}
+
+
+	public void setAntworten(ArrayList<Antwort> antworten) {
+		this.antworten = antworten;
+	}
 	
+	public void add(Antwort newAntwort) {
+		if (!antworten.contains(newAntwort))		
+			antworten.add(newAntwort);		
+	}
+	
+	public void remove(Antwort removeAntwort) {
+		if (antworten.contains(removeAntwort))
+			antworten.remove(removeAntwort);
+	}
 	
 
 }

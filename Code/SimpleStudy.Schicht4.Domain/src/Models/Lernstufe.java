@@ -19,9 +19,37 @@ public class Lernstufe {
 		super();
 		Stufe = stufe;
 	}
-	
-	
 
+
+	public int getStufe() {
+		return Stufe;
+	}
+
+
+	public void setStufe(int stufe) {
+		Stufe = stufe;
+	}
+
+
+	public ArrayList<Frage> getFragen() {
+		return fragen;
+	}
+
+
+	public void setFragen(ArrayList<Frage> fragen) {
+		this.fragen = fragen;
+	}
+	
+	
+	public void add(Frage newFrage) {
+		if (!fragen.contains(newFrage))		
+			fragen.add(newFrage);		
+	}
+	
+	public void remove(Frage removeFrage) {
+		if (fragen.contains(removeFrage))
+			fragen.remove(removeFrage);
+	}
 	
 	
 }

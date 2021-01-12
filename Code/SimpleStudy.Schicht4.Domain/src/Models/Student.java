@@ -7,9 +7,11 @@ public class Student extends Entity{
 	private String name;
 	private ArrayList<Statistik> statistik = new ArrayList<>();
 	
-	
-	
-	
+	public Student(String name, ArrayList<Statistik> statistik) {
+		super();
+		this.name = name;
+		this.statistik = statistik;
+	}
 	public String getName() {
 		return name;
 	}
@@ -24,13 +26,12 @@ public class Student extends Entity{
 	}
 	
 	public void add(Statistik newStatistik) {
-		if (statistik.indexOf(newStatistik) != -1)		
+		if (!statistik.contains(newStatistik))		
 			statistik.add(newStatistik);		
 	}
 	
 	public void remove(Statistik removeStatistik) {
-		int index = statistik.indexOf(removeStatistik);
-		if (index != -1)
-			statistik.remove(index);
+		if (statistik.contains(removeStatistik))
+			statistik.remove(removeStatistik);
 	}
 }

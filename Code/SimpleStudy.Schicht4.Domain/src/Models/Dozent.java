@@ -12,7 +12,30 @@ public class Dozent extends Entity{
 		this.name = name;
 		this.kurse = kurse;
 	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public ArrayList<Lernfach> getKurse() {
+		return kurse;
+	}
+
+	public void addKurs(Lernfach l) {
+		if(kurse.contains(l) != true) {
+			kurse.add(l);
+		}
+	}
 	
+	public void removeKurs(Lernfach l) {
+		if(kurse.contains(l)) {
+			kurse.remove(l);
+		}
+	}
 	
 
 }

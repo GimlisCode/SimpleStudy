@@ -1,19 +1,44 @@
 package Modifier;
 
-import Models.Entity;
+import java.util.HashMap;
 
-public class StudentenVerwaltung extends Verwaltung {
+import Models.Student;
 
-	@Override
-	Entity get(int id) {
-		// TODO Auto-generated method stub
-		return null;
+public class StudentenVerwaltung {
+
+	static private HashMap<Integer, Student> studenten = new HashMap<>();
+	
+	public StudentenVerwaltung() {
+	
 	}
-
-	@Override
-	void delete(int id) {
-		// TODO Auto-generated method stub
+	
+	static Student get(int id)
+	{		
+		return studenten.get(id);
+	}
+	
+	static HashMap<Integer, Student> getAll()
+	{
+		return studenten;
+	}
+	
+	static void add(Student student)
+	{		
+		studenten.put(student.getId(), student);		
+	}
 		
+	static void remove(Student student)
+	{		
+		remove(student.getId());				
 	}
-
+	
+	static void remove(int id)
+	{		
+		studenten.remove(id);				
+	}
+	
+	static void update(Student student)
+	{		
+		studenten.put(student.getId(), student);		
+	}
 }

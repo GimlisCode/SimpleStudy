@@ -9,9 +9,28 @@ public enum Modus {
 	private int id;
 	private String name;
 	
-	Modus(String string, int id) {
-		// TODO Auto-generated constructor stub
+	Modus(String name, int id) {
+		this.id = id;
+		this.name = name;
 	}
 	
+	public static Modus getEnumOfId(int id) {
+		for(Modus modus: values()) {
+			if(modus.id == id) {
+				return modus;
+			}
+		}
+		
+		return null;
+	}
+
+	public int getId() {
+		return id;
+	}
+	
+	public String getName() {
+		return name;
+	}
 	
 }
+	

@@ -1,6 +1,8 @@
 package Modifier;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map.Entry;
 
 import Models.Student;
 
@@ -40,5 +42,20 @@ public class StudentenVerwaltung {
 	static void update(Student student)
 	{		
 		studenten.put(student.getId(), student);		
+	}
+	
+	static ArrayList<Student> suche(String suchstring)
+	{
+		ArrayList<Student> passendeStudentenZumSuchstring = new ArrayList<>();
+		for (Entry<Integer, Student> student : studenten.entrySet()) 
+			if (student.getValue().toString().contains(suchstring)) 
+				passendeStudentenZumSuchstring.add(student.getValue());				
+			
+		if (passendeStudentenZumSuchstring.size() > 0)
+			return passendeStudentenZumSuchstring;
+		
+		return null;
+		
+		
 	}
 }

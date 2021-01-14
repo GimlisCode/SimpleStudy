@@ -10,11 +10,27 @@ public enum Abfragesystem {
 	private int id;
 	private String name;
 	
-	Abfragesystem(String string, int i) {
-		// TODO Auto-generated constructor stub
+	Abfragesystem(String name, int id) {
+this.id = id;
+this.name = name;
+}
+	
+	public static Abfragesystem getEnumOfId(int id) {
+		for(Abfragesystem abfragesystem: values()) {
+			if(abfragesystem.id == id) {
+				return abfragesystem;
+			}
+		}
+		
+		return null;
+	}
+
+	public int getId() {
+		return id;
 	}
 	
-	
-
+	public String getName() {
+		return name;
+	}
 	
 }

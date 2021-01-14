@@ -31,5 +31,9 @@ public class Statistik {
 			statistik.remove(frageId);
 	}
 
-
+	public void update(Integer frageId, Richtigkeit richtigkeit)
+	{		
+		statistik.put(frageId, richtigkeit);
+	}
+	
 }

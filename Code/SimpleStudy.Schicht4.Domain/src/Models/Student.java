@@ -5,9 +5,9 @@ import java.util.ArrayList;
 public class Student extends Entity{
 	
 	private String name;
-	private ArrayList<Statistik> statistik = new ArrayList<>();
+	private Statistik statistik;
 	
-	public Student(String name, ArrayList<Statistik> statistik) {
+	public Student(String name, Statistik statistik) {
 		super();
 		this.name = name;
 		this.statistik = statistik;
@@ -18,20 +18,20 @@ public class Student extends Entity{
 	public void setName(String name) {
 		this.name = name;
 	}
-	public ArrayList<Statistik> getStatistik() {
+	public Statistik getStatistik() {
 		return statistik;
 	}
-	public void setStatistik(ArrayList<Statistik> statistik) {
+	public void setStatistik(Statistik statistik) {
 		this.statistik = statistik;
 	}
 	
-	public void add(Statistik newStatistik) {
-		if (!statistik.contains(newStatistik))		
-			statistik.add(newStatistik);		
-	}
-	
-	public void remove(Statistik removeStatistik) {
-		if (statistik.contains(removeStatistik))
-			statistik.remove(removeStatistik);
-	}
+//	public void add(Statistik newStatistik) {
+//		if (!statistik.contains(newStatistik))		
+//			statistik.add(newStatistik);		
+//	}
+//	
+//	public void remove(Statistik removeStatistik) {
+//		if (statistik.contains(removeStatistik))
+//			statistik.remove(removeStatistik);
+//	}
 }

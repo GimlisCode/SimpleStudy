@@ -4,58 +4,42 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
+import Models.Ergebnis;
+import Models.Lernfach;
+import Models.Richtigkeit;
 import Models.Statistik;
 import Models.Student;
 
 public class StatistikVerwaltung {
 
 	
-static private HashMap<Integer, Statistik> statistik = new HashMap<>();
 	
 	public StatistikVerwaltung() {
 	
 	}
-	
-	static Student get(int id)
-	{		
-		return studenten.get(id);
-	}
-	
-	static HashMap<Integer, Student> getAll()
-	{
-		return studenten;
-	}
-	
-	static void add(Student student)
-	{		
-		studenten.put(student.getId(), student);		
-	}
+
+	public static void update(Student currentStudent, Ergebnis ergebnis) {		
+		Statistik currentStatistik = StudentenVerwaltung.get(currentStudent.getId()).getStatistik();
 		
-	static void remove(Student student)
-	{		
-		remove(student.getId());				
-	}
-	
-	static void remove(int id)
-	{		
-		studenten.remove(id);				
-	}
-	
-	static void update(Student student)
-	{		
-		studenten.put(student.getId(), student);		
-	}
-	
-	static ArrayList<Student> suche(String suchstring)
-	{
-		ArrayList<Student> passendeStudentenZumSuchstring = new ArrayList<>();
-		for (Entry<Integer, Student> student : studenten.entrySet()) 
-			if (student.getValue().toString().contains(suchstring)) 
-				passendeStudentenZumSuchstring.add(student.getValue());				
-			
-		if (passendeStudentenZumSuchstring.size() > 0)
-			return passendeStudentenZumSuchstring;
+		for (Entry<Integer, Boolean> ergebnisEinerFrage: ergebnis.getErgebnis().entrySet()) {
+			Richtigkeit richtigkeit = new Richtigkeit();
+			if(currentStatistik.getStatistik().containsKey(ergebnisEinerFrage.getKey()))
+				richtigkeit = currentStatistik.getStatistik().get(ergebnisEinerFrage.getKey());
+				
+			if (ergebnisEinerFrage.getValue())
+				richtigkeit.addRichtig();
+			else
+				richtigkeit.addFalsch();
+				
+			currentStatistik.update(ergebnisEinerFrage.getKey(), richtigkeit);					
+		}
 		
-		return null;			
 	}
+	
+	
+	
 }
+	
+
+	
+

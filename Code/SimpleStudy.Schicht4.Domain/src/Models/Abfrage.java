@@ -9,8 +9,8 @@ public class Abfrage {
 	private Abfragesystem abfragesystem;
 	private ArrayList<Frage> fragen;
 	
-	public Abfrage(Ergebnis ergebnis, Modus modus, Abfragesystem abfragesystem, ArrayList<Frage> fragen) {
-		this.ergebnis = ergebnis;
+	public Abfrage(Modus modus, Abfragesystem abfragesystem, ArrayList<Frage> fragen) {
+		this.ergebnis = new Ergebnis();
 		this.modus = modus;
 		this.abfragesystem = abfragesystem;
 		this.fragen = fragen;

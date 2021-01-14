@@ -54,8 +54,7 @@ public class StudentenVerwaltung {
 		if (passendeStudentenZumSuchstring.size() > 0)
 			return passendeStudentenZumSuchstring;
 		
-		return null;
-		
-		
+		return null;			
 	}
+	
 }

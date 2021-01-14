@@ -10,7 +10,6 @@ public class Abfrage {
 	private ArrayList<Frage> fragen;
 	
 	public Abfrage(Ergebnis ergebnis, Modus modus, Abfragesystem abfragesystem, ArrayList<Frage> fragen) {
-		super();
 		this.ergebnis = ergebnis;
 		this.modus = modus;
 		this.abfragesystem = abfragesystem;
@@ -30,6 +29,8 @@ public class Abfrage {
 	public void setErgebnis(Ergebnis ergebnis) {
 		this.ergebnis = ergebnis;
 	}
+	
+	
 
    
 

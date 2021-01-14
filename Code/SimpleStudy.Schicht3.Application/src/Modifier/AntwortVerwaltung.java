@@ -1,18 +1,61 @@
 package Modifier;
 
-import Models.Entity;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map.Entry;
 
-public class AntwortVerwaltung extends Verwaltung {
+import Models.Antwort;
 
-	@Override
-	Entity get(int id) {
-		// TODO Auto-generated method stub
-		return null;
+public class AntwortVerwaltung {
+
+static private HashMap<Integer, Antwort> antworten = new HashMap<>();
+	
+	public AntwortVerwaltung() {
+	
 	}
-
-	@Override
-	void delete(int id) {
-		// TODO Auto-generated method stub
+	
+	static Antwort get(int id)
+	{		
+		return antworten.get(id);
+	}
+	
+	static HashMap<Integer, Antwort> getAll()
+	{
+		return antworten;
+	}
+	
+	static void add(Antwort antwort)
+	{		
+		antworten.put(antwort.getId(), antwort);		
+	}
+		
+	static void remove(Antwort antwort)
+	{		
+		remove(antwort.getId());				
+	}
+	
+	static void remove(int id)
+	{		
+		antworten.remove(id);				
+	}
+	
+	static void update(Antwort antwort)
+	{		
+		antworten.put(antwort.getId(), antwort);		
+	}
+	
+	static ArrayList<Antwort> suche(String suchstring)
+	{
+		ArrayList<Antwort> passendeAntwortenZumSuchstring = new ArrayList<>();
+		for (Entry<Integer, Antwort> antwort : antworten.entrySet()) 
+			if (antwort.getValue().toString().contains(suchstring)) 
+				passendeAntwortenZumSuchstring.add(antwort.getValue());				
+			
+		if (passendeAntwortenZumSuchstring.size() > 0)
+			return passendeAntwortenZumSuchstring;
+		
+		return null;
+		
 		
 	}
 

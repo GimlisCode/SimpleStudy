@@ -1,5 +1,7 @@
 package Models;
 
+import java.util.HashMap;
+
 public class Antwort extends Entity{
 	
 	private String text;
@@ -30,6 +32,16 @@ public class Antwort extends Entity{
 
 	public void setCorrect(boolean correct) {
 		this.correct = correct;
+	}
+
+
+	@Override
+	HashMap<String, Object> getDetails() {
+		HashMap<String, Object> details = new HashMap<String, Object>();
+		details.put("text", this.text);
+		details.put("correct", this.correct);
+		
+		return details;
 	}
 	
 	

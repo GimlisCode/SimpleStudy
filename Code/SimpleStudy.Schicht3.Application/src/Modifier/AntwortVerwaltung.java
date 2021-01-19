@@ -6,45 +6,51 @@ import java.util.Map.Entry;
 
 import Models.Antwort;
 
-public class AntwortVerwaltung {
+public final class AntwortVerwaltung {
 
 static private HashMap<Integer, Antwort> antworten = new HashMap<>();
-	
-	public AntwortVerwaltung() {
-	
+static private AntwortVerwaltung antwortVerwaltungSingleton = new AntwortVerwaltung();
+
+	private AntwortVerwaltung() {
+		super();
 	}
 	
-	static Antwort get(int id)
+	static AntwortVerwaltung getInstance()
+	{
+		return antwortVerwaltungSingleton;
+	}
+	
+	public Antwort get(int id)
 	{		
 		return antworten.get(id);
 	}
 	
-	static HashMap<Integer, Antwort> getAll()
+	public HashMap<Integer, Antwort> getAll()
 	{
 		return antworten;
 	}
 	
-	static void add(Antwort antwort)
+	public void add(Antwort antwort)
 	{		
 		antworten.put(antwort.getId(), antwort);		
 	}
 		
-	static void remove(Antwort antwort)
+	public void remove(Antwort antwort)
 	{		
 		remove(antwort.getId());				
 	}
 	
-	static void remove(int id)
+	public void remove(int id)
 	{		
 		antworten.remove(id);				
 	}
 	
-	static void update(Antwort antwort)
+	public void update(Antwort antwort)
 	{		
 		antworten.put(antwort.getId(), antwort);		
 	}
 	
-	static ArrayList<Antwort> suche(String suchstring)
+	public ArrayList<Antwort> suche(String suchstring)
 	{
 		ArrayList<Antwort> passendeAntwortenZumSuchstring = new ArrayList<>();
 		for (Entry<Integer, Antwort> antwort : antworten.entrySet()) 

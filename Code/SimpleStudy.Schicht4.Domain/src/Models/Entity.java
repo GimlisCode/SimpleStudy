@@ -1,6 +1,8 @@
 package Models;
 
-public class Entity {
+import java.util.HashMap;
+
+public abstract class Entity {
 	
 	private int id;
 
@@ -12,6 +14,11 @@ public class Entity {
 		this.id = id;
 	}
 	
+	abstract HashMap<String, Object> getDetails();
 	
+	public String[] getAttributeNames()
+	{		
+		return getDetails().keySet().toArray(new String[getDetails().keySet().size()]);
+	}
 
 }

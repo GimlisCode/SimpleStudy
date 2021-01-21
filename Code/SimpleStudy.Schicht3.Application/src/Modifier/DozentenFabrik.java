@@ -37,7 +37,7 @@ public class DozentenFabrik {
 	}
 	
 	public static void create(HashMap<String,String> dozentAttribute) {		
-		neuerDozent.setId(Integer.parseInt(dozentAttribute.get("Id")));
+		neuerDozent.setId(Integer.parseInt(dozentAttribute.get("id")));
 		neuerDozent.setName(dozentAttribute.get("name"));		
 		String [] alleKursId = dozentAttribute.get("kurse").split(";");
 		for (String kursId : alleKursId) {

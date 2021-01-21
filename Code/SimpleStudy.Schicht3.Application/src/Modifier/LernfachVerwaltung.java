@@ -11,9 +11,14 @@ import Models.Student;
 public class LernfachVerwaltung {
 
 static private HashMap<Integer, Lernfach> lernfaecher = new HashMap<>();
+static private LernfachVerwaltung lernfachVerwaltungSingleton = new LernfachVerwaltung();
+
+	private LernfachVerwaltung() {
+	 super();
+	}
 	
-	public LernfachVerwaltung() {
-	
+	public static LernfachVerwaltung getInstance() {
+		return lernfachVerwaltungSingleton;
 	}
 	
 	static Lernfach get(int id)

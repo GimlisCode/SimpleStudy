@@ -17,7 +17,7 @@ public class StatistikVerwaltung {
 	static private HashMap<Integer, Statistik> statistiken = new HashMap<>();
 	
 	private StatistikVerwaltung() {
-	super();
+		super();
 	}
 	
 	public static StatistikVerwaltung getInstance() {

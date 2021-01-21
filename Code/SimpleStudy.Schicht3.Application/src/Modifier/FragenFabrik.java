@@ -38,7 +38,6 @@ public class FragenFabrik {
 		neueFrage.setText(fragenAttribute.get("Text"));
 		neueFrage.setTyp(Integer.parseInt(fragenAttribute.get("typ")));
 		String[] alleAntwortId = fragenAttribute.get("antworten").split(";");
-		ArrayList<Antwort> antworten = new ArrayList<>();
 		for (String	antwortenID : alleAntwortId) {
 			Antwort antwort = AntwortVerwaltung.get(Integer.parseInt(antwortenID));
 			if (antwort != null) {

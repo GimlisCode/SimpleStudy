@@ -1,6 +1,7 @@
 package Models;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Student extends Entity{
 	
@@ -23,6 +24,15 @@ public class Student extends Entity{
 	}
 	public void setStatistik(Statistik statistik) {
 		this.statistik = statistik;
+	}
+	@Override
+	HashMap<String, Object> getDetails() {
+		HashMap<String, Object> details = new HashMap<String, Object>();
+		details.put("id", this.id);
+		details.put("name", this.name);		
+		details.put("statistik", this.statistik);
+		
+		return details;
 	}
 	
 //	public void add(Statistik newStatistik) {

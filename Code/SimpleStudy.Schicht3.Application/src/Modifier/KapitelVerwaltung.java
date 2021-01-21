@@ -11,9 +11,14 @@ import Models.Lernfach;
 public class KapitelVerwaltung{
 
 static private HashMap<Integer, Kapitel> kapitel = new HashMap<>();
+static private KapitelVerwaltung kapitelVerwaltungSingleton = new KapitelVerwaltung();
 	
 	public KapitelVerwaltung() {
+	super();
+	}
 	
+	public static KapitelVerwaltung getInstance() {
+		return kapitelVerwaltungSingleton;
 	}
 	
 	static Kapitel get(int id)

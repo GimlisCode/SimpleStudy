@@ -1,5 +1,6 @@
 package Modifier;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import Models.Antwort;
@@ -7,9 +8,10 @@ import Models.Frage;
 
 public class FragenFabrik {
 	
-	private static Frage neueFrage = new Frage(null, "", null, null);
+	private static Frage neueFrage = new Frage(null, 0, null);
 	private static FragenVerwaltung fragenVerwaltung;	
 	private static FragenFabrik fragenFabrikSingleton = new FragenFabrik();
+	private static ArrayList<Tupel<Integer, Integer>> fragenReferenzen = new ArrayList<>();
 	
 	private FragenFabrik() {
 
@@ -32,11 +34,23 @@ public class FragenFabrik {
 	}
 	
 	public static void create(HashMap<String,String> fragenAttribute) {		
-		neueFrage.setId(Integer.parseInt(fragenAttribute.get("Id")));                 //ID ODER NUMMER??
+		neueFrage.setId(Integer.parseInt(fragenAttribute.get("Id")));             
 		neueFrage.setText(fragenAttribute.get("Text"));
-		
-		fragenVerwaltung.add(neueAntwort);
-		neueFrage = new Frage
+		neueFrage.setTyp(Integer.parseInt(fragenAttribute.get("typ")));
+		String[] alleAntwortId = fragenAttribute.get("antworten").split(";");
+		ArrayList<Antwort> antworten = new ArrayList<>();
+		for (String	antwortenID : alleAntwortId) {
+			Antwort antwort = AntwortVerwaltung.get(Integer.parseInt(antwortenID));
+			if (antwort != null) {
+				neueFrage.add(antwort);				
+			}
+			else {
+				fragenReferenzen.add(new Tupel<>(neueFrage.getId(), Integer.parseInt(antwortenID)));
+			}
+			
+		}
+		fragenVerwaltung.add(neueFrage);
+		neueFrage = new Frage(null, 0, null);
 	}
 
 }

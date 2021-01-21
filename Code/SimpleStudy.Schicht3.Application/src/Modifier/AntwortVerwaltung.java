@@ -20,7 +20,7 @@ static private AntwortVerwaltung antwortVerwaltungSingleton = new AntwortVerwalt
 		return antwortVerwaltungSingleton;
 	}
 	
-	public Antwort get(int id)
+	public static Antwort get(int id)
 	{		
 		return antworten.get(id);
 	}

@@ -1,6 +1,7 @@
 package Models;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Hochschule extends Entity{
 	
@@ -49,6 +50,17 @@ public class Hochschule extends Entity{
 	public void remove(Dozent removeDozent) {
 		if (dozenten.contains(removeDozent))
 			dozenten.remove(removeDozent);
+	}
+
+
+	@Override
+	HashMap<String, Object> getDetails() {
+		HashMap<String, Object> details = new HashMap<String, Object>();
+		details.put("id", this.id);
+		details.put("name", this.name);		
+		details.put("dozenten", this.dozenten);
+		
+		return details;
 	}
 	
 	

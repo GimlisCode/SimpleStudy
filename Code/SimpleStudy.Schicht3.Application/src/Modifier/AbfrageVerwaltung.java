@@ -24,7 +24,7 @@ public class AbfrageVerwaltung {
 	
 	public void abfrageAuswerten()
 	{
-		StatistikVerwaltung.update(currentStudent, abfrage.getErgebnis());
+		StatistikVerwaltung.update(currentStudent.getStatistik(), abfrage.getErgebnis());
 	}
 	
 }

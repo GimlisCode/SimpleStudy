@@ -34,8 +34,8 @@ public class FragenFabrik {
 	}
 	
 	public static void create(HashMap<String,String> fragenAttribute) {		
-		neueFrage.setId(Integer.parseInt(fragenAttribute.get("Id")));             
-		neueFrage.setText(fragenAttribute.get("Text"));
+		neueFrage.setId(Integer.parseInt(fragenAttribute.get("id")));             
+		neueFrage.setText(fragenAttribute.get("text"));
 		neueFrage.setTyp(Integer.parseInt(fragenAttribute.get("typ")));
 		String[] alleAntwortId = fragenAttribute.get("antworten").split(";");
 		for (String	antwortenID : alleAntwortId) {

@@ -40,7 +40,6 @@ public class DozentenFabrik {
 		neuerDozent.setId(Integer.parseInt(dozentAttribute.get("Id")));
 		neuerDozent.setName(dozentAttribute.get("name"));		
 		String [] alleKursId = dozentAttribute.get("kurse").split(";");
-		ArrayList<Lernfach> kurse = new ArrayList<>();
 		for (String kursId : alleKursId) {
 			Lernfach fach = LernfachVerwaltung.get(Integer.parseInt(kursId));	
 			if (fach != null) {

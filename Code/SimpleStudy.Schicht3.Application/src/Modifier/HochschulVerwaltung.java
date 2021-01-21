@@ -11,9 +11,14 @@ import Models.Kapitel;
 public class HochschulVerwaltung{
 
 static private HashMap<Integer, Hochschule> hochschulen = new HashMap<>();
+static private HochschulVerwaltung hochschulVerwaltungSingleton = new HochschulVerwaltung();
 	
 	public HochschulVerwaltung() {
+	super();
+	}
 	
+	public static HochschulVerwaltung getInstance() {
+		return hochschulVerwaltungSingleton;
 	}
 	
 	static Hochschule get(int id)

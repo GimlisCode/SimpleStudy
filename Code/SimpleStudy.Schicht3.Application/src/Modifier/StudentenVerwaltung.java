@@ -9,9 +9,14 @@ import Models.Student;
 public class StudentenVerwaltung {
 
 	static private HashMap<Integer, Student> studenten = new HashMap<>();
+	static private StudentenVerwaltung studentenVerwaltungSingleton = new StudentenVerwaltung();
 	
-	public StudentenVerwaltung() {
-	
+	private StudentenVerwaltung() {
+		super();
+	}
+	public static StudentenVerwaltung getInstance()
+	{
+		return studentenVerwaltungSingleton;
 	}
 	
 	static Student get(int id)

@@ -5,7 +5,7 @@ import java.util.Map;
 
 
 
-public class Statistik {
+public class Statistik extends Entity{
 	
 	
 	//DOKU: Tupel ersetzt durch Wrapper
@@ -34,6 +34,15 @@ public class Statistik {
 	public void update(Integer frageId, Richtigkeit richtigkeit)
 	{		
 		statistik.put(frageId, richtigkeit);
+	}
+
+	@Override
+	HashMap<String, Object> getDetails() {
+		HashMap<String, Object> details = new HashMap<String, Object>();
+		details.put("id", this.id);
+		details.put("statistik", this.statistik);				
+		
+		return details;
 	}
 	
 }

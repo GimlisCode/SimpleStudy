@@ -9,13 +9,17 @@ import Models.Frage;
 
 
 public class FragenVerwaltung {
-
+	
+static FragenVerwaltung fragenVerwaltungSingleton = new FragenVerwaltung();
 static private HashMap<Integer, Frage> fragen = new HashMap<>();
 	
-	public FragenVerwaltung() {
-	
+	private FragenVerwaltung() {
+		super();	
 	}
 	
+	static FragenVerwaltung getInstance() {
+		return fragenVerwaltungSingleton;
+	}
 	static Frage get(int id)
 	{		
 		return fragen.get(id);

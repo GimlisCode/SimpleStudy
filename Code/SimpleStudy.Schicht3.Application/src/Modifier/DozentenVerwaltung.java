@@ -8,12 +8,17 @@ import Models.Dozent;
 
 
 
-public class DozentenVerwaltung {
+public final class DozentenVerwaltung {
 
 static private HashMap<Integer, Dozent> dozenten = new HashMap<>();
+static private DozentenVerwaltung dozentenVerwaltungSingleton = new DozentenVerwaltung();
 	
-	public DozentenVerwaltung() {
+	private DozentenVerwaltung() {
+		super();
+	}
 	
+	public static DozentenVerwaltung getInstance() {
+		return dozentenVerwaltungSingleton;
 	}
 	
 	static Dozent get(int id)

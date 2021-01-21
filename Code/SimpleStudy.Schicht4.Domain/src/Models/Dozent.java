@@ -41,9 +41,9 @@ public class Dozent extends Entity{
 	@Override
 	HashMap<String, Object> getDetails() {
 		HashMap<String, Object> details = new HashMap<String, Object>();
+		details.put("id", this.id);
 		details.put("name", this.name);
 		details.put("kurse", this.kurse);
-		
 		return details;
 	}
 	

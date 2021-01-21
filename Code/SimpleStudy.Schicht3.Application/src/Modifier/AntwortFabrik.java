@@ -30,9 +30,9 @@ public class AntwortFabrik {
 	}
 	
 	public static void create(HashMap<String,String> antwortAttribute) {		
-		neueAntwort.setId(Integer.parseInt(antwortAttribute.get("Id")));
-		neueAntwort.setText(antwortAttribute.get("Text"));
-		neueAntwort.setCorrect(Boolean.getBoolean(antwortAttribute.get("Correct")));
+		neueAntwort.setId(Integer.parseInt(antwortAttribute.get("id")));
+		neueAntwort.setText(antwortAttribute.get("text"));
+		neueAntwort.setCorrect(Boolean.getBoolean(antwortAttribute.get("correct")));
 		antwortenVerwaltung.add(neueAntwort);
 		neueAntwort = new Antwort(null, false);
 	}

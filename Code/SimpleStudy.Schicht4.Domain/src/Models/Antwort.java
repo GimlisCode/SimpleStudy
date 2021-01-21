@@ -38,6 +38,7 @@ public class Antwort extends Entity{
 	@Override
 	HashMap<String, Object> getDetails() {
 		HashMap<String, Object> details = new HashMap<String, Object>();
+		details.put("id", this.id);
 		details.put("text", this.text);
 		details.put("correct", this.correct);
 		

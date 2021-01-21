@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 public abstract class Entity {
 	
-	private int id;
+	protected int id;
 
 	public int getId() {
 		return id;

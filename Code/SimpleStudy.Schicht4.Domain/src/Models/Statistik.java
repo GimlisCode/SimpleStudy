@@ -40,7 +40,7 @@ public class Statistik extends Entity{
 	HashMap<String, Object> getDetails() {
 		HashMap<String, Object> details = new HashMap<String, Object>();
 		details.put("id", this.id);
-		details.put("statistik", this.statistik);				
+		details.put("richtigkeiten", this.statistik);				
 		
 		return details;
 	}

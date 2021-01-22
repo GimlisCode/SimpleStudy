@@ -37,7 +37,7 @@ public class StudentenFabrik {
 	}
 	
 	public static void create(HashMap<String,String> studentenAttribute) {		
-		neuerStudent.setId(Integer.parseInt(studentenAttribute.get("Id")));
+		neuerStudent.setId(Integer.parseInt(studentenAttribute.get("id")));
 		neuerStudent.setName(studentenAttribute.get("name"));		
 		String statistikId = studentenAttribute.get("statistik");
 		

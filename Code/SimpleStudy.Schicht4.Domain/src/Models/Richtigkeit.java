@@ -1,6 +1,8 @@
 package Models;
 
-public class Richtigkeit {
+import java.util.HashMap;
+
+public class Richtigkeit extends Entity{
 	
 	private int richtig = 0;
 	private int falsch = 0;
@@ -8,6 +10,11 @@ public class Richtigkeit {
 	
 	public Richtigkeit() {
 	
+	}
+	
+	public Richtigkeit(int richtige, int falsche) {
+		richtig = richtige;
+		falsch = falsche;
 	}
 
 
@@ -26,5 +33,16 @@ public class Richtigkeit {
 	
 	public void addRichtig() {
 		richtig++;
+	}
+
+
+	@Override
+	HashMap<String, Object> getDetails() {
+		HashMap<String, Object> details = new HashMap<String, Object>();
+		details.put("id", this.id);
+		details.put("richtig", this.richtig);	
+		details.put("falsch", this.falsch);
+		
+		return details;
 	}
 }

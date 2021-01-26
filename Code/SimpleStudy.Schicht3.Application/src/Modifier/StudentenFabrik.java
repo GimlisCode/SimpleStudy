@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import Models.Dozent;
+import Models.Kapitel;
 import Models.Lernfach;
 import Models.Statistik;
 import Models.Student;
@@ -12,7 +13,7 @@ public class StudentenFabrik {
 	private static Student neuerStudent = new Student(null, null);
 	private static StudentenVerwaltung studentenVerwaltung;
 	private static StudentenFabrik studentenFabrikSingleton;
-	private static ArrayList<Tupel<Integer, Integer>> StatistikReferenzen = new ArrayList<>();
+	private static ArrayList<Tupel<Integer, Integer>> statistikReferenzen = new ArrayList<>();
 	
 	
 	private StudentenFabrik()
@@ -46,10 +47,22 @@ public class StudentenFabrik {
 			neuerStudent.setStatistik(statistik);								
 		}
 		else {
-			StatistikReferenzen.add(new Tupel<>(neuerStudent.getId(), Integer.parseInt(statistikId)));				
+			statistikReferenzen.add(new Tupel<>(neuerStudent.getId(), Integer.parseInt(statistikId)));				
 		}
 					
 		studentenVerwaltung.add(neuerStudent);
 		neuerStudent = new Student("",null);
 	}
+	
+	public static void resolveReferences()
+	{
+		for (Tupel<Integer, Integer> tupel : statistikReferenzen) {
+			Statistik statistik = StatistikVerwaltung.get(tupel.y);
+			if(statistik != null)
+				studentenVerwaltung.get(tupel.x).setStatistik(statistik);
+			//else
+				//throw error ask User
+				
+		}
+	} 
 }

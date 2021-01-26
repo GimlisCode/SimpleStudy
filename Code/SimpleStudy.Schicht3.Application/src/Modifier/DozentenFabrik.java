@@ -53,5 +53,17 @@ public class DozentenFabrik {
 		dozentenVerwaltung.add(neuerDozent);
 		neuerDozent = new Dozent(null,null);
 	}
+	
+	public static void resolveReferences()
+	{
+		for (Tupel<Integer, Integer> tupel : lernfachReferenzen) {
+			Lernfach fach = LernfachVerwaltung.get(tupel.y);
+			if(fach != null)
+				dozentenVerwaltung.get(tupel.x).addKurs(fach);
+			//else
+				//throw error ask User
+				
+		}
+	}
 
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import Models.Dozent;
+import Models.Frage;
 import Models.Kapitel;
 import Models.Lernfach;
 
@@ -52,4 +53,16 @@ public class LernfachFabrik {
 		lernfachVerwaltung.add(neuesLernfach);
 		neuesLernfach =  new Lernfach("", 0, 0, null);
 	}
+	
+	public static void resolveReferences()
+	{
+		for (Tupel<Integer, Integer> tupel : kapitelReferenzen) {
+			Kapitel kapitel = KapitelVerwaltung.get(tupel.y);
+			if(kapitel != null)
+				lernfachVerwaltung.get(tupel.x).add(kapitel);
+			//else
+				//throw error ask User
+				
+		}
+	} 
 }

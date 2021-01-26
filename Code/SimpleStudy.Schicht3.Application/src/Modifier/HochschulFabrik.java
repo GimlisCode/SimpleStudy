@@ -3,6 +3,7 @@ package Modifier;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import Models.Antwort;
 import Models.Dozent;
 import Models.Hochschule;
 
@@ -11,7 +12,7 @@ public class HochschulFabrik {
 	private static Hochschule neueHochschule = new Hochschule(null, null);
 	private static HochschulVerwaltung hochschulVerwaltung;	
 	private static HochschulFabrik hochschulFabrikSingleton = new HochschulFabrik();
-	private static ArrayList<Tupel<Integer, Integer>> hochschulReferenzen = new ArrayList<>();
+	private static ArrayList<Tupel<Integer, Integer>> dozentenReferenzen = new ArrayList<>();
 	
 	private HochschulFabrik() {
 
@@ -43,13 +44,25 @@ public class HochschulFabrik {
 				neueHochschule.add(dozent);								
 			}
 			else {
-				hochschulReferenzen.add(new Tupel<>(neueHochschule.getId(), Integer.parseInt(dozentenId)));				
+				dozentenReferenzen.add(new Tupel<>(neueHochschule.getId(), Integer.parseInt(dozentenId)));				
 			}
 			
 		}		
 		hochschulVerwaltung.add(neueHochschule);
 		neueHochschule = new Hochschule(null, null);
 	}
+	
+	public static void resolveReferences()
+	{
+		for (Tupel<Integer, Integer> tupel : dozentenReferenzen) {
+			Dozent dozent = DozentenVerwaltung.get(tupel.y);
+			if(dozent != null)
+				hochschulVerwaltung.get(tupel.x).add(dozent);
+			//else
+				//throw error ask User
+				
+		}
+	} 
 
 
 }

@@ -5,13 +5,14 @@ import java.util.HashMap;
 
 import Models.Antwort;
 import Models.Frage;
+import Models.Lernfach;
 
 public class FragenFabrik {
 	
 	private static Frage neueFrage = new Frage(null, 0, null);
 	private static FragenVerwaltung fragenVerwaltung;	
 	private static FragenFabrik fragenFabrikSingleton = new FragenFabrik();
-	private static ArrayList<Tupel<Integer, Integer>> fragenReferenzen = new ArrayList<>();
+	private static ArrayList<Tupel<Integer, Integer>> antwortReferenzen = new ArrayList<>();
 	
 	private FragenFabrik() {
 
@@ -44,12 +45,24 @@ public class FragenFabrik {
 				neueFrage.add(antwort);				
 			}
 			else {
-				fragenReferenzen.add(new Tupel<>(neueFrage.getId(), Integer.parseInt(antwortenID)));
+				antwortReferenzen.add(new Tupel<>(neueFrage.getId(), Integer.parseInt(antwortenID)));
 			}
 			
 		}
 		fragenVerwaltung.add(neueFrage);
 		neueFrage = new Frage(null, 0, null);
 	}
+	
+	public static void resolveReferences()
+	{
+		for (Tupel<Integer, Integer> tupel : antwortReferenzen) {
+			Antwort antwort = AntwortVerwaltung.get(tupel.y);
+			if(antwort != null)
+				fragenVerwaltung.get(tupel.x).add(antwort);
+			//else
+				//throw error ask User
+				
+		}
+	} 
 
 }

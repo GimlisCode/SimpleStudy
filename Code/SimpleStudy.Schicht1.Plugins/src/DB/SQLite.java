@@ -7,14 +7,26 @@ import Controller.DatenVerbindung;
 
 public class SQLite implements DatenVerbindung{
 	 	private static final SQLite dbPlugin = new SQLite();
-	    private static Connection connection;
-	    private static final String DB_PATH = "simpleStudy.db";
+	    private Connection connection;
+	    private final String DB_PATH = "simpleStudy.db";
+	    private Statement sqlStatemant;
 	    
 	    private SQLite() {
     		super();
+    		initDBConnection();
+    		initDBStatements();
 		}
 	    
-	    public static SQLite getInstance(){
+	    private void initDBStatements() {
+	    	try {
+	    		sqlStatemant = connection.createStatement();
+	    	}  catch (SQLException e) {
+	            throw new RuntimeException(e);
+	        }
+			
+		}
+
+		public static SQLite getInstance(){
 	        return dbPlugin;
 	    }
 	    
@@ -48,8 +60,8 @@ public class SQLite implements DatenVerbindung{
 	    }
 
 		@Override
-		public void getAll() {
-			//Select * From etc
+		public void getAllFromTable(String tableName) {
+			
 			
 		}
 		

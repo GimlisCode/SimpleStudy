@@ -1,5 +1,5 @@
 package Controller;
 
 public interface DatenVerbindung {
-	void getAll();
+	void getAllFromTable(String tableName);
 }

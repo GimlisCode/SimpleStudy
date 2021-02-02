@@ -2,6 +2,7 @@ package DB;
 
 import java.io.File;
 import java.sql.*;
+import java.util.ArrayList;
 
 import Controller.DatenVerbindung;
 
@@ -18,15 +19,6 @@ public class SQLite implements DatenVerbindung{
     		initDBStatements();
 		}
 	    
-	    private Statement initDBStatements() {
-	    	try {
-	    		return connection.createStatement();
-	    	}  catch (SQLException e) {
-	            throw new RuntimeException(e);
-	        }
-			
-		}
-
 		public static SQLite getInstance(){
 	        return dbPlugin;
 	    }
@@ -60,23 +52,53 @@ public class SQLite implements DatenVerbindung{
 	        });
 	    }
 	    
-private ResultSet executeQuery()
+private ResultSet executeQuery(String sqlString)
 {
-	Statement stmt = con.createStatement(  );
-	if(stmt.execute(unknownSqlString)) {
-	 ResultSet rs = stmt.getResultSet(  );
-	 // display the results
-	} 
-	else {
-	 System.out.println("Rows updated: " + stmt.getUpdateCount());
+	Statement stmt = null;
+	try {
+		stmt = connection.createStatement(  );
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
 	}
-
+	
+	try {
+		if(stmt.execute(sqlString)) {
+			return stmt.getResultSet(  );
+		} 
+		else {
+			System.out.println("Rows updated: " + stmt.getUpdateCount());
+			return null;
+		}
+	}
+		catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	return null;
 }
 
 		@Override
-		public void getAllFromTable(String tableName) {
-			Statement sqlStatement = initDBStatements();
-		sqlStatement.execute("");
+		public ArrayList<String> getAllFromTable(String tableName) {
+			try
+			{
+				ResultSet selectResults = executeQuery(selectAllStatemant + tableName);
+				int anzColumn = selectResults.getMetaData().getColumnCount();
+				ArrayList<String> resultsAsString = new ArrayList<String>();
+				while (selectResults.next()) {
+					String resultRow = "";
+					for (int i = 0; i < anzColumn; i++) {
+						resultRow += selectResults.getString(i) + ",";
+					}
+					resultsAsString.add(resultRow);
+				}
+			}catch (SQLException e) {
+				// TODO: handle exception
+			}
+			finally {
+				return new ArrayList<String>();
+			}
+			
 			
 		}
 		

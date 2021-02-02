@@ -10,6 +10,7 @@ public class Statistik extends Entity{
 	
 	//DOKU: Tupel ersetzt durch Wrapper
 	private Map<Integer, Richtigkeit> statistik = new HashMap<>();
+	private Map<Integer, Integer> fragenstufe = new HashMap<>();
 
 	public Map<Integer, Richtigkeit> getStatistik() {
 		return statistik;
@@ -20,27 +21,53 @@ public class Statistik extends Entity{
 	}
 	
 
-	public void add(Integer frageId, Richtigkeit richtigkeit)
+	public void addToStatistik(Integer frageId, Richtigkeit richtigkeit)
 	{		
 		statistik.put(frageId, richtigkeit);
 	}
 	
-	public void remove(Integer frageId, Boolean richtigkeit)
+	public void removeFromStatistik(Integer frageId)
 	{		
 		if (statistik.containsKey(frageId)) 
 			statistik.remove(frageId);
 	}
 
-	public void update(Integer frageId, Richtigkeit richtigkeit)
+	public void updateStatistik(Integer frageId, Richtigkeit richtigkeit)
 	{		
 		statistik.put(frageId, richtigkeit);
+	}
+	
+	public Map<Integer, Integer> getFragenstufe() {
+		return fragenstufe;
+	}
+
+	public void setFragenstufe(Map<Integer, Integer> fragenstufe) {
+		this.fragenstufe = fragenstufe;
+	}
+	
+
+	public void addFragenstufe(Integer frageId, Integer fragenstufe)
+	{		
+		this.fragenstufe.put(frageId, fragenstufe);
+	}
+	
+	public void removeFragenstufe(Integer frageId)
+	{		
+		if (fragenstufe.containsKey(frageId)) 
+			fragenstufe.remove(frageId);
+	}
+
+	public void updateFragenstufe(Integer frageId, Integer fragenstufe)
+	{		
+		this.fragenstufe.put(frageId, fragenstufe);
 	}
 
 	@Override
 	HashMap<String, Object> getDetails() {
 		HashMap<String, Object> details = new HashMap<String, Object>();
 		details.put("id", this.id);
-		details.put("richtigkeiten", this.statistik);				
+		details.put("richtigkeiten", this.statistik);
+		details.put("fragenstufe", this.fragenstufe);
 		
 		return details;
 	}

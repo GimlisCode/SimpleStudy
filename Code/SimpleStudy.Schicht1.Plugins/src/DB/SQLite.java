@@ -59,28 +59,16 @@ public class SQLite implements DatenVerbindung{
 	            }
 	        });
 	    }
-	    
-private ResultSet executeQuery()
-{
-	Statement stmt = con.createStatement(  );
-	if(stmt.execute(unknownSqlString)) {
-	 ResultSet rs = stmt.getResultSet(  );
-	 // display the results
-	} 
-	else {
-	 System.out.println("Rows updated: " + stmt.getUpdateCount());
-	}
-
-}
 
 		@Override
 		public void getAllFromTable(String tableName) {
-			Statement sqlStatement = initDBStatements();
-		sqlStatement.execute("");
+			Statement sqlStatemant;
 			
 		}
 		
 		public void createDB() {
+			
+			Statement stmt = initDBStatements();
 			
 			String sql ="CREATE TABLE `Antwort` (\r\n" + 
 					"	`ID` INT NOT NULL AUTO_INCREMENT,\r\n" + 
@@ -89,13 +77,9 @@ private ResultSet executeQuery()
 					"	PRIMARY KEY (`ID`)\r\n" + 
 					");";
 			
-			try {
-				Statement stmt = connection.createStatement() {
-					stmt.execute(sql);
-				}
-			}catch(SQLException e) {
-				e.printStackTrace();
-			}
+			stmt.execute(sql);
+			
+		
 			
 		}
 }

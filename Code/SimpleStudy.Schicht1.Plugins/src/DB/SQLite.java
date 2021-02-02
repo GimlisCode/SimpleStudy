@@ -52,4 +52,23 @@ public class SQLite implements DatenVerbindung{
 			//Select * From etc
 			
 		}
+		
+		public void createDB() {
+			
+			String sql ="CREATE TABLE `Antwort` (\r\n" + 
+					"	`ID` INT NOT NULL AUTO_INCREMENT,\r\n" + 
+					"	`text` CHAR DEFAULT '',\r\n" + 
+					"	`correct` BOOLEAN NOT NULL DEFAULT 'false',\r\n" + 
+					"	PRIMARY KEY (`ID`)\r\n" + 
+					");";
+			
+			try {
+				Statement stmt = connection.createStatement() {
+					stmt.execute(sql);
+				}
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}
+			
+		}
 }

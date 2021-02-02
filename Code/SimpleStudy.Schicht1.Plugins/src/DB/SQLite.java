@@ -15,8 +15,7 @@ public class SQLite implements DatenVerbindung{
 	    
 	    private SQLite() {
     		super();
-    		initDBConnection();
-    		initDBStatements();
+    		initDBConnection();    		
 		}
 	    
 		public static SQLite getInstance(){
@@ -98,6 +97,7 @@ private ResultSet executeQuery(String sqlString)
 			finally {
 				return new ArrayList<String>();
 			}
+		}
 
 
 	

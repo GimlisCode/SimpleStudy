@@ -59,10 +59,24 @@ public class SQLite implements DatenVerbindung{
 	            }
 	        });
 	    }
+	    
+private ResultSet executeQuery()
+{
+	Statement stmt = con.createStatement(  );
+	if(stmt.execute(unknownSqlString)) {
+	 ResultSet rs = stmt.getResultSet(  );
+	 // display the results
+	} 
+	else {
+	 System.out.println("Rows updated: " + stmt.getUpdateCount());
+	}
+
+}
 
 		@Override
 		public void getAllFromTable(String tableName) {
-			Statement sqlStatemant;
+			Statement sqlStatement = initDBStatements();
+		sqlStatement.execute("");
 			
 		}
 		

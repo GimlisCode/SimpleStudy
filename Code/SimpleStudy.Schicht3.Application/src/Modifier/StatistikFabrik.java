@@ -39,9 +39,15 @@ public class StatistikFabrik {
 		String [] alleRichtigkeiten = statistikAttribute.get("richtigkeiten").split(";");
 		for (String richtigkeit : alleRichtigkeiten) {
 			String[] richtigkeitenWerte = richtigkeit.split(",");
-				neueStatistik.add(Integer.parseInt(richtigkeitenWerte[0]), new Richtigkeit(Integer.parseInt(richtigkeitenWerte[1]),Integer.parseInt(richtigkeitenWerte[2])));			
+				neueStatistik.addToStatistik(Integer.parseInt(richtigkeitenWerte[0]), new Richtigkeit(Integer.parseInt(richtigkeitenWerte[1]),Integer.parseInt(richtigkeitenWerte[2])));			
 		}		
-				
+		
+		String [] alleFragenstufen = statistikAttribute.get("fragenstufe").split(";");
+		for (String fragenstufe : alleFragenstufen) {
+			String[] fragenstufenwerte = fragenstufe.split(",");
+				neueStatistik.addFragenstufe(Integer.parseInt(fragenstufenwerte[0]), Integer.parseInt(fragenstufenwerte[1]));			
+		}
+		
 		statistikVerwaltung.add(neueStatistik);
 		neueStatistik = new Statistik();
 	}

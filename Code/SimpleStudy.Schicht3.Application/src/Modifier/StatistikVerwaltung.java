@@ -68,6 +68,8 @@ public class StatistikVerwaltung {
 		
 		
 	}
+	
+	//TODO: Fragenstufe
 
 	public static void update(Statistik currentStatistik, Ergebnis ergebnis) {						
 		for (Entry<Integer, Boolean> ergebnisEinerFrage: ergebnis.getErgebnis().entrySet()) {
@@ -80,7 +82,7 @@ public class StatistikVerwaltung {
 			else
 				richtigkeit.addFalsch();
 				
-			currentStatistik.update(ergebnisEinerFrage.getKey(), richtigkeit);					
+			currentStatistik.updateStatistik(ergebnisEinerFrage.getKey(), richtigkeit);					
 		}
 		
 	}

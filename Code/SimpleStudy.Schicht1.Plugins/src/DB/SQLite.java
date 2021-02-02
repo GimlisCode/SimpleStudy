@@ -51,7 +51,7 @@ public class SQLite implements DatenVerbindung{
 	            }
 	        });
 	    }
-	    
+		
 private ResultSet executeQuery(String sqlString)
 {
 	Statement stmt = null;
@@ -98,11 +98,12 @@ private ResultSet executeQuery(String sqlString)
 			finally {
 				return new ArrayList<String>();
 			}
-			
-			
-		}
-		
+
+
+	
 		public void createDB() {
+			
+			Statement stmt = initDBStatements();
 			
 			String sql ="CREATE TABLE `Antwort` (\r\n" + 
 					"	`ID` INT NOT NULL AUTO_INCREMENT,\r\n" + 
@@ -111,13 +112,9 @@ private ResultSet executeQuery(String sqlString)
 					"	PRIMARY KEY (`ID`)\r\n" + 
 					");";
 			
-			try {
-				Statement stmt = connection.createStatement() {
-					stmt.execute(sql);
-				}
-			}catch(SQLException e) {
-				e.printStackTrace();
-			}
+			stmt.execute(sql);
+			
+		
 			
 		}
 }

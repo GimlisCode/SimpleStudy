@@ -9,7 +9,8 @@ public class SQLite implements DatenVerbindung{
 	 	private static final SQLite dbPlugin = new SQLite();
 	    private Connection connection;
 	    private final String DB_PATH = "simpleStudy.db";
-	    private Statement sqlStatemant;
+	    private final static String selectAllStatemant = "Select * From %s";
+	    
 	    
 	    private SQLite() {
     		super();
@@ -17,9 +18,9 @@ public class SQLite implements DatenVerbindung{
     		initDBStatements();
 		}
 	    
-	    private void initDBStatements() {
+	    private Statement initDBStatements() {
 	    	try {
-	    		sqlStatemant = connection.createStatement();
+	    		return connection.createStatement();
 	    	}  catch (SQLException e) {
 	            throw new RuntimeException(e);
 	        }
@@ -61,7 +62,7 @@ public class SQLite implements DatenVerbindung{
 
 		@Override
 		public void getAllFromTable(String tableName) {
-			
+			Statement sqlStatemant;
 			
 		}
 		

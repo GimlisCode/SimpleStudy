@@ -1,23 +1,14 @@
 package DB;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.io.File;
+import java.sql.*;
 
-public class SQLite {
+import Controller.DatenVerbindung;
+
+public class SQLite implements DatenVerbindung{
 	 	private static final SQLite dbPlugin = new SQLite();
 	    private static Connection connection;
-	    private static final String DB_PATH = "D:\\DH\\5\\Advanced SWE\\SimpleStudy\\Data\\Datenbank\\simpleStudy.db";
-	    
-	    static {
-	        try {
-	            Class.forName("org.sqlite.JDBC");
-	        } catch (ClassNotFoundException e) {
-	            //TODO: eigener Error einführen
-	        	System.err.println("Fehler beim Laden des JDBC-Treibers");
-	            e.printStackTrace();
-	        }
-	    }
+	    private static final String DB_PATH = "simpleStudy.db";
 	    
 	    private SQLite() {
     		super();
@@ -29,6 +20,8 @@ public class SQLite {
 	    
 	    public void initDBConnection() {
 	        try {
+	        	System.out.println(new File(".").getAbsolutePath());
+		        
 	            if (connection != null)
 	                return;
 	            System.out.println("Creating Connection to Database...");
@@ -53,4 +46,10 @@ public class SQLite {
 	            }
 	        });
 	    }
+
+		@Override
+		public void getAll() {
+			//Select * From etc
+			
+		}
 }

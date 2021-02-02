@@ -1,5 +1,7 @@
 package Controller;
 
+import java.io.File;
+
 public class MainController {
 	
 	MainController mainControllerSingleton = new MainController();
@@ -9,7 +11,7 @@ public class MainController {
 	}
 	
 	public static void main(String[] args) {
-		DbController dbController = new DbController();
-		
+		//DbController dbController = new DbController()
+		System.out.println(new File(".").getAbsolutePath());
 	}
 }

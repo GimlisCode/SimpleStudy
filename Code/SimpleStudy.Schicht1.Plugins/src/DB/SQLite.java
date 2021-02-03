@@ -70,14 +70,67 @@ public class SQLite implements DatenVerbindung{
 			
 			Statement stmt = initDBStatements();
 			
-			String sql ="CREATE TABLE `Antwort` (\r\n" + 
-					"	`ID` INT NOT NULL AUTO_INCREMENT,\r\n" + 
-					"	`text` CHAR DEFAULT '',\r\n" + 
-					"	`correct` BOOLEAN NOT NULL DEFAULT 'false',\r\n" + 
-					"	PRIMARY KEY (`ID`)\r\n" + 
-					");";
+			String sql ="CREATE TABLE IF NOT EXISTS Antwort (" + 
+					"	ID INT NOT NULL AUTO_INCREMENT," + 
+					"	fragenID INT NOT NULL," +	
+					"	text CHAR DEFAULT ''," + 
+					"	correct BOOLEAN NOT NULL DEFAULT 'false'," + 
+					"	FOREIGN KEY(fragenID) REFERENCES Frage(ID)"+
+					"	PRIMARY KEY (ID));" + 
+					"CREATE TABLE IF NOT EXISTS Dozent (" + 
+					"	ID INT NOT NULL AUTO_INCREMENT," + 
+					"	name CHAR DEFAULT ''," +
+					"	hoschulID INT NOT NULL," +
+					"	PRIMARY KEY (ID)" + 
+					"	FOREIGN KEY(hochschulID) REFERENCES Hochschule(ID);" +
+					"CREATE TABLE IF NOT EXISTS Frage (" + 
+					"	ID INT NOT NULL AUTO_INCREMENT," + 
+					"	kapitelID INT DEFAULT 0 " +
+					"	text CHAR NOT NULL DEFAULT NULL," + 
+					"	typ INT NOT NULL DEFAULT '0'," + 
+					"	PRIMARY KEY (ID)" +
+					"	FOREIGN KEY (kapitelID);" +
+					"CREATE TABLE IF NOT EXISTS Hochschule" + 
+					"	ID INT NOT NULL AUTO_INCREMENT," + 
+					"	name CHAR NOT NULL DEFAULT ''," + 
+					"	PRIMARY KEY (ID));" +  
+					"CREATE TABLE IF NOT EXISTS Kapitel (" + 
+					"	ID INT NOT NULL AUTO_INCREMENT," + 
+					"	lernfachID INT NOT NULL DEFAULT 0,"+
+					"	name CHAR NOT NULL DEFAULT ''," + 
+					"	nr INT DEFAULT '0'," + 
+					"	PRIMARY KEY (ID)" + 
+					"	FOREIGN KEY (lernfachID) REFERENCES Lernfach(ID));"+
+					"CREATE TABLE IF NOT EXISTS Lernfach (" + 
+					"	ID INT NOT NULL AUTO_INCREMENT," + 
+					"	name CHAR DEFAULT ''," + 
+					"	semester INT DEFAULT '0'," + 
+					"	credits INT DEFAULT '0'," + 
+					"	PRIMARY KEY (ID));" + 
+					"CREATE TABLE IF NOT EXISTS Statistik (" + 
+					"	ID INT NOT NULL AUTO_INCREMENT," + 
+					"	fragenID INT NOT NULL DEFAULT '0'," + 
+					"	fragenstufe INT NOT NULL DEFAULT '0'," + 
+					"	PRIMARY KEY (ID)" + 
+					"	FOREIGN KEY (fragenID) REFERENCES Frage();"+
+					"CREATE TABLE IF NOT EXISTS Studentenstatistik (" + 		//Hilfstabelle um m:n Beziehung zu realisieren
+					"	StatistikID INT NOT NULL DEFAULT '0'," + 
+					"	StudentenID INT NOT NULL DEFAULT '0'," + 
+					"	PRIMARY KEY (StatistikID,StudentenID)," +
+					"	FOREIGN KEY(StatistikID) REFERENCES Statistik(ID)," +
+					"	FOREIGN KEY(StudentenID) REFERENCES Student(ID);" + 
+					"CREATE TABLE IF NOT EXISTS Student (" + 
+					"	ID INT NOT NULL AUTO_INCREMENT," + 
+					"	name CHAR DEFAULT ''," + 
+					"	PRIMARY KEY (ID));"					
+					;
 			
-			stmt.execute(sql);
+			try {
+				stmt.execute(sql);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
 		
 			

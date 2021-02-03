@@ -1,5 +1,7 @@
 package Controller;
 
+import java.util.ArrayList;
+
 public interface DatenVerbindung {
-	void getAllFromTable(String tableName);
+	ArrayList<String> getAllFromTable(String tableName);
 }

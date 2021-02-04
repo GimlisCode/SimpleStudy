@@ -27,15 +27,11 @@ public class SQLite implements DatenVerbindung
 
 	private void proofIfDbExists()
 	{
-		try (ResultSet rs = connection.getMetaData().getCatalogs())
+		try (ResultSet rs = executeQuery("SELECT Count(*) FROM sqlite_schema WHERE type='table' ORDER BY name"))
 		{
-			int numberOfDatabases = 0;
-			while (rs.next())
-				numberOfDatabases++;
-
-			if (numberOfDatabases <= 1)
+			final int numberOfTables = rs.getInt(1);
+			if (numberOfTables <= 0)
 				createDB();
-
 		}
 		catch (final SQLException e)
 		{

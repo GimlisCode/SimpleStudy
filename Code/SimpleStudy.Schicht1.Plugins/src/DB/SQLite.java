@@ -141,42 +141,25 @@ public class SQLite implements DatenVerbindung
 
 	public void createDB()
 	{
-		final String sqlarray[] = new String[]
-		{ "CREATE TABLE IF NOT EXISTS Antwort (" + "	ID INT NOT NULL ," + "	fragenID INT NOT NULL," + "	text CHAR DEFAULT '',"
-				+ "	correct BOOLEAN NOT NULL DEFAULT 'false'," + "	PRIMARY KEY(ID),"
-				+ "	FOREIGN KEY(fragenID) REFERENCES Frage(ID)" + ")",
-				"CREATE TABLE IF NOT EXISTS Dozent (" + "	ID INT NOT NULL ," + "	name CHAR DEFAULT '',"
-						+ "	hochschulID INT NOT NULL," + "	PRIMARY KEY (ID)"
-						+ "	FOREIGN KEY(hochschulID) REFERENCES Hochschule(ID))" };
+		final String createTable[] = new String[]
+		{ "CREATE TABLE IF NOT EXISTS Antwort (ID INT NOT NULL, fragenID INT NOT NULL, text CHAR DEFAULT '', correct BOOLEAN NOT NULL DEFAULT 'false', PRIMARY KEY(ID), FOREIGN KEY(fragenID) REFERENCES Frage(ID));",
+				"CREATE TABLE IF NOT EXISTS Dozent (ID INT NOT NULL, name CHAR DEFAULT '', hochschulID INT NOT NULL, PRIMARY KEY (ID), FOREIGN KEY(hochschulID) REFERENCES Hochschule(ID));",
+				"CREATE TABLE IF NOT EXISTS Frage (ID INT NOT NULL, kapitelID INT DEFAULT 0, text CHAR NOT NULL DEFAULT '', typ INT NOT NULL DEFAULT '0',PRIMARY KEY (ID), FOREIGN KEY (kapitelID) REFERENCES Kapitel(ID));",
+				"CREATE TABLE IF NOT EXISTS Hochschule (ID INT NOT NULL, name CHAR NOT NULL DEFAULT '',	PRIMARY KEY (ID));",
+				"CREATE TABLE IF NOT EXISTS Kapitel (ID INT NOT NULL, lernfachID INT NOT NULL DEFAULT 0,	name CHAR NOT NULL DEFAULT '', nr INT DEFAULT '0',PRIMARY KEY (ID), FOREIGN KEY (lernfachID) REFERENCES Lernfach(ID));",
+				"CREATE TABLE IF NOT EXISTS Lernfach (ID INT NOT NULL ,	name CHAR DEFAULT '', semester INT DEFAULT '0', credits INT DEFAULT '0', PRIMARY KEY (ID));",
+				"CREATE TABLE IF NOT EXISTS Student (ID INT NOT NULL , name CHAR DEFAULT '',S , PRIMARY KEY (ID));",
+				"CREATE TABLE IF NOT EXISTS Richtigkeit (ID INT NOT NULL, StudentenID INT DEFAULT '0', FragenID INT DEFAULT '0', richtig INT DEFAULT '0', falsch INT DEFAULT '0', fragenstufe INT DEFAULT '1', PRIMARY KEY (ID, StudentenID, FragenID), FOREIGN KEY (StudentenID) REFERENCES Student(ID),FOREIGN KEY (FragenID) REFERENCES Frage(ID));" };
 
-		final String sql = "CREATE TABLE IF NOT EXISTS Antwort (" + "	ID INT NOT NULL ," + "	fragenID INT NOT NULL,"
-				+ "	text CHAR DEFAULT ''," + "	correct BOOLEAN NOT NULL DEFAULT 'false'," + "	PRIMARY KEY(ID),"
-				+ "	FOREIGN KEY(fragenID) REFERENCES Frage(ID)" + ");" + "CREATE TABLE IF NOT EXISTS Dozent ("
-				+ "	ID INT NOT NULL ," + "	name CHAR DEFAULT ''," + "	hochschulID INT NOT NULL," + "	PRIMARY KEY (ID)"
-				+ "	FOREIGN KEY(hochschulID) REFERENCES Hochschule(ID);" + "CREATE TABLE IF NOT EXISTS Frage ("
-				+ "	ID INT NOT NULL ," + "	kapitelID INT DEFAULT 0 " + "	text CHAR NOT NULL DEFAULT NULL,"
-				+ "	typ INT NOT NULL DEFAULT '0'," + "	PRIMARY KEY (ID)" + "	FOREIGN KEY (kapitelID);"
-				+ "CREATE TABLE IF NOT EXISTS Hochschule" + "	ID INT NOT NULL ," + "	name CHAR NOT NULL DEFAULT '',"
-				+ "	PRIMARY KEY (ID));" + "CREATE TABLE IF NOT EXISTS Kapitel (" + "	ID INT NOT NULL ,"
-				+ "	lernfachID INT NOT NULL DEFAULT 0," + "	name CHAR NOT NULL DEFAULT ''," + "	nr INT DEFAULT '0',"
-				+ "	PRIMARY KEY (ID)" + "	FOREIGN KEY (lernfachID) REFERENCES Lernfach(ID));"
-				+ "CREATE TABLE IF NOT EXISTS Lernfach (" + "	ID INT NOT NULL ," + "	name CHAR DEFAULT '',"
-				+ "	semester INT DEFAULT '0'," + "	credits INT DEFAULT '0'," + "	PRIMARY KEY (ID));"
-				+ "CREATE TABLE IF NOT EXISTS Statistik (" + "	ID INT NOT NULL ," + "	fragenID INT NOT NULL DEFAULT '0',"
-				+ "	fragenstufe INT NOT NULL DEFAULT '0'," + "	PRIMARY KEY (ID)"
-				+ "	FOREIGN KEY (fragenID) REFERENCES Frage();" + "CREATE TABLE IF NOT EXISTS Studentenstatistik (" + // Hilfstabelle
-																														// um m:n
-																														// Beziehung
-																														// zu
-																														// realisieren
-				"	StatistikID INT NOT NULL DEFAULT '0'," + "	StudentenID INT NOT NULL DEFAULT '0',"
-				+ "	PRIMARY KEY (StatistikID,StudentenID)," + "	FOREIGN KEY(StatistikID) REFERENCES Statistik(ID),"
-				+ "	FOREIGN KEY(StudentenID) REFERENCES Student(ID);" + "CREATE TABLE IF NOT EXISTS Student ("
-				+ "	ID INT NOT NULL ," + "	name CHAR DEFAULT ''," + "	PRIMARY KEY (ID));";
-
-		// executeQuery(sql);
-
-		for (final String string : sqlarray)
+		for (final String string : createTable)
 			executeQuery(string);
+
+		final String insertFirstData[] = new String[]
+		{ "INSERT INTO Antwort VALUES(0,1,'test',false);" };
+
+		for (String string : insertFirstData)
+		{
+			executeQuery(string);
+		}
 	}
 }

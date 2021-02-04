@@ -2,52 +2,48 @@ package Modifier;
 
 import java.util.HashMap;
 
-import Models.Lernfach;
 import Models.Richtigkeit;
 import Models.Statistik;
-import Models.Student;
 
-public class StatistikFabrik {
+public class StatistikFabrik
+{
 	private static Statistik neueStatistik = new Statistik();
 	private static StatistikVerwaltung statistikVerwaltung;
 	private static StatistikFabrik statistikFabrikSingleton;
-	
+
 	private StatistikFabrik()
 	{
 		statistikVerwaltung = StatistikVerwaltung.getInstance();
 	}
-	
+
 	public static StatistikFabrik getInstance()
 	{
-		return statistikFabrikSingleton; 
+		return statistikFabrikSingleton;
 	}
-	
-	
-	public static HashMap<String,String> getStatistikAttribute()
+
+	public static HashMap<String, String> getStatistikAttribute()
 	{
-		 HashMap<String,String> statistikAttribute = new HashMap<>();
+		HashMap<String, String> statistikAttribute = new HashMap<>();
 		String[] attributNamen = neueStatistik.getAttributeNames();
-				for (String attributName : attributNamen)
-					statistikAttribute.put(attributName, "");
-				
+		for (String attributName : attributNamen)
+			statistikAttribute.put(attributName, "");
+
 		return statistikAttribute;
 	}
-	
-	public static void create(HashMap<String,String> statistikAttribute) {		
+
+	public static void create(HashMap<String, String> statistikAttribute)
+	{
 		neueStatistik.setId(Integer.parseInt(statistikAttribute.get("id")));
-		
-		String [] alleRichtigkeiten = statistikAttribute.get("richtigkeiten").split(";");
-		for (String richtigkeit : alleRichtigkeiten) {
+
+		String[] alleRichtigkeiten = statistikAttribute.get("richtigkeiten").split(";");
+		for (String richtigkeit : alleRichtigkeiten)
+		{
 			String[] richtigkeitenWerte = richtigkeit.split(",");
-				neueStatistik.addToStatistik(Integer.parseInt(richtigkeitenWerte[0]), new Richtigkeit(Integer.parseInt(richtigkeitenWerte[1]),Integer.parseInt(richtigkeitenWerte[2])));			
-		}		
-		
-		String [] alleFragenstufen = statistikAttribute.get("fragenstufe").split(";");
-		for (String fragenstufe : alleFragenstufen) {
-			String[] fragenstufenwerte = fragenstufe.split(",");
-				neueStatistik.addFragenstufe(Integer.parseInt(fragenstufenwerte[0]), Integer.parseInt(fragenstufenwerte[1]));			
+			neueStatistik.addToStatistik(Integer.parseInt(richtigkeitenWerte[0]),
+					new Richtigkeit(Integer.parseInt(richtigkeitenWerte[1]), Integer.parseInt(richtigkeitenWerte[2]),
+							Integer.parseInt(richtigkeitenWerte[3])));
 		}
-		
+
 		statistikVerwaltung.add(neueStatistik);
 		neueStatistik = new Statistik();
 	}

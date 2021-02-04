@@ -15,14 +15,34 @@ public class SQLite implements DatenVerbindung{
 	    
 	    private SQLite() {
     		super();
-    		initDBConnection();    		
-		}
+    		initDBConnection();  
+    		proofIfDbExists();
+    			
+    		}
+		
 	    
+		private void proofIfDbExists() {
+			try (ResultSet rs = connection.getMetaData().getCatalogs()){
+    			int numberOfDatabases = 0;
+    				while (rs.next())
+    					numberOfDatabases ++;						
+					
+    				if (numberOfDatabases <= 1) 
+						createDB();
+					
+    		}
+    		catch(SQLException e) {
+    			e.printStackTrace();
+    		}
+			
+		}
+
+
 		public static SQLite getInstance(){
 	        return dbPlugin;
 	    }
 	    
-	    public void initDBConnection() {
+	    private void initDBConnection() {
 	        try {
 	        	System.out.println(new File(".").getAbsolutePath());
 		        
@@ -79,11 +99,11 @@ private ResultSet executeQuery(String sqlString)
 
 		@Override
 		public ArrayList<String> getAllFromTable(String tableName) {
+			ArrayList<String> resultsAsString = new ArrayList<String>();
 			try
-			{
+			{				
 				ResultSet selectResults = executeQuery(selectAllStatemant + tableName);
-				int anzColumn = selectResults.getMetaData().getColumnCount();
-				ArrayList<String> resultsAsString = new ArrayList<String>();
+				int anzColumn = selectResults.getMetaData().getColumnCount();				
 				while (selectResults.next()) {
 					String resultRow = "";
 					for (int i = 0; i < anzColumn; i++) {
@@ -93,25 +113,23 @@ private ResultSet executeQuery(String sqlString)
 				}
 			}catch (SQLException e) {
 				// TODO: handle exception
+				e.printStackTrace();
 			}
 			finally {
-				return new ArrayList<String>();
+				return resultsAsString;
 			}
 		}
 
 
 	
-		public void createDB() {
-			
-			Statement stmt = initDBStatements();
-			
+		public void createDB() {			
 			String sql ="CREATE TABLE IF NOT EXISTS Antwort (" + 
-					"	ID INT NOT NULL AUTO_INCREMENT," + 
+					"	ID INT PRIMARY KEY ," + 
 					"	fragenID INT NOT NULL," +	
 					"	text CHAR DEFAULT ''," + 
 					"	correct BOOLEAN NOT NULL DEFAULT 'false'," + 
 					"	FOREIGN KEY(fragenID) REFERENCES Frage(ID)"+
-					"	PRIMARY KEY (ID));" + 
+					");"/* + 
 					"CREATE TABLE IF NOT EXISTS Dozent (" + 
 					"	ID INT NOT NULL AUTO_INCREMENT," + 
 					"	name CHAR DEFAULT ''," +
@@ -157,17 +175,9 @@ private ResultSet executeQuery(String sqlString)
 					"CREATE TABLE IF NOT EXISTS Student (" + 
 					"	ID INT NOT NULL AUTO_INCREMENT," + 
 					"	name CHAR DEFAULT ''," + 
-					"	PRIMARY KEY (ID));"					
+					"	PRIMARY KEY (ID));"		*/			
 					;
-			
-			try {
-				stmt.execute(sql);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-		
-			
+					
+				executeQuery(sql);										
 		}
 }

@@ -1,17 +1,40 @@
 package Controller;
 
-import java.io.File;
+import Models.Antwort;
+import Modifier.AntwortFabrik;
 
-public class MainController {
-	
+public class MainController
+{
+
 	MainController mainControllerSingleton = new MainController();
-	
-	private MainController() {
+
+	private MainController()
+	{
 		super();
 	}
-	
-	public static void main(String[] args) {
-		//DbController dbController = new DbController()
-		System.out.println(new File(".").getAbsolutePath());
+
+	public void createEntityOf(Class fabrikTyp, String Values)
+	{
+		switch (fabrikTyp)
+		{
+		case Antwort.class:
+			createAntwort();
+			break;
+
+		default:
+			break;
+		}
 	}
+
+	private void createAntwort()
+	{
+		final var antwortAttribute = AntwortFabrik.getAntwortAttribute();
+		for (final Entryset iterable_element : iterable)
+		{
+
+		}
+		AntwortFabrik.create(antwortAttribute);
+
+	}
+
 }

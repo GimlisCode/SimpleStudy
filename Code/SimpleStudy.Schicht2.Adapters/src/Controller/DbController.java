@@ -1,13 +1,17 @@
 package Controller;
 
-public class DbController {
+public class DbController
+{
 	private final DatenVerbindung datenVerbindung;
-	
-	public DbController(DatenVerbindung datenVerbindung) {
+
+	public DbController(DatenVerbindung datenVerbindung)
+	{
 		this.datenVerbindung = datenVerbindung;
+		initiliazeData();
 	}
-	
-	public void initiliazeData() {
-		
+
+	public void initiliazeData()
+	{
+		datenVerbindung.getAllFromTable("Antwort");
 	}
 }

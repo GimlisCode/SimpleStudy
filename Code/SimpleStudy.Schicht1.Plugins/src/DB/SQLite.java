@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Optional;
 
 import Controller.DatenVerbindung;
 
@@ -15,7 +16,7 @@ public class SQLite implements DatenVerbindung
 	private static final SQLite dbPlugin = new SQLite();
 	private Connection connection;
 	private final String DB_PATH = "simpleStudy.db";
-	private final static String selectAllStatemant = "Select * From %s";
+	private final static String selectAllStatemant = "Select * From ";
 
 	private SQLite()
 	{
@@ -122,13 +123,15 @@ public class SQLite implements DatenVerbindung
 		try
 		{
 			final ResultSet selectResults = executeQuery(selectAllStatemant + tableName);
-			final int anzColumn = selectResults.getMetaData().getColumnCount();
+			final int anzColumn = selectResults.getMetaData().getColumnCount() + 1;
 			while (selectResults.next())
 			{
 				String resultRow = "";
-				for (int i = 0; i < anzColumn; i++)
+				for (int i = 1; i < anzColumn; i++)
 					resultRow += selectResults.getString(i) + ",";
-				resultsAsString.add(resultRow);
+
+				resultsAsString.add(Optional.ofNullable(resultRow).filter(sStr -> sStr.length() != 0)
+						.map(sStr -> sStr.substring(0, sStr.length() - 1)).orElse(resultRow));
 			}
 		}
 		catch (final SQLException e)
@@ -162,9 +165,7 @@ public class SQLite implements DatenVerbindung
 				"INSERT INTO Dozent VALUES(1,'Freudenmann, Johannes',1);", "INSERT INTO Lernfach VALUES(1,'Erdkunde',1,8,1);",
 				"INSERT INTO Student VALUES(1,'Maul, Johannes');", "INSERT INTO Richtigkeit VALUES(1,1,1,0,1,2);" };
 
-		for (String string : insertFirstData)
-		{
+		for (final String string : insertFirstData)
 			executeQuery(string);
-		}
 	}
 }

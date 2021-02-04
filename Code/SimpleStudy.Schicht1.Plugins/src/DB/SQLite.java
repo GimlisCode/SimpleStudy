@@ -147,15 +147,20 @@ public class SQLite implements DatenVerbindung
 				"CREATE TABLE IF NOT EXISTS Frage (ID INT NOT NULL, kapitelID INT DEFAULT 0, text CHAR NOT NULL DEFAULT '', typ INT NOT NULL DEFAULT '0',PRIMARY KEY (ID), FOREIGN KEY (kapitelID) REFERENCES Kapitel(ID));",
 				"CREATE TABLE IF NOT EXISTS Hochschule (ID INT NOT NULL, name CHAR NOT NULL DEFAULT '',	PRIMARY KEY (ID));",
 				"CREATE TABLE IF NOT EXISTS Kapitel (ID INT NOT NULL, lernfachID INT NOT NULL DEFAULT 0,	name CHAR NOT NULL DEFAULT '', nr INT DEFAULT '0',PRIMARY KEY (ID), FOREIGN KEY (lernfachID) REFERENCES Lernfach(ID));",
-				"CREATE TABLE IF NOT EXISTS Lernfach (ID INT NOT NULL ,	name CHAR DEFAULT '', semester INT DEFAULT '0', credits INT DEFAULT '0', PRIMARY KEY (ID));",
-				"CREATE TABLE IF NOT EXISTS Student (ID INT NOT NULL , name CHAR DEFAULT '',S , PRIMARY KEY (ID));",
+				"CREATE TABLE IF NOT EXISTS Lernfach (ID INT NOT NULL ,	name CHAR DEFAULT '', semester INT DEFAULT '0', credits INT DEFAULT '0',dozentenID INT DEFAULT 0, PRIMARY KEY (ID), FOREIGN KEY (dozentenID) REFERENCES Dozent(ID));",
+				"CREATE TABLE IF NOT EXISTS Student (ID INT NOT NULL , name CHAR DEFAULT '', PRIMARY KEY (ID));",
 				"CREATE TABLE IF NOT EXISTS Richtigkeit (ID INT NOT NULL, StudentenID INT DEFAULT '0', FragenID INT DEFAULT '0', richtig INT DEFAULT '0', falsch INT DEFAULT '0', fragenstufe INT DEFAULT '1', PRIMARY KEY (ID, StudentenID, FragenID), FOREIGN KEY (StudentenID) REFERENCES Student(ID),FOREIGN KEY (FragenID) REFERENCES Frage(ID));" };
 
 		for (final String string : createTable)
 			executeQuery(string);
 
 		final String insertFirstData[] = new String[]
-		{ "INSERT INTO Antwort VALUES(0,1,'test',false);" };
+		{ "INSERT INTO Antwort VALUES(1,1,'Bonn',false);", "INSERT INTO Antwort VALUES(2,1,'Köln',false);",
+				"INSERT INTO Antwort VALUES(3,1,'Berlin',true);", "INSERT INTO Antwort VALUES(4,1,'Koblenz',false);",
+				"INSERT INTO Frage VALUES(1,1,'Wie lautet die Hauptstadt der Bundesrepublik Deutschland?',1);",
+				"INSERT INTO Hochschule VALUES(1, 'DHBW Karlsruhe');", "INSERT INTO Kapitel VALUES(1,1,'Deutschland', 1);",
+				"INSERT INTO Dozent VALUES(1,'Freudenmann, Johannes',1);", "INSERT INTO Lernfach VALUES(1,'Erdkunde',1,8,1);",
+				"INSERT INTO Student VALUES(1,'Maul, Johannes');", "INSERT INTO Richtigkeit VALUES(1,1,1,0,1,2);" };
 
 		for (String string : insertFirstData)
 		{

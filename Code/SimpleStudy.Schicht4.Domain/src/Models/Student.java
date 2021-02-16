@@ -38,7 +38,7 @@ public class Student extends Entity
 	}
 
 	@Override
-	HashMap<String, Object> getDetails()
+	public HashMap<String, Object> getDetails()
 	{
 		HashMap<String, Object> details = new HashMap<String, Object>();
 		details.put(idtext, this.id);

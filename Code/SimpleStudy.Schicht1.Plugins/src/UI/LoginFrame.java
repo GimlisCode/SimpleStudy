@@ -4,10 +4,12 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
+
+import Controller.MainController;
 
 public class LoginFrame extends JFrame
 {
@@ -19,7 +21,7 @@ public class LoginFrame extends JFrame
 	private JLabel lbl_intro;
 	private JLabel lbl_benutzer;
 
-	private JTextField tf_benutzer;
+	private JComboBox cb_benutzer;
 
 	private JButton login;
 
@@ -34,10 +36,10 @@ public class LoginFrame extends JFrame
 		oben.setLayout(new GridLayout(1, 1));
 
 		lbl_benutzer = new JLabel("Benutzer-ID");
-		tf_benutzer = new JTextField();
+		cb_benutzer = new JComboBox(MainController.getStudenten().toArray());
 
 		oben.add(lbl_benutzer);
-		oben.add(tf_benutzer);
+		oben.add(cb_benutzer);
 
 		login = new JButton("Login");
 		unten.add(login);
@@ -49,11 +51,6 @@ public class LoginFrame extends JFrame
 		this.setSize(350, 200);
 		this.setVisible(true);
 
-	}
-
-	public String getBenutzer()
-	{
-		return tf_benutzer.getText();
 	}
 
 }

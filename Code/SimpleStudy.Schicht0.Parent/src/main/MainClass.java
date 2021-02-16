@@ -16,6 +16,7 @@ public class MainClass
 
 		MainFrame mframe = new MainFrame();
 		LoginFrame lframe = new LoginFrame();
+
 	}
 
 }

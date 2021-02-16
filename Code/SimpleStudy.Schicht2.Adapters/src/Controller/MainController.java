@@ -1,10 +1,13 @@
 package Controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
 import Modifier.AntwortFabrik;
 import Modifier.DozentenFabrik;
+import Modifier.StudentenVerwaltung;
+import Renderer.StudentenRenderer;
 
 public class MainController
 {
@@ -44,6 +47,12 @@ public class MainController
 			dozentAttribut.setValue(dozentWerte.get(dozentAttribut.getKey()));
 
 		DozentenFabrik.create(dozentAttribute);
+	}
+
+	public static ArrayList<HashMap<String, String>> getStudenten()
+	{
+
+		return StudentenRenderer.getStudentForView(StudentenVerwaltung.getAll().values());
 	}
 
 }

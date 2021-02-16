@@ -3,22 +3,25 @@ package Models;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Frage extends Entity {
-	
-	//private int nr;
+public class Frage extends Entity
+{
+
+	// private int nr;
 	private String text;
+	public final static String textText = "text";
 	private int typ;
+	public final static String typText = "typ";
 	private ArrayList<Antwort> antworten = new ArrayList<>();
-	
-	
-	public Frage(String text, int typ, ArrayList<Antwort> antworten) {
+	public final static String antwortenText = "antworten";
+
+	public Frage(String text, int typ, ArrayList<Antwort> antworten)
+	{
 		super();
-		//this.nr = nr;
+		// this.nr = nr;
 		this.text = text;
 		this.typ = typ;
 		this.antworten = antworten;
 	}
-
 
 //	public int getNr() {
 //		return nr;
@@ -29,58 +32,59 @@ public class Frage extends Entity {
 //		this.nr = nr;
 //	}
 
-
-	public String getText() {
+	public String getText()
+	{
 		return text;
 	}
 
-
-	public void setText(String text) {
+	public void setText(String text)
+	{
 		this.text = text;
 	}
 
-
-	public int getTyp() {
+	public int getTyp()
+	{
 		return typ;
 	}
 
-
-	public void setTyp(int typ) {
+	public void setTyp(int typ)
+	{
 		this.typ = typ;
 	}
 
-
-	public ArrayList<Antwort> getAntworten() {
+	public ArrayList<Antwort> getAntworten()
+	{
 		return antworten;
 	}
 
-
-	public void setAntworten(ArrayList<Antwort> antworten) {
+	public void setAntworten(ArrayList<Antwort> antworten)
+	{
 		this.antworten = antworten;
 	}
-	
-	public void add(Antwort newAntwort) {
-		if (!antworten.contains(newAntwort))		
-			antworten.add(newAntwort);		
+
+	public void add(Antwort newAntwort)
+	{
+		if (!antworten.contains(newAntwort))
+			antworten.add(newAntwort);
 	}
-	
-	public void remove(Antwort removeAntwort) {
+
+	public void remove(Antwort removeAntwort)
+	{
 		if (antworten.contains(removeAntwort))
 			antworten.remove(removeAntwort);
 	}
 
-
 	@Override
-	HashMap<String, Object> getDetails() {
+	HashMap<String, Object> getDetails()
+	{
 		HashMap<String, Object> details = new HashMap<String, Object>();
-	//	details.put("nr", this.nr);
-		details.put("id", this.id);
-		details.put("text", this.text);
-		details.put("typ", this.typ);
-		details.put("antworten", this.antworten);
-		
+		// details.put("nr", this.nr);
+		details.put(idtext, this.id);
+		details.put(textText, this.text);
+		details.put(typText, this.typ);
+		details.put(antwortenText, this.antworten);
+
 		return details;
 	}
-	
 
 }

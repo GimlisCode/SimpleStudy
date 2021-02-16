@@ -3,66 +3,66 @@ package Modifier;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import Models.Dozent;
-import Models.Kapitel;
-import Models.Lernfach;
 import Models.Statistik;
 import Models.Student;
 
-public class StudentenFabrik {
+public class StudentenFabrik
+{
 	private static Student neuerStudent = new Student(null, null);
 	private static StudentenVerwaltung studentenVerwaltung;
 	private static StudentenFabrik studentenFabrikSingleton;
 	private static ArrayList<Tupel<Integer, Integer>> statistikReferenzen = new ArrayList<>();
-	
-	
+
 	private StudentenFabrik()
 	{
 		studentenVerwaltung = StudentenVerwaltung.getInstance();
 	}
-	
+
 	public static StudentenFabrik getInstance()
 	{
-		return studentenFabrikSingleton; 
+		return studentenFabrikSingleton;
 	}
-	
-	
-	public static HashMap<String,String> getStudentenAttribute()
+
+	public static HashMap<String, String> getStudentenAttribute()
 	{
-		 HashMap<String,String> studentenAttribute = new HashMap<>();
+		HashMap<String, String> studentenAttribute = new HashMap<>();
 		String[] attributNamen = neuerStudent.getAttributeNames();
-				for (String attributName : attributNamen)
-					studentenAttribute.put(attributName, "");
-				
+		for (String attributName : attributNamen)
+			studentenAttribute.put(attributName, "");
+
 		return studentenAttribute;
 	}
-	
-	public static void create(HashMap<String,String> studentenAttribute) {		
-		neuerStudent.setId(Integer.parseInt(studentenAttribute.get("id")));
-		neuerStudent.setName(studentenAttribute.get("name"));		
-		String statistikId = studentenAttribute.get("statistik");
-		
-		Statistik statistik = StatistikVerwaltung.get(Integer.parseInt(statistikId));	
-		if (statistik != null) {
-			neuerStudent.setStatistik(statistik);								
+
+	public static void create(HashMap<String, String> studentenAttribute)
+	{
+		neuerStudent.setId(Integer.parseInt(studentenAttribute.get(Student.idtext)));
+		neuerStudent.setName(studentenAttribute.get(Student.nameText));
+		String statistikId = studentenAttribute.get(Student.statistikText);
+
+		Statistik statistik = StatistikVerwaltung.get(Integer.parseInt(statistikId));
+		if (statistik != null)
+		{
+			neuerStudent.setStatistik(statistik);
 		}
-		else {
-			statistikReferenzen.add(new Tupel<>(neuerStudent.getId(), Integer.parseInt(statistikId)));				
+		else
+		{
+			statistikReferenzen.add(new Tupel<>(neuerStudent.getId(), Integer.parseInt(statistikId)));
 		}
-					
+
 		studentenVerwaltung.add(neuerStudent);
-		neuerStudent = new Student("",null);
+		neuerStudent = new Student("", null);
 	}
-	
+
 	public static void resolveReferences()
 	{
-		for (Tupel<Integer, Integer> tupel : statistikReferenzen) {
+		for (Tupel<Integer, Integer> tupel : statistikReferenzen)
+		{
 			Statistik statistik = StatistikVerwaltung.get(tupel.y);
-			if(statistik != null)
+			if (statistik != null)
 				studentenVerwaltung.get(tupel.x).setStatistik(statistik);
-			//else
-				//throw error ask User
-				
+			// else
+			// throw error ask User
+
 		}
-	} 
+	}
 }

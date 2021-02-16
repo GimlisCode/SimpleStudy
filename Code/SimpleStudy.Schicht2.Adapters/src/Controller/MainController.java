@@ -1,40 +1,49 @@
 package Controller;
 
-import Models.Antwort;
+import java.util.HashMap;
+import java.util.Map.Entry;
+
 import Modifier.AntwortFabrik;
+import Modifier.DozentenFabrik;
 
 public class MainController
 {
 
-	MainController mainControllerSingleton = new MainController();
+	private static MainController mainControllerSingleton = new MainController();
 
 	private MainController()
 	{
 		super();
 	}
 
-	public void createEntityOf(Class fabrikTyp, String Values)
+	public static MainController getInstance()
 	{
-		switch (fabrikTyp)
-		{
-		case Antwort.class:
-			createAntwort();
-			break;
-
-		default:
-			break;
-		}
+		return mainControllerSingleton;
 	}
 
-	private void createAntwort()
+//	public static void createEntityOf(Class fabrikTyp, HashMap<String, String> classValues)
+//	{
+//		// TODO: herausfinden wie richtiges Switch-Case geht.
+//		createAntwort(classValues);
+//		createDozent(classValues);
+//	}
+
+	public static void createAntwort(HashMap<String, String> antwortWerte)
 	{
 		final var antwortAttribute = AntwortFabrik.getAntwortAttribute();
-		for (final Entryset iterable_element : iterable)
-		{
+		for (final Entry<String, String> antwortAttribut : antwortAttribute.entrySet())
+			antwortAttribut.setValue(antwortWerte.get(antwortAttribut.getKey()));
 
-		}
 		AntwortFabrik.create(antwortAttribute);
+	}
 
+	public static void createDozent(HashMap<String, String> dozentWerte)
+	{
+		final var dozentAttribute = DozentenFabrik.getDozentAttribute();
+		for (final Entry<String, String> dozentAttribut : dozentAttribute.entrySet())
+			dozentAttribut.setValue(dozentWerte.get(dozentAttribut.getKey()));
+
+		DozentenFabrik.create(dozentAttribute);
 	}
 
 }

@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Optional;
+import java.util.HashMap;
 
 import Controller.DatenVerbindung;
 
@@ -117,21 +117,21 @@ public class SQLite implements DatenVerbindung
 	}
 
 	@Override
-	public ArrayList<String> getAllFromTable(String tableName)
+	public ArrayList<HashMap<String, String>> getAllFromTable(String tableName)
 	{
-		final ArrayList<String> resultsAsString = new ArrayList<String>();
+		final ArrayList<HashMap<String, String>> resultsMapped = new ArrayList();
 		try
 		{
 			final ResultSet selectResults = executeQuery(selectAllStatemant + tableName);
 			final int anzColumn = selectResults.getMetaData().getColumnCount() + 1;
+
 			while (selectResults.next())
 			{
-				String resultRow = "";
+				final HashMap<String, String> attributWertePaarung = new HashMap<String, String>();
 				for (int i = 1; i < anzColumn; i++)
-					resultRow += selectResults.getString(i) + ",";
+					attributWertePaarung.put(selectResults.getMetaData().getColumnName(i), selectResults.getString(i));
 
-				resultsAsString.add(Optional.ofNullable(resultRow).filter(sStr -> sStr.length() != 0)
-						.map(sStr -> sStr.substring(0, sStr.length() - 1)).orElse(resultRow));
+				resultsMapped.add(attributWertePaarung);
 			}
 		}
 		catch (final SQLException e)
@@ -139,13 +139,13 @@ public class SQLite implements DatenVerbindung
 			// TODO: handle exception
 			e.printStackTrace();
 		}
-		return resultsAsString;
+		return resultsMapped;
 	}
 
 	public void createDB()
 	{
 		final String createTable[] = new String[]
-		{ "CREATE TABLE IF NOT EXISTS Antwort (ID INT NOT NULL, fragenID INT NOT NULL, text CHAR DEFAULT '', correct BOOLEAN NOT NULL DEFAULT 'false', PRIMARY KEY(ID), FOREIGN KEY(fragenID) REFERENCES Frage(ID));",
+		{ "CREATE TABLE IF NOT EXISTS Antwort (id INT NOT NULL, fragenID INT NOT NULL, text CHAR DEFAULT '', correct BOOLEAN NOT NULL DEFAULT 'false', PRIMARY KEY(ID), FOREIGN KEY(fragenID) REFERENCES Frage(ID));",
 				"CREATE TABLE IF NOT EXISTS Dozent (ID INT NOT NULL, name CHAR DEFAULT '', hochschulID INT NOT NULL, PRIMARY KEY (ID), FOREIGN KEY(hochschulID) REFERENCES Hochschule(ID));",
 				"CREATE TABLE IF NOT EXISTS Frage (ID INT NOT NULL, kapitelID INT DEFAULT 0, text CHAR NOT NULL DEFAULT '', typ INT NOT NULL DEFAULT '0',PRIMARY KEY (ID), FOREIGN KEY (kapitelID) REFERENCES Kapitel(ID));",
 				"CREATE TABLE IF NOT EXISTS Hochschule (ID INT NOT NULL, name CHAR NOT NULL DEFAULT '',	PRIMARY KEY (ID));",

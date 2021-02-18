@@ -35,7 +35,8 @@ public class DbController
 		final String joinTable = Statistik.class.getSimpleName();
 		final String mainJoinColum = mainTable + Student.idText;
 		final String studentenSelect = datenVerbindung.createSelectString(new String[]
-			{ mainTable + "." + Student.idText, Student.nameText, Statistik.class.getSimpleName() + Statistik.idText },
+			{ mainTable + "." + Student.idText, Student.nameText,
+					Statistik.class.getSimpleName() + "." + Statistik.idText + " " + Student.statistikText },
 				Student.class.getSimpleName())
 				.join(new String[]
 				{ Statistik.class.getSimpleName() })
@@ -45,10 +46,9 @@ public class DbController
 						joinTable,
 						mainJoinColum)
 				.build();
-		datenVerbindung.getResultFromQuerry(studentenSelect);
 
 		final var alleStudenten = datenVerbindung.getResultFromQuerry(studentenSelect);
 		for (final HashMap<String, String> student : alleStudenten)
-			MainController.createAntwort(student);
+			MainController.createStudent(student);
 	}
 }

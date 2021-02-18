@@ -207,6 +207,8 @@ public class SQLite implements DatenVerbindung
 		for (final String tableName : joinStatement)
 			finishedQuery += " , " + tableName;
 
+		finishedQuery += where;
+
 		selectStatement = "";
 		joinStatement = new ArrayList<String>();
 		where = "";

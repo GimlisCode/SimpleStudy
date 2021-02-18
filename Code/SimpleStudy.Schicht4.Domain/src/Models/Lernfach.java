@@ -80,7 +80,7 @@ public class Lernfach extends Entity
 	HashMap<String, Object> getDetails()
 	{
 		HashMap<String, Object> details = new HashMap<String, Object>();
-		details.put(idtext, this.id);
+		details.put(idText, this.id);
 		details.put(nameText, this.name);
 		details.put(semesterText, this.semester);
 		details.put(creditsText, this.credits);

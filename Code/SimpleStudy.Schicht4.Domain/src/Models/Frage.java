@@ -79,7 +79,7 @@ public class Frage extends Entity
 	{
 		HashMap<String, Object> details = new HashMap<String, Object>();
 		// details.put("nr", this.nr);
-		details.put(idtext, this.id);
+		details.put(idText, this.id);
 		details.put(textText, this.text);
 		details.put(typText, this.typ);
 		details.put(antwortenText, this.antworten);

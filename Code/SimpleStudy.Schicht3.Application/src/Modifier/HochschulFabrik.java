@@ -37,7 +37,7 @@ public class HochschulFabrik
 
 	public static void create(HashMap<String, String> hochschulAttribute)
 	{
-		neueHochschule.setId(Integer.parseInt(hochschulAttribute.get(Hochschule.idtext)));
+		neueHochschule.setId(Integer.parseInt(hochschulAttribute.get(Hochschule.idText)));
 		neueHochschule.setName(hochschulAttribute.get(Hochschule.nameText));
 		String[] alleDozentenId = hochschulAttribute.get(Hochschule.dozentenText).split(";");
 		for (String dozentenId : alleDozentenId)

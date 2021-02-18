@@ -36,7 +36,7 @@ public class LernfachFabrik
 
 	public static void create(HashMap<String, String> lernfachAttribute)
 	{
-		neuesLernfach.setId(Integer.parseInt(lernfachAttribute.get(Lernfach.idtext)));
+		neuesLernfach.setId(Integer.parseInt(lernfachAttribute.get(Lernfach.idText)));
 		neuesLernfach.setName(lernfachAttribute.get(Lernfach.nameText));
 		neuesLernfach.setSemester(Integer.parseInt(lernfachAttribute.get(Lernfach.semesterText)));
 		neuesLernfach.setCredits(Integer.parseInt(lernfachAttribute.get(Lernfach.creditsText)));

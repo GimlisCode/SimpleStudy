@@ -67,7 +67,7 @@ public class Kapitel extends Entity
 	HashMap<String, Object> getDetails()
 	{
 		HashMap<String, Object> details = new HashMap<String, Object>();
-		details.put(idtext, this.id);
+		details.put(idText, this.id);
 		details.put(nrText, this.nr);
 		details.put(nameText, this.name);
 		details.put(fragenText, this.fragen);

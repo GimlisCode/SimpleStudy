@@ -41,7 +41,7 @@ public class Antwort extends Entity
 	HashMap<String, Object> getDetails()
 	{
 		HashMap<String, Object> details = new HashMap<String, Object>();
-		details.put(idtext, this.id);
+		details.put(idText, this.id);
 		details.put(textText, this.text);
 		details.put(correctText, this.correct);
 

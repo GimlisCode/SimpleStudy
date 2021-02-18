@@ -16,7 +16,7 @@ public class StudentenRenderer
 		for (Student student : studenten)
 		{
 			HashMap<String, String> gerenderterStudent = new HashMap<>();
-			gerenderterStudent.put(Student.idtext, student.getId() + "");
+			gerenderterStudent.put(Student.idText, student.getId() + "");
 			gerenderterStudent.put(Student.nameText, student.getName());
 
 			gerenderteStudenten.add(gerenderterStudent);

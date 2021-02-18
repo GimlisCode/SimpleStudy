@@ -33,7 +33,7 @@ public class StatistikFabrik
 
 	public static void create(HashMap<String, String> statistikAttribute)
 	{
-		neueStatistik.setId(Integer.parseInt(statistikAttribute.get(Statistik.idtext)));
+		neueStatistik.setId(Integer.parseInt(statistikAttribute.get(Statistik.idText)));
 
 		String[] alleRichtigkeiten = statistikAttribute.get(Statistik.statistikText).split(";");
 		for (String richtigkeit : alleRichtigkeiten)

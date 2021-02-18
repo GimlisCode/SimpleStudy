@@ -41,7 +41,7 @@ public class Student extends Entity
 	public HashMap<String, Object> getDetails()
 	{
 		HashMap<String, Object> details = new HashMap<String, Object>();
-		details.put(idtext, this.id);
+		details.put(idText, this.id);
 		details.put(nameText, this.name);
 		details.put(statistikText, this.statistik);
 

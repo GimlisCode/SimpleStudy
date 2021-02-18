@@ -37,7 +37,7 @@ public class KapitelFabrik
 
 	public static void create(HashMap<String, String> kapitelAttribute)
 	{
-		neuesKapitel.setId(Integer.parseInt(kapitelAttribute.get(Kapitel.idtext)));
+		neuesKapitel.setId(Integer.parseInt(kapitelAttribute.get(Kapitel.idText)));
 		neuesKapitel.setName(kapitelAttribute.get(Kapitel.nameText));
 		neuesKapitel.setNr(Integer.parseInt(Kapitel.nrText));
 		String[] alleFragenId = kapitelAttribute.get(Kapitel.fragenText).split(";");

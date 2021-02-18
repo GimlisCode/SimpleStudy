@@ -33,7 +33,7 @@ public class AntwortFabrik
 
 	public static void create(HashMap<String, String> antwortAttribute)
 	{
-		neueAntwort.setId(Integer.parseInt(antwortAttribute.get(Antwort.idtext)));
+		neueAntwort.setId(Integer.parseInt(antwortAttribute.get(Antwort.idText)));
 		neueAntwort.setText(antwortAttribute.get(Antwort.textText));
 		neueAntwort.setCorrect(Boolean.getBoolean(antwortAttribute.get(Antwort.textText)));
 		antwortenVerwaltung.add(neueAntwort);

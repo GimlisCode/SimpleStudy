@@ -6,7 +6,7 @@ public abstract class Entity
 {
 
 	protected int id;
-	public static final String idtext = "id";
+	public static final String idText = "id";
 
 	public int getId()
 	{

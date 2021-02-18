@@ -7,6 +7,7 @@ import java.util.Map.Entry;
 import Modifier.AntwortFabrik;
 import Modifier.DozentenFabrik;
 import Modifier.StudentenVerwaltung;
+import Renderer.PrettyHashMap;
 import Renderer.StudentenRenderer;
 
 public class MainController
@@ -38,7 +39,6 @@ public class MainController
 			antwortAttribut.setValue(antwortWerte.get(antwortAttribut.getKey()));
 
 		AntwortFabrik.create(antwortAttribute);
-		System.out.println(antwortWerte.toString());
 	}
 
 	public static void createDozent(HashMap<String, String> dozentWerte)
@@ -50,7 +50,7 @@ public class MainController
 		DozentenFabrik.create(dozentAttribute);
 	}
 
-	public static ArrayList<HashMap<String, String>> getStudenten()
+	public static ArrayList<PrettyHashMap> getStudenten()
 	{
 
 		return StudentenRenderer.getStudentForView(StudentenVerwaltung.getAll().values());

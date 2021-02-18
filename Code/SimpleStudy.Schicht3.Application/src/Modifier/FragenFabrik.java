@@ -5,64 +5,70 @@ import java.util.HashMap;
 
 import Models.Antwort;
 import Models.Frage;
-import Models.Lernfach;
 
-public class FragenFabrik {
-	
+public class FragenFabrik
+{
+
 	private static Frage neueFrage = new Frage(null, 0, null);
-	private static FragenVerwaltung fragenVerwaltung;	
+	private static FragenVerwaltung fragenVerwaltung;
 	private static FragenFabrik fragenFabrikSingleton = new FragenFabrik();
 	private static ArrayList<Tupel<Integer, Integer>> antwortReferenzen = new ArrayList<>();
-	
-	private FragenFabrik() {
+
+	private FragenFabrik()
+	{
 
 		fragenVerwaltung = FragenVerwaltung.getInstance();
 	}
-	
+
 	public static FragenFabrik getInstance()
 	{
 		return fragenFabrikSingleton;
 	}
-	
-	public static HashMap<String,String> getFragenAttribute()
+
+	public static HashMap<String, String> getFragenAttribute()
 	{
-		 HashMap<String,String> antwortAttribute = new HashMap<>();
+		HashMap<String, String> antwortAttribute = new HashMap<>();
 		String[] attributNamen = neueFrage.getAttributeNames();
-				for (String attributName : attributNamen)
-					antwortAttribute.put(attributName, "");
-				
+		for (String attributName : attributNamen)
+			antwortAttribute.put(attributName, "");
+
 		return antwortAttribute;
 	}
-	
-	public static void create(HashMap<String,String> fragenAttribute) {		
-		neueFrage.setId(Integer.parseInt(fragenAttribute.get("id")));             
-		neueFrage.setText(fragenAttribute.get("text"));
-		neueFrage.setTyp(Integer.parseInt(fragenAttribute.get("typ")));
-		String[] alleAntwortId = fragenAttribute.get("antworten").split(";");
-		for (String	antwortenID : alleAntwortId) {
+
+	public static void create(HashMap<String, String> fragenAttribute)
+	{
+		neueFrage.setId(Integer.parseInt(fragenAttribute.get(Frage.idText)));
+		neueFrage.setText(fragenAttribute.get(Frage.textText));
+		neueFrage.setTyp(Integer.parseInt(fragenAttribute.get(Frage.typText)));
+		String[] alleAntwortId = fragenAttribute.get(Frage.antwortenText).split(";");
+		for (String antwortenID : alleAntwortId)
+		{
 			Antwort antwort = AntwortVerwaltung.get(Integer.parseInt(antwortenID));
-			if (antwort != null) {
-				neueFrage.add(antwort);				
+			if (antwort != null)
+			{
+				neueFrage.add(antwort);
 			}
-			else {
+			else
+			{
 				antwortReferenzen.add(new Tupel<>(neueFrage.getId(), Integer.parseInt(antwortenID)));
 			}
-			
+
 		}
 		fragenVerwaltung.add(neueFrage);
 		neueFrage = new Frage(null, 0, null);
 	}
-	
+
 	public static void resolveReferences()
 	{
-		for (Tupel<Integer, Integer> tupel : antwortReferenzen) {
+		for (Tupel<Integer, Integer> tupel : antwortReferenzen)
+		{
 			Antwort antwort = AntwortVerwaltung.get(tupel.y);
-			if(antwort != null)
+			if (antwort != null)
 				fragenVerwaltung.get(tupel.x).add(antwort);
-			//else
-				//throw error ask User
-				
+			// else
+			// throw error ask User
+
 		}
-	} 
+	}
 
 }

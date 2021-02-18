@@ -6,60 +6,63 @@ import java.util.Map.Entry;
 
 import Models.Student;
 
-public class StudentenVerwaltung {
+public class StudentenVerwaltung
+{
 
 	static private HashMap<Integer, Student> studenten = new HashMap<>();
 	static private StudentenVerwaltung studentenVerwaltungSingleton = new StudentenVerwaltung();
-	
-	private StudentenVerwaltung() {
+
+	private StudentenVerwaltung()
+	{
 		super();
 	}
+
 	public static StudentenVerwaltung getInstance()
 	{
 		return studentenVerwaltungSingleton;
 	}
-	
+
 	static Student get(int id)
-	{		
+	{
 		return studenten.get(id);
 	}
-	
-	static HashMap<Integer, Student> getAll()
+
+	public static HashMap<Integer, Student> getAll()
 	{
 		return studenten;
 	}
-	
+
 	static void add(Student student)
-	{		
-		studenten.put(student.getId(), student);		
+	{
+		studenten.put(student.getId(), student);
 	}
-		
+
 	static void remove(Student student)
-	{		
-		remove(student.getId());				
+	{
+		remove(student.getId());
 	}
-	
+
 	static void remove(int id)
-	{		
-		studenten.remove(id);				
+	{
+		studenten.remove(id);
 	}
-	
+
 	static void update(Student student)
-	{		
-		studenten.put(student.getId(), student);		
+	{
+		studenten.put(student.getId(), student);
 	}
-	
+
 	static ArrayList<Student> suche(String suchstring)
 	{
 		ArrayList<Student> passendeStudentenZumSuchstring = new ArrayList<>();
-		for (Entry<Integer, Student> student : studenten.entrySet()) 
-			if (student.getValue().toString().contains(suchstring)) 
-				passendeStudentenZumSuchstring.add(student.getValue());				
-			
+		for (Entry<Integer, Student> student : studenten.entrySet())
+			if (student.getValue().toString().contains(suchstring))
+				passendeStudentenZumSuchstring.add(student.getValue());
+
 		if (passendeStudentenZumSuchstring.size() > 0)
 			return passendeStudentenZumSuchstring;
-		
-		return null;			
+
+		return null;
 	}
-	
+
 }

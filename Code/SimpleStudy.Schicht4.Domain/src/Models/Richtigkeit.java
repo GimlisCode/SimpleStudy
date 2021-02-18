@@ -6,8 +6,11 @@ public class Richtigkeit extends Entity
 {
 
 	private int richtig = 0;
+	public final static String richtigText = "richtig";
 	private int falsch = 0;
+	public final static String falschText = "falsch";
 	private int fragenstufe = 1;
+	public final static String fragenstufeText = "fragenstufe";
 
 	public Richtigkeit()
 	{
@@ -45,10 +48,10 @@ public class Richtigkeit extends Entity
 	HashMap<String, Object> getDetails()
 	{
 		HashMap<String, Object> details = new HashMap<String, Object>();
-		details.put("id", this.id);
-		details.put("richtig", this.richtig);
-		details.put("falsch", this.falsch);
-		details.put("fragenstufe", this.fragenstufe);
+		details.put(idText, this.id);
+		details.put(richtigText, this.richtig);
+		details.put(falschText, this.falsch);
+		details.put(fragenstufeText, this.fragenstufe);
 
 		return details;
 	}

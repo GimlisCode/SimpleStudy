@@ -8,6 +8,7 @@ public class Statistik extends Entity
 
 	// DOKU: Tupel ersetzt durch Wrapper
 	private Map<Integer, Richtigkeit> statistik = new HashMap<>();
+	public final static String statistikText = "richtigkeiten";
 
 	public Map<Integer, Richtigkeit> getStatistik()
 	{
@@ -39,8 +40,8 @@ public class Statistik extends Entity
 	HashMap<String, Object> getDetails()
 	{
 		HashMap<String, Object> details = new HashMap<String, Object>();
-		details.put("id", this.id);
-		details.put("richtigkeiten", this.statistik);
+		details.put(idText, this.id);
+		details.put(statistikText, this.statistik);
 
 		return details;
 	}

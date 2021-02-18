@@ -18,9 +18,9 @@ public class DbController
 		for (final HashMap<String, String> antwort : alleAntworten)
 			MainController.createAntwort(antwort);
 
-		final var alleDozenten = datenVerbindung.getAllFromTable("Dozent");
-		for (final HashMap<String, String> dozent : alleDozenten)
-			MainController.createDozent(dozent);
+		// final var alleDozenten = datenVerbindung.getAllFromTable("Dozent");
+		// for (final HashMap<String, String> dozent : alleDozenten)
+		// MainController.createDozent(dozent);
 
 	}
 }

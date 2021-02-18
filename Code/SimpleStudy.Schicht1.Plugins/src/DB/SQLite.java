@@ -10,6 +10,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import Controller.DatenVerbindung;
+import Models.Antwort;
+import Models.Dozent;
+import Models.Frage;
+import Models.Hochschule;
+import Models.Kapitel;
+import Models.Lernfach;
+import Models.Richtigkeit;
+import Models.Statistik;
+import Models.Student;
 
 public class SQLite implements DatenVerbindung
 {
@@ -125,7 +134,9 @@ public class SQLite implements DatenVerbindung
 		final ArrayList<HashMap<String, String>> resultsMapped = new ArrayList<HashMap<String, String>>();
 		try
 		{
+
 			final ResultSet selectResults = executeQuery(sqlQuerry);
+
 			final int anzColumn = selectResults.getMetaData()
 					.getColumnCount() + 1;
 
@@ -205,25 +216,66 @@ public class SQLite implements DatenVerbindung
 	public void createDB()
 	{
 		final String createTable[] = new String[]
-			{ "CREATE TABLE IF NOT EXISTS Antwort (id INT NOT NULL, fragenID INT NOT NULL, text CHAR DEFAULT '', correct BOOLEAN NOT NULL DEFAULT 'false', PRIMARY KEY(ID), FOREIGN KEY(fragenID) REFERENCES Frage(ID));",
-					"CREATE TABLE IF NOT EXISTS Dozent (ID INT NOT NULL, name CHAR DEFAULT '', hochschulID INT NOT NULL, PRIMARY KEY (ID), FOREIGN KEY(hochschulID) REFERENCES Hochschule(ID));",
-					"CREATE TABLE IF NOT EXISTS Frage (ID INT NOT NULL, kapitelID INT DEFAULT 0, text CHAR NOT NULL DEFAULT '', typ INT NOT NULL DEFAULT '0',PRIMARY KEY (ID), FOREIGN KEY (kapitelID) REFERENCES Kapitel(ID));",
-					"CREATE TABLE IF NOT EXISTS Hochschule (ID INT NOT NULL, name CHAR NOT NULL DEFAULT '',	PRIMARY KEY (ID));",
-					"CREATE TABLE IF NOT EXISTS Kapitel (ID INT NOT NULL, lernfachID INT NOT NULL DEFAULT 0,	name CHAR NOT NULL DEFAULT '', nr INT DEFAULT '0',PRIMARY KEY (ID), FOREIGN KEY (lernfachID) REFERENCES Lernfach(ID));",
-					"CREATE TABLE IF NOT EXISTS Lernfach (ID INT NOT NULL ,	name CHAR DEFAULT '', semester INT DEFAULT '0', credits INT DEFAULT '0',dozentenID INT DEFAULT 0, PRIMARY KEY (ID), FOREIGN KEY (dozentenID) REFERENCES Dozent(ID));",
-					"CREATE TABLE IF NOT EXISTS Student (ID INT NOT NULL , name CHAR DEFAULT '', PRIMARY KEY (ID));",
-					"CREATE TABLE IF NOT EXISTS Richtigkeit (ID INT NOT NULL, StudentenID INT DEFAULT '0', FragenID INT DEFAULT '0', richtig INT DEFAULT '0', falsch INT DEFAULT '0', fragenstufe INT DEFAULT '1', PRIMARY KEY (ID, StudentenID, FragenID), FOREIGN KEY (StudentenID) REFERENCES Student(ID),FOREIGN KEY (FragenID) REFERENCES Frage(ID));" };
+
+			{ "CREATE TABLE IF NOT EXISTS " + Antwort.class.getSimpleName() + " (" + Antwort.idText + " INT NOT NULL, "
+					+ Frage.class.getSimpleName() + Antwort.idText + " INT NOT NULL, " + Antwort.textText + " CHAR DEFAULT '', "
+					+ Antwort.correctText + " BOOLEAN NOT NULL DEFAULT 'false', PRIMARY KEY(" + Antwort.idText + "), FOREIGN KEY("
+					+ Frage.class.getSimpleName() + Antwort.idText + ") REFERENCES " + Frage.class.getSimpleName() + "("
+					+ Frage.idText + "));",
+					"CREATE TABLE IF NOT EXISTS " + Dozent.class.getSimpleName() + " (" + Dozent.idText + " INT NOT NULL, "
+							+ Dozent.nameText + " CHAR DEFAULT '', " + Hochschule.class.getSimpleName() + Hochschule.idText
+							+ " INT NOT NULL, PRIMARY KEY (" + Dozent.idText + "), FOREIGN KEY("
+							+ Hochschule.class.getSimpleName() + Hochschule.idText + ") REFERENCES "
+							+ Hochschule.class.getSimpleName() + "(" + Hochschule.idText + "));",
+					"CREATE TABLE IF NOT EXISTS " + Frage.class.getSimpleName() + " (" + Frage.idText + " INT NOT NULL, "
+							+ Kapitel.class.getSimpleName() + Kapitel.idText + " INT DEFAULT 0, " + Frage.textText
+							+ " CHAR NOT NULL DEFAULT '', " + Frage.typText + " INT NOT NULL DEFAULT '0',PRIMARY KEY ("
+							+ Frage.idText + "), FOREIGN KEY (" + Kapitel.class.getSimpleName() + Kapitel.idText + ") REFERENCES "
+							+ Kapitel.class.getSimpleName() + "(" + Kapitel.idText + "));",
+					"CREATE TABLE IF NOT EXISTS " + Hochschule.class.getSimpleName() + " (" + Hochschule.idText
+							+ " INT NOT NULL, " + Hochschule.nameText + " CHAR NOT NULL DEFAULT '',	PRIMARY KEY ("
+							+ Hochschule.idText + "));",
+					"CREATE TABLE IF NOT EXISTS " + Kapitel.class.getSimpleName() + " (" + Kapitel.idText + " INT NOT NULL, "
+							+ Lernfach.class.getSimpleName() + Lernfach.idText + " INT NOT NULL DEFAULT 0,	" + Kapitel.nameText
+							+ " CHAR NOT NULL DEFAULT '', " + Kapitel.nrText + " INT DEFAULT '0',PRIMARY KEY (" + Kapitel.idText
+							+ "), FOREIGN KEY (" + Lernfach.class.getSimpleName() + Lernfach.idText + ") REFERENCES "
+							+ Lernfach.class.getSimpleName() + "(" + Lernfach.idText + "));",
+					"CREATE TABLE IF NOT EXISTS " + Lernfach.class.getSimpleName() + " (" + Lernfach.idText + " INT NOT NULL ,	"
+							+ Lernfach.nameText + " CHAR DEFAULT '', " + Lernfach.semesterText + " INT DEFAULT '0', "
+							+ Lernfach.creditsText + " INT DEFAULT '0'," + Dozent.class.getSimpleName() + Dozent.idText
+							+ " INT DEFAULT 0, PRIMARY KEY (" + Lernfach.idText + "), FOREIGN KEY ("
+							+ Dozent.class.getSimpleName() + Dozent.idText + ") REFERENCES " + Dozent.class.getSimpleName() + "("
+							+ Dozent.idText + "));",
+					"CREATE TABLE IF NOT EXISTS " + Student.class.getSimpleName() + " (" + Student.idText + " INT NOT NULL , "
+							+ Student.nameText + " CHAR DEFAULT '', PRIMARY KEY (" + Student.idText + "));",
+					"CREATE TABLE IF NOT EXISTS " + Statistik.class.getSimpleName() + " (" + Statistik.idText + " INT NOT NULL, "
+							+ Student.class.getSimpleName() + Student.idText + " INT DEFAULT '0', " + Frage.class.getSimpleName()
+							+ Frage.idText + " INT DEFAULT '0', " + Richtigkeit.richtigText + " INT DEFAULT '0', "
+							+ Richtigkeit.falschText + " INT DEFAULT '0', " + Richtigkeit.fragenstufeText
+							+ " INT DEFAULT '1', PRIMARY KEY (" + Statistik.idText + ", " + Student.class.getSimpleName()
+							+ Student.idText + ", " + Frage.class.getSimpleName() + Frage.idText + "), FOREIGN KEY ("
+							+ Student.class.getSimpleName() + Student.idText + ") REFERENCES " + Student.class.getSimpleName()
+							+ "(" + Student.idText + "),FOREIGN KEY (" + Frage.class.getSimpleName() + Frage.idText
+							+ ") REFERENCES " + Frage.class.getSimpleName() + "(" + Frage.idText + "));" };
 
 		for (final String string : createTable)
 			executeQuery(string);
 
 		final String insertFirstData[] = new String[]
-			{ "INSERT INTO Antwort VALUES(1,1,'Bonn',false);", "INSERT INTO Antwort VALUES(2,1,'Köln',false);",
-					"INSERT INTO Antwort VALUES(3,1,'Berlin',true);", "INSERT INTO Antwort VALUES(4,1,'Koblenz',false);",
-					"INSERT INTO Frage VALUES(1,1,'Wie lautet die Hauptstadt der Bundesrepublik Deutschland?',1);",
-					"INSERT INTO Hochschule VALUES(1, 'DHBW Karlsruhe');", "INSERT INTO Kapitel VALUES(1,1,'Deutschland', 1);",
-					"INSERT INTO Dozent VALUES(1,'Freudenmann, Johannes',1);", "INSERT INTO Lernfach VALUES(1,'Erdkunde',1,8,1);",
-					"INSERT INTO Student VALUES(1,'Maul, Johannes');", "INSERT INTO Richtigkeit VALUES(1,1,1,0,1,2);" };
+
+			{ "INSERT INTO " + Antwort.class.getSimpleName() + " VALUES(1,1,'Bonn',false);",
+					"INSERT INTO " + Antwort.class.getSimpleName() + " VALUES(2,1,'Köln',false);",
+					"INSERT INTO " + Antwort.class.getSimpleName() + " VALUES(3,1,'Berlin',true);",
+					"INSERT INTO " + Antwort.class.getSimpleName() + " VALUES(4,1,'Koblenz',false);",
+					"INSERT INTO " + Frage.class.getSimpleName()
+							+ " VALUES(1,1,'Wie lautet die Hauptstadt der Bundesrepublik Deutschland?',1);",
+					"INSERT INTO " + Hochschule.class.getSimpleName() + " VALUES(1, 'DHBW Karlsruhe');",
+					"INSERT INTO " + Kapitel.class.getSimpleName() + " VALUES(1,1,'Deutschland', 1);",
+					"INSERT INTO " + Dozent.class.getSimpleName() + " VALUES(1,'Freudenmann, Johannes',1);",
+					"INSERT INTO " + Lernfach.class.getSimpleName() + " VALUES(1,'Erdkunde',1,8,1);",
+					"INSERT INTO " + Student.class.getSimpleName() + " VALUES(1,'Maul, Johannes');",
+					"INSERT INTO " + Student.class.getSimpleName() + " VALUES(2,'Lickteig, Simon');",
+					"INSERT INTO " + Statistik.class.getSimpleName() + " VALUES(1,1,1,0,1,2);" };
 
 		for (final String string : insertFirstData)
 			executeQuery(string);

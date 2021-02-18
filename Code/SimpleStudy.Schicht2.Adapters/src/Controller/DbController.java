@@ -22,5 +22,9 @@ public class DbController
 		// for (final HashMap<String, String> dozent : alleDozenten)
 		// MainController.createDozent(dozent);
 
+		final var alleStudenten = datenVerbindung.getAllFromTable("Student");
+		for (final HashMap<String, String> student : alleStudenten)
+			MainController.createStudent(student);
+
 	}
 }

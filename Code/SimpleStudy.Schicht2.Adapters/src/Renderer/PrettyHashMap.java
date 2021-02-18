@@ -1,5 +1,6 @@
 package Renderer;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class PrettyHashMap extends HashMap<String, String>
@@ -11,7 +12,10 @@ public class PrettyHashMap extends HashMap<String, String>
 		String idText = Models.Entity.idText;
 		String ausgabe = "";
 		ausgabe += this.get(idText);
-		for (String key : (String[]) (this.keySet().toArray()))
+
+		ArrayList<String> keys = new ArrayList<>(this.keySet());
+
+		for (String key : keys)
 		{
 
 			if (key != idText)

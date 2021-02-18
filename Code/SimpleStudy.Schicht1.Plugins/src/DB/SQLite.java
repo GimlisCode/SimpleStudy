@@ -18,7 +18,7 @@ public class SQLite implements DatenVerbindung
 	private final String DB_PATH = "simpleStudy.db";
 	private final static String selectAllStatemant = "Select * From ";
 	private String selectStatement = "";
-	private final ArrayList<String> joinStatement = new ArrayList<>();
+	private ArrayList<String> joinStatement = new ArrayList<>();
 	private String where = "";
 
 	private SQLite()
@@ -67,25 +67,26 @@ public class SQLite implements DatenVerbindung
 			throw new RuntimeException(e);
 		}
 
-		Runtime.getRuntime().addShutdownHook(new Thread()
-		{
-			public void run()
-			{
-				try
+		Runtime.getRuntime()
+				.addShutdownHook(new Thread()
 				{
-					if (!connection.isClosed() && connection != null)
+					public void run()
 					{
-						connection.close();
-						if (connection.isClosed())
-							System.out.println("Connection to Database closed");
+						try
+						{
+							if (!connection.isClosed() && connection != null)
+							{
+								connection.close();
+								if (connection.isClosed())
+									System.out.println("Connection to Database closed");
+							}
+						}
+						catch (final SQLException e)
+						{
+							e.printStackTrace();
+						}
 					}
-				}
-				catch (final SQLException e)
-				{
-					e.printStackTrace();
-				}
-			}
-		});
+				});
 	}
 
 	private ResultSet executeQuery(String sqlString)
@@ -125,13 +126,16 @@ public class SQLite implements DatenVerbindung
 		try
 		{
 			final ResultSet selectResults = executeQuery(sqlQuerry);
-			final int anzColumn = selectResults.getMetaData().getColumnCount() + 1;
+			final int anzColumn = selectResults.getMetaData()
+					.getColumnCount() + 1;
 
 			while (selectResults.next())
 			{
 				final HashMap<String, String> attributWertePaarung = new HashMap<String, String>();
 				for (int i = 1; i < anzColumn; i++)
-					attributWertePaarung.put(selectResults.getMetaData().getColumnName(i), selectResults.getString(i));
+					attributWertePaarung.put(selectResults.getMetaData()
+							.getColumnName(i),
+							selectResults.getString(i));
 
 				resultsMapped.add(attributWertePaarung);
 			}
@@ -169,12 +173,12 @@ public class SQLite implements DatenVerbindung
 		return this;
 	}
 
-	public DatenVerbindung where(String whereStatemant)
+	public DatenVerbindung where(String tableLeft, String columnLeft, String operator, String tableRight, String columnRight)
 	{
 		if (where != null && where.isEmpty() && where.isBlank())
 			where = " where ";
 
-		where += whereStatemant;
+		where += tableLeft + "." + columnLeft + " " + operator + " " + tableRight + "." + columnRight;
 		return this;
 	}
 
@@ -191,31 +195,35 @@ public class SQLite implements DatenVerbindung
 		String finishedQuery = selectStatement;
 		for (final String tableName : joinStatement)
 			finishedQuery += " , " + tableName;
+
+		selectStatement = "";
+		joinStatement = new ArrayList<String>();
+		where = "";
 		return finishedQuery;
 	}
 
 	public void createDB()
 	{
 		final String createTable[] = new String[]
-		{ "CREATE TABLE IF NOT EXISTS Antwort (id INT NOT NULL, fragenID INT NOT NULL, text CHAR DEFAULT '', correct BOOLEAN NOT NULL DEFAULT 'false', PRIMARY KEY(ID), FOREIGN KEY(fragenID) REFERENCES Frage(ID));",
-				"CREATE TABLE IF NOT EXISTS Dozent (ID INT NOT NULL, name CHAR DEFAULT '', hochschulID INT NOT NULL, PRIMARY KEY (ID), FOREIGN KEY(hochschulID) REFERENCES Hochschule(ID));",
-				"CREATE TABLE IF NOT EXISTS Frage (ID INT NOT NULL, kapitelID INT DEFAULT 0, text CHAR NOT NULL DEFAULT '', typ INT NOT NULL DEFAULT '0',PRIMARY KEY (ID), FOREIGN KEY (kapitelID) REFERENCES Kapitel(ID));",
-				"CREATE TABLE IF NOT EXISTS Hochschule (ID INT NOT NULL, name CHAR NOT NULL DEFAULT '',	PRIMARY KEY (ID));",
-				"CREATE TABLE IF NOT EXISTS Kapitel (ID INT NOT NULL, lernfachID INT NOT NULL DEFAULT 0,	name CHAR NOT NULL DEFAULT '', nr INT DEFAULT '0',PRIMARY KEY (ID), FOREIGN KEY (lernfachID) REFERENCES Lernfach(ID));",
-				"CREATE TABLE IF NOT EXISTS Lernfach (ID INT NOT NULL ,	name CHAR DEFAULT '', semester INT DEFAULT '0', credits INT DEFAULT '0',dozentenID INT DEFAULT 0, PRIMARY KEY (ID), FOREIGN KEY (dozentenID) REFERENCES Dozent(ID));",
-				"CREATE TABLE IF NOT EXISTS Student (ID INT NOT NULL , name CHAR DEFAULT '', PRIMARY KEY (ID));",
-				"CREATE TABLE IF NOT EXISTS Richtigkeit (ID INT NOT NULL, StudentenID INT DEFAULT '0', FragenID INT DEFAULT '0', richtig INT DEFAULT '0', falsch INT DEFAULT '0', fragenstufe INT DEFAULT '1', PRIMARY KEY (ID, StudentenID, FragenID), FOREIGN KEY (StudentenID) REFERENCES Student(ID),FOREIGN KEY (FragenID) REFERENCES Frage(ID));" };
+			{ "CREATE TABLE IF NOT EXISTS Antwort (id INT NOT NULL, fragenID INT NOT NULL, text CHAR DEFAULT '', correct BOOLEAN NOT NULL DEFAULT 'false', PRIMARY KEY(ID), FOREIGN KEY(fragenID) REFERENCES Frage(ID));",
+					"CREATE TABLE IF NOT EXISTS Dozent (ID INT NOT NULL, name CHAR DEFAULT '', hochschulID INT NOT NULL, PRIMARY KEY (ID), FOREIGN KEY(hochschulID) REFERENCES Hochschule(ID));",
+					"CREATE TABLE IF NOT EXISTS Frage (ID INT NOT NULL, kapitelID INT DEFAULT 0, text CHAR NOT NULL DEFAULT '', typ INT NOT NULL DEFAULT '0',PRIMARY KEY (ID), FOREIGN KEY (kapitelID) REFERENCES Kapitel(ID));",
+					"CREATE TABLE IF NOT EXISTS Hochschule (ID INT NOT NULL, name CHAR NOT NULL DEFAULT '',	PRIMARY KEY (ID));",
+					"CREATE TABLE IF NOT EXISTS Kapitel (ID INT NOT NULL, lernfachID INT NOT NULL DEFAULT 0,	name CHAR NOT NULL DEFAULT '', nr INT DEFAULT '0',PRIMARY KEY (ID), FOREIGN KEY (lernfachID) REFERENCES Lernfach(ID));",
+					"CREATE TABLE IF NOT EXISTS Lernfach (ID INT NOT NULL ,	name CHAR DEFAULT '', semester INT DEFAULT '0', credits INT DEFAULT '0',dozentenID INT DEFAULT 0, PRIMARY KEY (ID), FOREIGN KEY (dozentenID) REFERENCES Dozent(ID));",
+					"CREATE TABLE IF NOT EXISTS Student (ID INT NOT NULL , name CHAR DEFAULT '', PRIMARY KEY (ID));",
+					"CREATE TABLE IF NOT EXISTS Richtigkeit (ID INT NOT NULL, StudentenID INT DEFAULT '0', FragenID INT DEFAULT '0', richtig INT DEFAULT '0', falsch INT DEFAULT '0', fragenstufe INT DEFAULT '1', PRIMARY KEY (ID, StudentenID, FragenID), FOREIGN KEY (StudentenID) REFERENCES Student(ID),FOREIGN KEY (FragenID) REFERENCES Frage(ID));" };
 
 		for (final String string : createTable)
 			executeQuery(string);
 
 		final String insertFirstData[] = new String[]
-		{ "INSERT INTO Antwort VALUES(1,1,'Bonn',false);", "INSERT INTO Antwort VALUES(2,1,'Köln',false);",
-				"INSERT INTO Antwort VALUES(3,1,'Berlin',true);", "INSERT INTO Antwort VALUES(4,1,'Koblenz',false);",
-				"INSERT INTO Frage VALUES(1,1,'Wie lautet die Hauptstadt der Bundesrepublik Deutschland?',1);",
-				"INSERT INTO Hochschule VALUES(1, 'DHBW Karlsruhe');", "INSERT INTO Kapitel VALUES(1,1,'Deutschland', 1);",
-				"INSERT INTO Dozent VALUES(1,'Freudenmann, Johannes',1);", "INSERT INTO Lernfach VALUES(1,'Erdkunde',1,8,1);",
-				"INSERT INTO Student VALUES(1,'Maul, Johannes');", "INSERT INTO Richtigkeit VALUES(1,1,1,0,1,2);" };
+			{ "INSERT INTO Antwort VALUES(1,1,'Bonn',false);", "INSERT INTO Antwort VALUES(2,1,'Köln',false);",
+					"INSERT INTO Antwort VALUES(3,1,'Berlin',true);", "INSERT INTO Antwort VALUES(4,1,'Koblenz',false);",
+					"INSERT INTO Frage VALUES(1,1,'Wie lautet die Hauptstadt der Bundesrepublik Deutschland?',1);",
+					"INSERT INTO Hochschule VALUES(1, 'DHBW Karlsruhe');", "INSERT INTO Kapitel VALUES(1,1,'Deutschland', 1);",
+					"INSERT INTO Dozent VALUES(1,'Freudenmann, Johannes',1);", "INSERT INTO Lernfach VALUES(1,'Erdkunde',1,8,1);",
+					"INSERT INTO Student VALUES(1,'Maul, Johannes');", "INSERT INTO Richtigkeit VALUES(1,1,1,0,1,2);" };
 
 		for (final String string : insertFirstData)
 			executeQuery(string);

@@ -13,7 +13,7 @@ public interface DatenVerbindung
 
 	DatenVerbindung join(String[] tableName);
 
-	DatenVerbindung where(String whereStatemant);
+	DatenVerbindung where(String tableLeft, String columnLeft, String operator, String tableRight, String columnRight);
 
 	DatenVerbindung and();
 

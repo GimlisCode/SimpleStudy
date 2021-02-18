@@ -2,6 +2,8 @@ package UI;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -11,7 +13,7 @@ import javax.swing.JPanel;
 
 import Controller.MainController;
 
-public class LoginFrame extends JFrame
+public class LoginFrame extends JFrame implements ActionListener
 {
 
 	private JPanel oben = new JPanel();
@@ -36,20 +38,32 @@ public class LoginFrame extends JFrame
 		oben.setLayout(new GridLayout(1, 1));
 
 		lbl_benutzer = new JLabel("Benutzer-ID");
-		cb_benutzer = new JComboBox(MainController.getStudenten().toArray());
+		cb_benutzer = new JComboBox(MainController.getStudenten()
+				.toArray());
 
 		oben.add(lbl_benutzer);
 		oben.add(cb_benutzer);
 
 		login = new JButton("Login");
+		login.addActionListener(this);
 		unten.add(login);
 
-		this.add(intro, BorderLayout.NORTH);
-		this.add(oben, BorderLayout.CENTER);
-		this.add(unten, BorderLayout.SOUTH);
+		this.add(intro,
+				BorderLayout.NORTH);
+		this.add(oben,
+				BorderLayout.CENTER);
+		this.add(unten,
+				BorderLayout.SOUTH);
 
-		this.setSize(350, 200);
+		this.setSize(350,
+				200);
 		this.setVisible(true);
+
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e)
+	{
 
 	}
 

@@ -35,6 +35,7 @@ public class MainController
 			antwortAttribut.setValue(antwortWerte.get(antwortAttribut.getKey()));
 
 		AntwortFabrik.create(antwortAttribute);
+
 	}
 
 	public static void createDozent(HashMap<String, String> dozentWerte)

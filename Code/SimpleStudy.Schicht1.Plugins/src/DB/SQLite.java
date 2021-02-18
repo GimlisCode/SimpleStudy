@@ -17,6 +17,9 @@ public class SQLite implements DatenVerbindung
 	private Connection connection;
 	private final String DB_PATH = "simpleStudy.db";
 	private final static String selectAllStatemant = "Select * From ";
+	private String selectStatement = "";
+	private final ArrayList<String> joinStatement = new ArrayList<>();
+	private String where = "";
 
 	private SQLite()
 	{
@@ -116,13 +119,12 @@ public class SQLite implements DatenVerbindung
 		return null;
 	}
 
-	@Override
-	public ArrayList<HashMap<String, String>> getAllFromTable(String tableName)
+	public ArrayList<HashMap<String, String>> getResultFromQuerry(String sqlQuerry)
 	{
-		final ArrayList<HashMap<String, String>> resultsMapped = new ArrayList();
+		final ArrayList<HashMap<String, String>> resultsMapped = new ArrayList<HashMap<String, String>>();
 		try
 		{
-			final ResultSet selectResults = executeQuery(selectAllStatemant + tableName);
+			final ResultSet selectResults = executeQuery(sqlQuerry);
 			final int anzColumn = selectResults.getMetaData().getColumnCount() + 1;
 
 			while (selectResults.next())
@@ -140,6 +142,56 @@ public class SQLite implements DatenVerbindung
 			e.printStackTrace();
 		}
 		return resultsMapped;
+	}
+
+	@Override
+	public ArrayList<HashMap<String, String>> getAllFromTable(String tableName)
+	{
+		return getResultFromQuerry(selectAllStatemant + tableName);
+	}
+
+	@Override
+	public DatenVerbindung createSelectString(String[] columns, String tableName)
+	{
+		String columnString = "";
+		for (int i = 1; i < columns.length; i++)
+			columnString += columns[i] + ", ";
+		columnString += columns[0];
+		selectStatement = "Select " + columnString + " from " + tableName;
+		return this;
+	}
+
+	public DatenVerbindung join(String[] tableName)
+	{
+		for (final String string : tableName)
+			joinStatement.add(string);
+
+		return this;
+	}
+
+	public DatenVerbindung where(String whereStatemant)
+	{
+		if (where != null && where.isEmpty() && where.isBlank())
+			where = " where ";
+
+		where += whereStatemant;
+		return this;
+	}
+
+	public DatenVerbindung and()
+	{
+		if (where != null && !where.isEmpty() && !where.isBlank())
+			where += " and ";
+
+		return this;
+	}
+
+	public String build()
+	{
+		String finishedQuery = selectStatement;
+		for (final String tableName : joinStatement)
+			finishedQuery += " , " + tableName;
+		return finishedQuery;
 	}
 
 	public void createDB()

@@ -2,20 +2,19 @@ package Renderer;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 
 import Models.Student;
 
 public class StudentenRenderer
 {
 
-	public static ArrayList<HashMap<String, String>> getStudentForView(Collection<Student> studenten)
+	public static ArrayList<PrettyHashMap> getStudentForView(Collection<Student> studenten)
 	{
 
-		ArrayList<HashMap<String, String>> gerenderteStudenten = new ArrayList<>();
+		ArrayList<PrettyHashMap> gerenderteStudenten = new ArrayList<>();
 		for (Student student : studenten)
 		{
-			HashMap<String, String> gerenderterStudent = new HashMap<>();
+			PrettyHashMap gerenderterStudent = new PrettyHashMap();
 			gerenderterStudent.put(Student.idText, student.getId() + "");
 			gerenderterStudent.put(Student.nameText, student.getName());
 
@@ -29,4 +28,5 @@ public class StudentenRenderer
 
 		return gerenderteStudenten;
 	}
+
 }

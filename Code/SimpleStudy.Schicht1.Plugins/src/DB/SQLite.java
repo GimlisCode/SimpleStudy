@@ -144,9 +144,12 @@ public class SQLite implements DatenVerbindung
 			{
 				final HashMap<String, String> attributWertePaarung = new HashMap<String, String>();
 				for (int i = 1; i < anzColumn; i++)
+				{
 					attributWertePaarung.put(selectResults.getMetaData()
 							.getColumnName(i),
 							selectResults.getString(i));
+					System.out.println(selectResults.getString(i));
+				}
 
 				resultsMapped.add(attributWertePaarung);
 			}
@@ -277,7 +280,8 @@ public class SQLite implements DatenVerbindung
 					"INSERT INTO " + Lernfach.class.getSimpleName() + " VALUES(1,'Erdkunde',1,8,1);",
 					"INSERT INTO " + Student.class.getSimpleName() + " VALUES(1,'Maul, Johannes');",
 					"INSERT INTO " + Student.class.getSimpleName() + " VALUES(2,'Lickteig, Simon');",
-					"INSERT INTO " + Statistik.class.getSimpleName() + " VALUES(1,1,1,0,1,2);" };
+					"INSERT INTO " + Statistik.class.getSimpleName() + " VALUES(1,1,1,0,1,2);",
+					"INSERT INTO " + Statistik.class.getSimpleName() + " VALUES(2,2,1,0,1,2);" };
 
 		for (final String string : insertFirstData)
 			executeQuery(string);

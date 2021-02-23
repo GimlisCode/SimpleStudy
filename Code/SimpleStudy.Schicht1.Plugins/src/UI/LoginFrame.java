@@ -16,21 +16,22 @@ import Controller.MainController;
 public class LoginFrame extends JFrame implements ActionListener
 {
 
-	private JPanel oben = new JPanel();
-	private JPanel intro = new JPanel();
-	private JPanel unten = new JPanel();
+	private final JPanel oben = new JPanel();
+	private final JPanel intro = new JPanel();
+	private final JPanel unten = new JPanel();
 
-	private JLabel lbl_intro;
-	private JLabel lbl_benutzer;
+	private final JLabel lbl_intro;
+	private final JLabel lbl_benutzer;
 
-	private JComboBox cb_benutzer;
+	private final JComboBox cb_benutzer;
 
-	private JButton login;
+	private final JButton login;
+	private final JButton neu;
 
 	public LoginFrame()
 	{
 
-		this.setLayout(new BorderLayout());
+		setLayout(new BorderLayout());
 
 		lbl_intro = new JLabel("Willkommen bei SimpleStudy! \n Bitte geben Sie ihre ID ein.");
 		intro.add(lbl_intro);
@@ -45,8 +46,11 @@ public class LoginFrame extends JFrame implements ActionListener
 		oben.add(cb_benutzer);
 
 		login = new JButton("Login");
+		neu = new JButton("Neu");
 		login.addActionListener(this);
+		neu.addActionListener(this);
 		unten.add(login);
+		unten.add(neu);
 
 		this.add(intro,
 				BorderLayout.NORTH);
@@ -57,13 +61,15 @@ public class LoginFrame extends JFrame implements ActionListener
 
 		this.setSize(350,
 				200);
-		this.setVisible(true);
+		setVisible(true);
 
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
+
+		final var benutzer = cb_benutzer.getSelectedItem();
 
 	}
 

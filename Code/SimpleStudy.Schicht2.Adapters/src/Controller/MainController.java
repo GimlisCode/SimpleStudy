@@ -1,11 +1,16 @@
 package Controller;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map.Entry;
 
+import Models.Entity;
 import Modifier.AntwortFabrik;
 import Modifier.DozentenFabrik;
+import Modifier.HochschulFabrik;
+import Modifier.StatistikFabrik;
 import Modifier.StudentenFabrik;
 import Modifier.StudentenVerwaltung;
 import Renderer.PrettyHashMap;
@@ -26,12 +31,14 @@ public class MainController
 		return mainControllerSingleton;
 	}
 
-//	public static void createEntityOf(Class fabrikTyp, HashMap<String, String> classValues)
-//	{
-//		// TODO: herausfinden wie richtiges Switch-Case geht.
-//		createAntwort(classValues);
-//		createDozent(classValues);
-//	}
+	private static int getNewIdFor()
+	{
+		final List<Integer> keyList = new ArrayList<>(StudentenVerwaltung.getAll()
+				.keySet());
+		Collections.sort(keyList);
+		return keyList.get(keyList.size() - 1) + 1;
+
+	}
 
 	public static void createAntwort(HashMap<String, String> antwortWerte)
 	{
@@ -58,13 +65,39 @@ public class MainController
 		for (final Entry<String, String> studentAttribut : studentAttribute.entrySet())
 			studentAttribut.setValue(studentWerte.get(studentAttribut.getKey()));
 
+		final String id = studentAttribute.get(Entity.idText);
+		if (id == null || id.isEmpty())
+			studentAttribute.replace(Entity.idText,
+					getNewIdFor() + "");
+
 		StudentenFabrik.create(studentAttribute);
+	}
+
+	public static void createHochschule(HashMap<String, String> hochschulen)
+	{
+		final var hochschulAttribute = HochschulFabrik.getHochschulAttribute();
+		for (final Entry<String, String> hochschulAttribut : hochschulAttribute.entrySet())
+			hochschulAttribut.setValue(hochschulen.get(hochschulAttribut.getKey())); // TODO: Stilbruch im Namen, durch
+																						// autogenerate
+
+		AntwortFabrik.create(hochschulAttribute);
+	}
+
+	public static void createStatistik(HashMap<String, String> currentNewStatistik)
+	{
+		final var statistikAttribute = StatistikFabrik.getStatistikAttribute();
+		for (final Entry<String, String> statistikAttribut : statistikAttribute.entrySet())
+			statistikAttribut.setValue(currentNewStatistik.get(statistikAttribut.getKey()));
+
+		StatistikFabrik.create(statistikAttribute);
+
 	}
 
 	public static ArrayList<PrettyHashMap> getStudenten()
 	{
 
-		return StudentenRenderer.getStudentForView(StudentenVerwaltung.getAll().values());
+		return StudentenRenderer.getStudentForView(StudentenVerwaltung.getAll()
+				.values());
 	}
 
 }

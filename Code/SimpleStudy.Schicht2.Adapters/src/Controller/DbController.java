@@ -40,8 +40,9 @@ public class DbController
 		final String mainTable = Hochschule.class.getSimpleName();
 		final String joinTable = Dozent.class.getSimpleName();
 		final String mainJoinColum = mainTable + Entity.idText;
-		final String studentenSelect = datenVerbindung.createSelectString(new String[]
-			{ mainTable + "." + Entity.idText, mainTable + "." + Hochschule.nameText, joinTable + "." + Entity.idText },
+		final String select = datenVerbindung.createSelectString(new String[]
+			{ mainTable + "." + Entity.idText, mainTable + "." + Hochschule.nameText,
+					joinTable + "." + Entity.idText + " " + Hochschule.dozentenText },
 				mainTable)
 				.join(new String[]
 				{ joinTable })
@@ -52,7 +53,7 @@ public class DbController
 						mainJoinColum)
 				.build();
 
-		final var alleHochschulen = datenVerbindung.getAllFromTable(Hochschule.class.getSimpleName());
+		final var alleHochschulen = datenVerbindung.getResultFromQuerry(select);
 		for (final HashMap<String, String> hochschulen : alleHochschulen)
 			MainController.createHochschule(hochschulen);
 

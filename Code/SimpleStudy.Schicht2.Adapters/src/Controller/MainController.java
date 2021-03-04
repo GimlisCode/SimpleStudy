@@ -82,7 +82,7 @@ public class MainController
 			hochschulAttribut.setValue(hochschulen.get(hochschulAttribut.getKey())); // TODO: Stilbruch im Namen, durch
 																						// autogenerate
 
-		AntwortFabrik.create(hochschulAttribute);
+		HochschulFabrik.create(hochschulAttribute);
 	}
 
 	public static void createStatistik(HashMap<String, String> currentNewStatistik)

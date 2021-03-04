@@ -30,6 +30,7 @@ public class LoginFrame extends JFrame implements ActionListener
 
 	public LoginFrame()
 	{
+		this.setTitle("Login");
 
 		setLayout(new BorderLayout());
 
@@ -70,6 +71,13 @@ public class LoginFrame extends JFrame implements ActionListener
 	{
 
 		final var benutzer = cb_benutzer.getSelectedItem();
+
+		if (e.getSource()
+				.equals(neu))
+		{
+			this.dispose();
+			UserAnlegenFrame aFrame = new UserAnlegenFrame();
+		}
 
 	}
 

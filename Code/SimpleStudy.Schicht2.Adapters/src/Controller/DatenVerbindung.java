@@ -9,6 +9,8 @@ public interface DatenVerbindung
 
 	ArrayList<HashMap<String, String>> getResultFromQuerry(String sqlQuerry);
 
+	DatenVerbindung createSelectString(String[] columns, String tableName, String option);
+
 	DatenVerbindung createSelectString(String[] columns, String tableName);
 
 	DatenVerbindung join(String[] tableName);

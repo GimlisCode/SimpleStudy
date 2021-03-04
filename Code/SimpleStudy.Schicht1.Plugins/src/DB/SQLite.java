@@ -171,11 +171,22 @@ public class SQLite implements DatenVerbindung
 	@Override
 	public DatenVerbindung createSelectString(String[] columns, String tableName)
 	{
+		return createSelectString(columns,
+				tableName,
+				"");
+	}
+
+	@Override
+	public DatenVerbindung createSelectString(String[] columns, String tableName, String option)
+	{
+		if (option == null)
+			option = "";
+
 		String columnString = "";
 		for (int i = 1; i < columns.length; i++)
 			columnString += columns[i] + ", ";
 		columnString += columns[0];
-		selectStatement = "Select " + columnString + " from " + tableName;
+		selectStatement = "Select " + option + " " + columnString + " from " + tableName;
 		return this;
 	}
 
@@ -274,6 +285,11 @@ public class SQLite implements DatenVerbindung
 					"INSERT INTO " + Antwort.class.getSimpleName() + " VALUES(4,1,'Koblenz',false);",
 					"INSERT INTO " + Frage.class.getSimpleName()
 							+ " VALUES(1,1,'Wie lautet die Hauptstadt der Bundesrepublik Deutschland?',1);",
+					"INSERT INTO " + Antwort.class.getSimpleName() + " VALUES(5,2,'Draußen',false);",
+					"INSERT INTO " + Antwort.class.getSimpleName() + " VALUES(6,2,'Drinnen',true);",
+					"INSERT INTO " + Antwort.class.getSimpleName() + " VALUES(7,2,'In diesem Code',true);",
+					"INSERT INTO " + Antwort.class.getSimpleName() + " VALUES(8,2,'He's still alive!',false);",
+					"INSERT INTO " + Frage.class.getSimpleName() + " VALUES(2,1,'Wo liegt der Hund vergraben?',1);",
 					"INSERT INTO " + Hochschule.class.getSimpleName() + " VALUES(1, 'DHBW Karlsruhe');",
 					"INSERT INTO " + Kapitel.class.getSimpleName() + " VALUES(1,1,'Deutschland', 1);",
 					"INSERT INTO " + Dozent.class.getSimpleName() + " VALUES(1,'Freudenmann, Johannes',1);",
@@ -281,9 +297,11 @@ public class SQLite implements DatenVerbindung
 					"INSERT INTO " + Student.class.getSimpleName() + " VALUES(1,'Maul, Johannes');",
 					"INSERT INTO " + Student.class.getSimpleName() + " VALUES(2,'Lickteig, Simon');",
 					"INSERT INTO " + Statistik.class.getSimpleName() + " VALUES(1,1,1,0,1,2);",
+					"INSERT INTO " + Statistik.class.getSimpleName() + " VALUES(1,1,2,4,2,1);",
 					"INSERT INTO " + Statistik.class.getSimpleName() + " VALUES(2,2,1,0,1,2);" };
 
 		for (final String string : insertFirstData)
 			executeQuery(string);
 	}
+
 }

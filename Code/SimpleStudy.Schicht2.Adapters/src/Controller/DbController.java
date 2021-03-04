@@ -1,12 +1,17 @@
 package Controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import Models.Antwort;
 import Models.Entity;
+
 import Models.Frage;
 import Models.Hochschule;
 import Models.Richtigkeit;
+
+import Models.Hochschule;
+
 import Models.Statistik;
 import Models.Student;
 import Modifier.StatistikFabrik;
@@ -75,12 +80,19 @@ public class DbController
 	private void initializeStatistik()
 	{
 		final var alleStatistiken = datenVerbindung.getAllFromTable(Statistik.class.getSimpleName());
+		final var formatierteStatistiken = new ArrayList<HashMap<String, String>>();
+
+
 		final var alleStatistikIds = datenVerbindung.getResultFromQuerry(datenVerbindung.createSelectString(new String[]
 			{ Entity.idText },
 				Statistik.class.getSimpleName(),
 				"DISTINCT")
 				.build());
+
 		var currentNewStatistik = StatistikFabrik.getStatistikAttribute();
+
+
+		final var currentNewStatistik = StatistikFabrik.getStatistikAttribute();
 
 		for (final HashMap<String, String> statistikId : alleStatistikIds)
 		{
@@ -89,9 +101,13 @@ public class DbController
 					currentId);
 			String richtigkeitText = "";
 
+
+			final var allRichtigkeitenForStatistik = new ArrayList<HashMap<String, String>>();
+
 			for (final HashMap<String, String> statistik : alleStatistiken)
 				if (statistik.get(Entity.idText)
 						.equals(currentId))
+
 
 				{
 					richtigkeitText += statistik.get(Frage.class.getSimpleName() + Entity.idText) + ",";
@@ -107,4 +123,11 @@ public class DbController
 		}
 	}
 
+					currentNewStatistik.put(Statistik.statistikText,
+							richtigkeitText);
+
+		}
+		MainController.createStatistik(currentNewStatistik);
+
+	}
 }

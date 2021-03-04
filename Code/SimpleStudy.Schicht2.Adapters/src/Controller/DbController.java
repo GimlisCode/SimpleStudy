@@ -5,7 +5,9 @@ import java.util.HashMap;
 
 import Models.Antwort;
 import Models.Entity;
+import Models.Frage;
 import Models.Hochschule;
+import Models.Richtigkeit;
 import Models.Statistik;
 import Models.Student;
 import Modifier.StatistikFabrik;
@@ -75,29 +77,36 @@ public class DbController
 	{
 		final var alleStatistiken = datenVerbindung.getAllFromTable(Statistik.class.getSimpleName());
 		final var formatierteStatistiken = new ArrayList<HashMap<String, String>>();
-
 		final var alleStatistikIds = datenVerbindung.getResultFromQuerry(datenVerbindung.createSelectString(new String[]
 			{ Entity.idText },
 				Statistik.class.getSimpleName(),
 				"DISTINCT")
 				.build());
-		final var currentNewStatistik = StatistikFabrik.getStatistikAttribute();
+
+		var currentNewStatistik = StatistikFabrik.getStatistikAttribute();
 		for (final HashMap<String, String> statistikId : alleStatistikIds)
 		{
 			final String currentId = statistikId.get(Entity.idText);
 			currentNewStatistik.put(Entity.idText,
 					currentId);
+			String richtigkeitText = "";
 
 			final var allRichtigkeitenForStatistik = new ArrayList<HashMap<String, String>>();
+
 			for (final HashMap<String, String> statistik : alleStatistiken)
 				if (statistik.get(Entity.idText)
 						.equals(currentId))
+				{
+					richtigkeitText += statistik.get(Frage.class.getSimpleName() + Entity.idText) + ",";
+					richtigkeitText += statistik.get(Richtigkeit.richtigText) + ",";
+					richtigkeitText += statistik.get(Richtigkeit.falschText) + ",";
+					richtigkeitText += statistik.get(Richtigkeit.fragenstufeText) + ";";
+				}
 
-					currentNewStatistik.put(Statistik.statistikText,
-							richtigkeitText);
-
+			currentNewStatistik.put(Statistik.statistikText,
+					richtigkeitText);
+			MainController.createStatistik(currentNewStatistik);
+			currentNewStatistik = StatistikFabrik.getStatistikAttribute();
 		}
-		MainController.createStatistik(currentNewStatistik);
-
 	}
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import Models.Antwort;
+import Models.Dozent;
 import Models.Entity;
 import Models.Frage;
 import Models.Hochschule;
@@ -36,6 +37,21 @@ public class DbController
 
 	private void initializeHochschule()
 	{
+		final String mainTable = Hochschule.class.getSimpleName();
+		final String joinTable = Dozent.class.getSimpleName();
+		final String mainJoinColum = mainTable + Entity.idText;
+		final String studentenSelect = datenVerbindung.createSelectString(new String[]
+			{ mainTable + "." + Entity.idText, mainTable + "." + Hochschule.nameText, joinTable + "." + Entity.idText },
+				mainTable)
+				.join(new String[]
+				{ joinTable })
+				.where(mainTable,
+						Student.idText,
+						"=",
+						joinTable,
+						mainJoinColum)
+				.build();
+
 		final var alleHochschulen = datenVerbindung.getAllFromTable(Hochschule.class.getSimpleName());
 		for (final HashMap<String, String> hochschulen : alleHochschulen)
 			MainController.createHochschule(hochschulen);

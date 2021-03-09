@@ -7,6 +7,7 @@ import Models.Dozent;
 import Models.Entity;
 import Models.Frage;
 import Models.Hochschule;
+import Models.Kapitel;
 import Models.Lernfach;
 import Models.Richtigkeit;
 import Models.Statistik;
@@ -34,6 +35,59 @@ public class DbController
 		initializeStatistik();
 		initializeHochschule();
 		initializeDozent();
+		initializeLernfach();
+		initializeKapitel();
+	}
+
+	private void initializeKapitel()
+	{
+		final String mainTable = Kapitel.class.getSimpleName();
+		final String joinTable = Frage.class.getSimpleName();
+		final String mainJoinColum = mainTable + Entity.idText;
+		final String select = datenVerbindung.createSelectString(new String[]
+			{ mainTable + "." + Entity.idText, mainTable + "." + Kapitel.nameText, mainTable + "." + Kapitel.nrText,
+					"group_concat(" + joinTable + "." + Entity.idText + ", ';') " + Kapitel.fragenText },
+				mainTable)
+				.join(new String[]
+				{ joinTable },
+						JoinType.Left)
+				.on(mainTable,
+						Entity.idText,
+						"=",
+						joinTable,
+						mainJoinColum)
+				.build();
+
+		final var alleKapitel = datenVerbindung.getResultFromQuerry(select);
+		for (final HashMap<String, String> kapitel : alleKapitel)
+			MainController.createKapitel(kapitel);
+
+	}
+
+	private void initializeLernfach()
+	{
+		final String mainTable = Lernfach.class.getSimpleName();
+		final String joinTable = Kapitel.class.getSimpleName();
+		final String mainJoinColum = mainTable + Entity.idText;
+		final String select = datenVerbindung.createSelectString(new String[]
+			{ mainTable + "." + Entity.idText, mainTable + "." + Lernfach.nameText, mainTable + "." + Lernfach.semesterText,
+					mainTable + "." + Entity.idText, mainTable + "." + Lernfach.creditsText,
+					"group_concat(" + joinTable + "." + Entity.idText + ", ';') " + Lernfach.kapitelText },
+				mainTable)
+				.join(new String[]
+				{ joinTable },
+						JoinType.Left)
+				.on(mainTable,
+						Entity.idText,
+						"=",
+						joinTable,
+						mainJoinColum)
+				.build();
+
+		final var alleLernfaecher = datenVerbindung.getResultFromQuerry(select);
+		for (final HashMap<String, String> lernfach : alleLernfaecher)
+			MainController.createLernfach(lernfach);
+
 	}
 
 	private void initializeDozent()
@@ -43,7 +97,7 @@ public class DbController
 		final String mainJoinColum = mainTable + Entity.idText;
 		final String select = datenVerbindung.createSelectString(new String[]
 			{ mainTable + "." + Entity.idText, mainTable + "." + Dozent.nameText,
-					joinTable + "." + Entity.idText + " " + Dozent.kurseText },
+					"group_concat(" + joinTable + "." + Entity.idText + ", ';') " + Dozent.kurseText },
 				mainTable)
 				.join(new String[]
 				{ joinTable },
@@ -68,7 +122,7 @@ public class DbController
 		final String mainJoinColum = mainTable + Entity.idText;
 		final String select = datenVerbindung.createSelectString(new String[]
 			{ mainTable + "." + Entity.idText, mainTable + "." + Hochschule.nameText,
-					joinTable + "." + Entity.idText + " " + Hochschule.dozentenText },
+					"group_concat(" + joinTable + "." + Entity.idText + ", ';')" + Hochschule.dozentenText },
 				mainTable)
 				.join(new String[]
 				{ joinTable },

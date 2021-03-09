@@ -12,6 +12,8 @@ import Modifier.DozentenFabrik;
 import Modifier.DozentenVerwaltung;
 import Modifier.HochschulFabrik;
 import Modifier.HochschulVerwaltung;
+import Modifier.KapitelFabrik;
+import Modifier.LernfachFabrik;
 import Modifier.StatistikFabrik;
 import Modifier.StudentenFabrik;
 import Modifier.StudentenVerwaltung;
@@ -95,6 +97,24 @@ public class MainController
 
 		StatistikFabrik.create(statistikAttribute);
 
+	}
+
+	public static void createLernfach(HashMap<String, String> lernfach)
+	{
+		final var lernfachAttribute = LernfachFabrik.getLernfachAttribute();
+		for (final Entry<String, String> lernfachAttribut : lernfachAttribute.entrySet())
+			lernfachAttribut.setValue(lernfach.get(lernfachAttribut.getKey()));
+
+		LernfachFabrik.create(lernfachAttribute);
+	}
+
+	public static void createKapitel(HashMap<String, String> kapitel)
+	{
+		final var kapitelAttribute = KapitelFabrik.getKaptielAttribute();
+		for (final Entry<String, String> kapitelAttribut : kapitelAttribute.entrySet())
+			kapitelAttribut.setValue(kapitel.get(kapitelAttribut.getKey()));
+
+		KapitelFabrik.create(kapitelAttribute);
 	}
 
 	public static ArrayList<PrettyHashMap> getStudenten()

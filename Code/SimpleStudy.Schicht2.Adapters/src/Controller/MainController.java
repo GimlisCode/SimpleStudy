@@ -12,13 +12,20 @@ import Modifier.DozentenFabrik;
 import Modifier.DozentenVerwaltung;
 import Modifier.HochschulFabrik;
 import Modifier.HochschulVerwaltung;
+
 import Modifier.KapitelFabrik;
 import Modifier.LernfachFabrik;
+
+import Modifier.KapitelVerwaltung;
+import Modifier.LernfachVerwaltung;
+
 import Modifier.StatistikFabrik;
 import Modifier.StudentenFabrik;
 import Modifier.StudentenVerwaltung;
 import Renderer.DozentenRenderer;
 import Renderer.HochschulRenderer;
+import Renderer.KapitelRenderer;
+import Renderer.LernfachRenderer;
 import Renderer.PrettyHashMap;
 import Renderer.StudentenRenderer;
 
@@ -133,6 +140,18 @@ public class MainController
 	public static ArrayList<PrettyHashMap> getDozenten()
 	{
 		return DozentenRenderer.getDozentenForView(DozentenVerwaltung.getAll()
+				.values());
+	}
+
+	public static ArrayList<PrettyHashMap> getLernfaecher()
+	{
+		return LernfachRenderer.getLernfaecherForView(LernfachVerwaltung.getAll()
+				.values());
+	}
+
+	public static ArrayList<PrettyHashMap> getKapitel()
+	{
+		return KapitelRenderer.getKapitelForView(KapitelVerwaltung.getAll()
 				.values());
 	}
 

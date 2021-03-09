@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import Controller.DatenVerbindung;
+import Controller.JoinType;
 import Models.Antwort;
 import Models.Dozent;
 import Models.Frage;
@@ -29,6 +30,7 @@ public class SQLite implements DatenVerbindung
 	private String selectStatement = "";
 	private ArrayList<String> joinStatement = new ArrayList<>();
 	private String where = "";
+	private String on = "";
 
 	private SQLite()
 	{
@@ -185,16 +187,30 @@ public class SQLite implements DatenVerbindung
 		String columnString = "";
 		for (int i = 1; i < columns.length; i++)
 			columnString += columns[i] + ", ";
+
 		columnString += columns[0];
 		selectStatement = "Select " + option + " " + columnString + " from " + tableName;
 		return this;
 	}
 
-	public DatenVerbindung join(String[] tableName)
+	public DatenVerbindung join(String[] tableName, JoinType joinType)
 	{
-		for (final String string : tableName)
-			joinStatement.add(string);
+		if (tableName == null || tableName.length == 0)
+			return null;
 
+		joinStatement.add(joinType.getName() + " " + tableName[0]);
+		for (int i = 1; i < tableName.length; i++)
+			joinStatement.add(tableName[i]);
+
+		return this;
+	}
+
+	public DatenVerbindung on(String tableLeft, String columnLeft, String operator, String tableRight, String columnRight)
+	{
+		if (on != null && on.isEmpty() && on.isBlank())
+			on = " on ";
+
+		on += tableLeft + "." + columnLeft + " " + operator + " " + tableRight + "." + columnRight;
 		return this;
 	}
 
@@ -218,14 +234,27 @@ public class SQLite implements DatenVerbindung
 	public String build()
 	{
 		String finishedQuery = selectStatement;
+
+		boolean setComma = true;
+		if (joinStatement.size() > 0)
+			setComma = false;
+
 		for (final String tableName : joinStatement)
-			finishedQuery += " , " + tableName;
+		{
+			finishedQuery += " " + tableName;
+			if (!setComma)
+				setComma = true;
+			else
+				finishedQuery += ",";
+		}
+		finishedQuery += on;
 
 		finishedQuery += where;
 
 		selectStatement = "";
 		joinStatement = new ArrayList<String>();
 		where = "";
+		on = "";
 		return finishedQuery;
 	}
 
@@ -293,15 +322,14 @@ public class SQLite implements DatenVerbindung
 					"INSERT INTO " + Hochschule.class.getSimpleName() + " VALUES(1, 'DHBW Karlsruhe');",
 					"INSERT INTO " + Kapitel.class.getSimpleName() + " VALUES(1,1,'Deutschland', 1);",
 					"INSERT INTO " + Dozent.class.getSimpleName() + " VALUES(1,'Freudenmann, Johannes',1);",
+					"INSERT INTO " + Dozent.class.getSimpleName() + " VALUES(2,'Lindner, the Best, Daniel',1);",
 					"INSERT INTO " + Lernfach.class.getSimpleName() + " VALUES(1,'Erdkunde',1,8,1);",
 					"INSERT INTO " + Student.class.getSimpleName() + " VALUES(1,'Maul, Johannes');",
 					"INSERT INTO " + Student.class.getSimpleName() + " VALUES(2,'Lickteig, Simon');",
 					"INSERT INTO " + Statistik.class.getSimpleName() + " VALUES(1,1,1,0,1,2);",
-					"INSERT INTO " + Statistik.class.getSimpleName() + " VALUES(1,1,2,4,2,1);",
-					"INSERT INTO " + Statistik.class.getSimpleName() + " VALUES(2,2,1,0,1,2);" };
+					"INSERT INTO " + Statistik.class.getSimpleName() + " VALUES(1,1,2,4,2,1);" };
 
 		for (final String string : insertFirstData)
 			executeQuery(string);
 	}
-
 }

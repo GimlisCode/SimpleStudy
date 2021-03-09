@@ -41,11 +41,11 @@ public class MainFrame extends JFrame
 	private JPanel pnl_mitte;
 	private JPanel pnl_fuss;
 
-	private JMenuBar menu;
-	private JMenu datei;
-	private JMenu suche;
-	private JMenu ueber;
-	private JMenu beenden;
+	private final JMenuBar menu;
+	private final JMenu datei;
+	private final JMenu suche;
+	private final JMenu ueber;
+	private final JMenu beenden;
 
 	private JScrollPane scr_liste;
 
@@ -78,11 +78,11 @@ public class MainFrame extends JFrame
 	public MainFrame()
 	{
 
-		this.setTitle("Simple Study");
-		Dimension screen = Toolkit.getDefaultToolkit()
+		setTitle("Simple Study");
+		final Dimension screen = Toolkit.getDefaultToolkit()
 				.getScreenSize();
 		this.setSize(screen);
-		this.setLayout(new BorderLayout());
+		setLayout(new BorderLayout());
 		pnl_kopf = new JPanel();
 		pnl_oben = new JPanel(new BorderLayout());
 
@@ -92,12 +92,12 @@ public class MainFrame extends JFrame
 		pnl_oben.add(pnl_kopf,
 				BorderLayout.PAGE_START);
 
-		// Menüleiste
+		// Menï¿½leiste
 		pnl_menu = new JPanel();
 		menu = new JMenuBar();
 		datei = new JMenu("Datei");
 		suche = new JMenu("Suche");
-		ueber = new JMenu("Über");
+		ueber = new JMenu("ï¿½ber");
 		beenden = new JMenu("Beenden");
 
 		menu.add(datei);
@@ -128,7 +128,7 @@ public class MainFrame extends JFrame
 
 		lbl_hochschule = new JLabel("Hochschulen");
 		lbl_dozent = new JLabel("Dozenten");
-		lbl_lernfach = new JLabel("Lernfächer");
+		lbl_lernfach = new JLabel("Lernfï¿½cher");
 		lbl_kapitel = new JLabel("Kapitel");
 		lbl_fragen = new JLabel("Fragen");
 
@@ -156,13 +156,13 @@ public class MainFrame extends JFrame
 		pnl_listen.add(kapitelliste);
 		pnl_listen.add(fragenliste);
 
-		// Buttons für die Auswahllisten
+		// Buttons fï¿½r die Auswahllisten
 
 		// Hochschule
 
 		btn_hoch_neu = new JButton("Neu");
 		btn_hoch_bear = new JButton("Bearbeiten");
-		btn_hoch_del = new JButton("Löschen");
+		btn_hoch_del = new JButton("Lï¿½schen");
 
 		pnl_hoch_btn.add(btn_hoch_neu);
 		pnl_hoch_btn.add(btn_hoch_bear);
@@ -172,17 +172,17 @@ public class MainFrame extends JFrame
 
 		btn_doz_neu = new JButton("Neu");
 		btn_doz_bear = new JButton("Bearbeiten");
-		btn_doz_del = new JButton("Löschen");
+		btn_doz_del = new JButton("Lï¿½schen");
 
 		pnl_doz_btn.add(btn_doz_neu);
 		pnl_doz_btn.add(btn_doz_bear);
 		pnl_doz_btn.add(btn_doz_del);
 
-		// Lernfächer
+		// Lernfï¿½cher
 
 		btn_lern_neu = new JButton("Neu");
 		btn_lern_bear = new JButton("Bearbeiten");
-		btn_lern_del = new JButton("Löschen");
+		btn_lern_del = new JButton("Lï¿½schen");
 
 		pnl_lern_btn.add(btn_lern_neu);
 		pnl_lern_btn.add(btn_lern_bear);
@@ -192,7 +192,7 @@ public class MainFrame extends JFrame
 
 		btn_kap_neu = new JButton("Neu");
 		btn_kap_bear = new JButton("Bearbeiten");
-		btn_kap_del = new JButton("Löschen");
+		btn_kap_del = new JButton("Lï¿½schen");
 
 		pnl_kap_btn.add(btn_kap_neu);
 		pnl_kap_btn.add(btn_kap_bear);
@@ -202,7 +202,7 @@ public class MainFrame extends JFrame
 
 		btn_frag_neu = new JButton("Neu");
 		btn_frag_bear = new JButton("Bearbeiten");
-		btn_frag_del = new JButton("Löschen");
+		btn_frag_del = new JButton("Lï¿½schen");
 
 		pnl_frag_btn.add(btn_frag_neu);
 		pnl_frag_btn.add(btn_frag_bear);
@@ -232,14 +232,14 @@ public class MainFrame extends JFrame
 				BorderLayout.CENTER);
 		this.add(pnl_fuss,
 				BorderLayout.SOUTH);
-		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		this.setVisible(true);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setVisible(true);
 
-		listenfüllen();
+		listenfï¿½llen();
 
 	}
 
-	public void listenfüllen()
+	public void listenfï¿½llen()
 	{
 
 	}

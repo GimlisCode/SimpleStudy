@@ -4,64 +4,69 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
-import Models.Entity;
 import Models.Lernfach;
-import Models.Student;
 
-public class LernfachVerwaltung {
+public class LernfachVerwaltung
+{
 
-static private HashMap<Integer, Lernfach> lernfaecher = new HashMap<>();
-static private LernfachVerwaltung lernfachVerwaltungSingleton = new LernfachVerwaltung();
+	static private HashMap<Integer, Lernfach> lernfaecher = new HashMap<>();
+	static private LernfachVerwaltung lernfachVerwaltungSingleton = new LernfachVerwaltung();
 
-	private LernfachVerwaltung() {
-	 super();
+	private LernfachVerwaltung()
+	{
+		super();
 	}
-	
-	public static LernfachVerwaltung getInstance() {
+
+	public static LernfachVerwaltung getInstance()
+	{
 		return lernfachVerwaltungSingleton;
 	}
-	
+
 	static Lernfach get(int id)
-	{		
+	{
 		return lernfaecher.get(id);
 	}
-	
-	static HashMap<Integer, Lernfach> getAll()
+
+	public static HashMap<Integer, Lernfach> getAll()
 	{
 		return lernfaecher;
 	}
-	
+
 	static void add(Lernfach lernfach)
-	{		
-		lernfaecher.put(lernfach.getId(), lernfach);		
+	{
+		lernfaecher.put(lernfach.getId(),
+				lernfach);
 	}
-		
+
 	static void remove(Lernfach lernfach)
-	{		
-		remove(lernfach.getId());				
+	{
+		remove(lernfach.getId());
 	}
-	
+
 	static void remove(int id)
-	{		
-		lernfaecher.remove(id);				
+	{
+		lernfaecher.remove(id);
 	}
-	
+
 	static void update(Lernfach lernfach)
-	{		
-		lernfaecher.put(lernfach.getId(), lernfach);		
+	{
+		lernfaecher.put(lernfach.getId(),
+				lernfach);
 	}
-	
+
 	static ArrayList<Lernfach> suche(String suchstring)
 	{
 		ArrayList<Lernfach> passendeLernfaecherZumSuchstring = new ArrayList<>();
-		for (Entry<Integer, Lernfach> student : lernfaecher.entrySet()) 
-			if (student.getValue().toString().contains(suchstring)) 
-				passendeLernfaecherZumSuchstring.add(student.getValue());				
-			
+		for (Entry<Integer, Lernfach> student : lernfaecher.entrySet())
+			if (student.getValue()
+					.toString()
+					.contains(suchstring))
+				passendeLernfaecherZumSuchstring.add(student.getValue());
+
 		if (passendeLernfaecherZumSuchstring.size() > 0)
 			return passendeLernfaecherZumSuchstring;
-		
-		return null;			
+
+		return null;
 	}
 
 }

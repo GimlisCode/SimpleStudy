@@ -97,7 +97,7 @@ public class MainFrame extends JFrame
 		menu = new JMenuBar();
 		datei = new JMenu("Datei");
 		suche = new JMenu("Suche");
-		ueber = new JMenu("�ber");
+		ueber = new JMenu("Ueber");
 		beenden = new JMenu("Beenden");
 
 		menu.add(datei);
@@ -128,7 +128,7 @@ public class MainFrame extends JFrame
 
 		lbl_hochschule = new JLabel("Hochschulen");
 		lbl_dozent = new JLabel("Dozenten");
-		lbl_lernfach = new JLabel("Lernf�cher");
+		lbl_lernfach = new JLabel("Lernfaecher");
 		lbl_kapitel = new JLabel("Kapitel");
 		lbl_fragen = new JLabel("Fragen");
 
@@ -144,9 +144,11 @@ public class MainFrame extends JFrame
 		dozentenliste = new JList<>(MainController.getDozenten()
 				.toArray());
 
-		lernfachliste = new JList<>();
+		lernfachliste = new JList<>(MainController.getLernfaecher()
+				.toArray());
 
-		kapitelliste = new JList<>();
+		kapitelliste = new JList<>(MainController.getKapitel()
+				.toArray());
 
 		fragenliste = new JList<>();
 
@@ -156,13 +158,13 @@ public class MainFrame extends JFrame
 		pnl_listen.add(kapitelliste);
 		pnl_listen.add(fragenliste);
 
-		// Buttons f�r die Auswahllisten
+		// Buttons fuer die Auswahllisten
 
 		// Hochschule
 
 		btn_hoch_neu = new JButton("Neu");
 		btn_hoch_bear = new JButton("Bearbeiten");
-		btn_hoch_del = new JButton("L�schen");
+		btn_hoch_del = new JButton("Loeschen");
 
 		pnl_hoch_btn.add(btn_hoch_neu);
 		pnl_hoch_btn.add(btn_hoch_bear);
@@ -172,7 +174,7 @@ public class MainFrame extends JFrame
 
 		btn_doz_neu = new JButton("Neu");
 		btn_doz_bear = new JButton("Bearbeiten");
-		btn_doz_del = new JButton("L�schen");
+		btn_doz_del = new JButton("Loeschen");
 
 		pnl_doz_btn.add(btn_doz_neu);
 		pnl_doz_btn.add(btn_doz_bear);
@@ -182,7 +184,7 @@ public class MainFrame extends JFrame
 
 		btn_lern_neu = new JButton("Neu");
 		btn_lern_bear = new JButton("Bearbeiten");
-		btn_lern_del = new JButton("L�schen");
+		btn_lern_del = new JButton("Loeschen");
 
 		pnl_lern_btn.add(btn_lern_neu);
 		pnl_lern_btn.add(btn_lern_bear);
@@ -192,7 +194,7 @@ public class MainFrame extends JFrame
 
 		btn_kap_neu = new JButton("Neu");
 		btn_kap_bear = new JButton("Bearbeiten");
-		btn_kap_del = new JButton("L�schen");
+		btn_kap_del = new JButton("Loeschen");
 
 		pnl_kap_btn.add(btn_kap_neu);
 		pnl_kap_btn.add(btn_kap_bear);
@@ -202,7 +204,7 @@ public class MainFrame extends JFrame
 
 		btn_frag_neu = new JButton("Neu");
 		btn_frag_bear = new JButton("Bearbeiten");
-		btn_frag_del = new JButton("L�schen");
+		btn_frag_del = new JButton("Loeschen");
 
 		pnl_frag_btn.add(btn_frag_neu);
 		pnl_frag_btn.add(btn_frag_bear);
@@ -234,13 +236,6 @@ public class MainFrame extends JFrame
 				BorderLayout.SOUTH);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
-
-		listenf�llen();
-
-	}
-
-	public void listenf�llen()
-	{
 
 	}
 

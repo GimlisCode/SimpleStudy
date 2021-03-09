@@ -13,7 +13,7 @@ public interface DatenVerbindung
 
 	DatenVerbindung createSelectString(String[] columns, String tableName);
 
-	DatenVerbindung join(String[] tableName);
+	DatenVerbindung join(String[] tableName, JoinType joinyType);
 
 	DatenVerbindung where(String tableLeft, String columnLeft, String operator, String tableRight, String columnRight);
 

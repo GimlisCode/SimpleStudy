@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import Controller.DatenVerbindung;
+import Controller.JoinType;
 import Models.Antwort;
 import Models.Dozent;
 import Models.Frage;
@@ -185,15 +186,20 @@ public class SQLite implements DatenVerbindung
 		String columnString = "";
 		for (int i = 1; i < columns.length; i++)
 			columnString += columns[i] + ", ";
+
 		columnString += columns[0];
 		selectStatement = "Select " + option + " " + columnString + " from " + tableName;
 		return this;
 	}
 
-	public DatenVerbindung join(String[] tableName)
+	public DatenVerbindung join(String[] tableName, JoinType joinType)
 	{
-		for (final String string : tableName)
-			joinStatement.add(string);
+		if (tableName == null || tableName.length == 0)
+			return null;
+
+		joinStatement.add(joinType.getName() + " " + tableName[0]);
+		for (int i = 1; i < tableName.length; i++)
+			joinStatement.add(tableName[i]);
 
 		return this;
 	}
@@ -218,8 +224,19 @@ public class SQLite implements DatenVerbindung
 	public String build()
 	{
 		String finishedQuery = selectStatement;
+
+		boolean setComma = true;
+		if (joinStatement.size() > 0)
+			setComma = false;
+
 		for (final String tableName : joinStatement)
-			finishedQuery += " , " + tableName;
+		{
+			finishedQuery += " " + tableName;
+			if (!setComma)
+				setComma = true;
+			else
+				finishedQuery += ",";
+		}
 
 		finishedQuery += where;
 
@@ -297,8 +314,7 @@ public class SQLite implements DatenVerbindung
 					"INSERT INTO " + Student.class.getSimpleName() + " VALUES(1,'Maul, Johannes');",
 					"INSERT INTO " + Student.class.getSimpleName() + " VALUES(2,'Lickteig, Simon');",
 					"INSERT INTO " + Statistik.class.getSimpleName() + " VALUES(1,1,1,0,1,2);",
-					"INSERT INTO " + Statistik.class.getSimpleName() + " VALUES(1,1,2,4,2,1);",
-					"INSERT INTO " + Statistik.class.getSimpleName() + " VALUES(2,2,1,0,1,2);" };
+					"INSERT INTO " + Statistik.class.getSimpleName() + " VALUES(1,1,2,4,2,1);" };
 
 		for (final String string : insertFirstData)
 			executeQuery(string);

@@ -22,36 +22,36 @@ public class MainFrame extends JFrame
 {
 
 	// Attribute
-	private JLabel lbl_titel;
+	private final JLabel lbl_titel;
 
-	private JPanel pnl_menu;
-	private JPanel pnl_kopf;
-	private JPanel pnl_oben;
-	private JPanel pnl_listen;
-	private JPanel pnl_fuss;
+	private final JPanel pnl_menu;
+	private final JPanel pnl_kopf;
+	private final JPanel pnl_oben;
+	private final JPanel pnl_listen;
+	private final JPanel pnl_fuss;
 
-	private JMenuBar menu;
-	private JMenu datei;
-	private JMenu suche;
-	private JMenu ueber;
-	private JMenu beenden;
+	private final JMenuBar menu;
+	private final JMenu datei;
+	private final JMenu suche;
+	private final JMenu ueber;
+	private final JMenu beenden;
 
 	private JScrollPane scr_liste;
 
-	private SimpleListComponent slc_hochschule;
-	private SimpleListComponent slc_dozenten;
-	private SimpleListComponent slc_lernfachListe;
-	private SimpleListComponent slc_kapitelListe;
-	private SimpleListComponent slc_fragenListe;
+	private final SimpleListComponent slc_hochschule;
+	private final SimpleListComponent slc_dozenten;
+	private final SimpleListComponent slc_lernfachListe;
+	private final SimpleListComponent slc_kapitelListe;
+	private final SimpleListComponent slc_fragenListe;
 
 	public MainFrame()
 	{
 
-		this.setTitle("Simple Study");
-		Dimension screen = Toolkit.getDefaultToolkit()
+		setTitle("Simple Study");
+		final Dimension screen = Toolkit.getDefaultToolkit()
 				.getScreenSize();
 		this.setSize(screen);
-		this.setLayout(new BorderLayout());
+		setLayout(new BorderLayout());
 		pnl_kopf = new JPanel();
 		pnl_oben = new JPanel(new BorderLayout());
 
@@ -114,7 +114,7 @@ public class MainFrame extends JFrame
 
 		// Hochschule
 
-		ButtonElement[] bte_hoch = new ButtonElement[]
+		final ButtonElement[] bte_hoch = new ButtonElement[]
 			{ ButtonElement.builder("BTN_Neu")
 					.buttonText("Neu")
 					.type(ButtonElement.Type.BUTTON)
@@ -133,7 +133,7 @@ public class MainFrame extends JFrame
 
 		// Dozenten
 
-		ButtonElement[] bte_doz = new ButtonElement[]
+		final ButtonElement[] bte_doz = new ButtonElement[]
 			{ ButtonElement.builder("BTN_Neu")
 					.buttonText("Neu")
 					.type(ButtonElement.Type.BUTTON)
@@ -152,7 +152,7 @@ public class MainFrame extends JFrame
 
 		// Lernfächer
 
-		ButtonElement[] bte_lf = new ButtonElement[]
+		final ButtonElement[] bte_lf = new ButtonElement[]
 			{ ButtonElement.builder("BTN_Neu")
 					.buttonText("Neu")
 					.type(ButtonElement.Type.BUTTON)
@@ -170,7 +170,7 @@ public class MainFrame extends JFrame
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
 		// Kapitel
-		ButtonElement[] bte_kap = new ButtonElement[]
+		final ButtonElement[] bte_kap = new ButtonElement[]
 			{ ButtonElement.builder("BTN_Neu")
 					.buttonText("Neu")
 					.type(ButtonElement.Type.BUTTON)
@@ -188,7 +188,7 @@ public class MainFrame extends JFrame
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
 		// Fragen
-		ButtonElement[] bte_frag = new ButtonElement[]
+		final ButtonElement[] bte_frag = new ButtonElement[]
 			{ ButtonElement.builder("BTN_Neu")
 					.buttonText("Neu")
 					.type(ButtonElement.Type.BUTTON)
@@ -206,31 +206,31 @@ public class MainFrame extends JFrame
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
 		// ButtonComponent
-		ButtonComponent btncomp_hoch = ButtonComponent.builder("Hochschule")
+		final ButtonComponent btncomp_hoch = ButtonComponent.builder("Hochschule")
 				.buttonElements(bte_hoch)
 				.embeddedComponent(slc_hochschule)
 				.position(ButtonComponent.Position.SOUTH)
 				.build();
 
-		ButtonComponent btncomp_doz = ButtonComponent.builder("Hochschule")
+		final ButtonComponent btncomp_doz = ButtonComponent.builder("Hochschule")
 				.buttonElements(bte_doz)
 				.embeddedComponent(slc_dozenten)
 				.position(ButtonComponent.Position.SOUTH)
 				.build();
 
-		ButtonComponent btncomp_lf = ButtonComponent.builder("Lernfach")
+		final ButtonComponent btncomp_lf = ButtonComponent.builder("Lernfach")
 				.buttonElements(bte_lf)
 				.embeddedComponent(slc_lernfachListe)
 				.position(ButtonComponent.Position.SOUTH)
 				.build();
 
-		ButtonComponent btncomp_kap = ButtonComponent.builder("Lernfach")
+		final ButtonComponent btncomp_kap = ButtonComponent.builder("Lernfach")
 				.buttonElements(bte_kap)
 				.embeddedComponent(slc_kapitelListe)
 				.position(ButtonComponent.Position.SOUTH)
 				.build();
 
-		ButtonComponent btncomp_frag = ButtonComponent.builder("Lernfach")
+		final ButtonComponent btncomp_frag = ButtonComponent.builder("Lernfach")
 				.buttonElements(bte_frag)
 				.embeddedComponent(slc_fragenListe)
 				.position(ButtonComponent.Position.SOUTH)
@@ -252,8 +252,8 @@ public class MainFrame extends JFrame
 				BorderLayout.CENTER);
 		this.add(pnl_fuss,
 				BorderLayout.SOUTH);
-		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		this.setVisible(true);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setVisible(true);
 
 	}
 

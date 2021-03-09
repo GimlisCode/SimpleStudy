@@ -1,6 +1,5 @@
 package Controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import Models.Antwort;
@@ -45,7 +44,8 @@ public class DbController
 					joinTable + "." + Entity.idText + " " + Hochschule.dozentenText },
 				mainTable)
 				.join(new String[]
-				{ joinTable })
+				{ joinTable },
+						JoinType.Left)
 				.where(mainTable,
 						Student.idText,
 						"=",
@@ -77,7 +77,8 @@ public class DbController
 					Statistik.class.getSimpleName() + "." + Statistik.idText + " " + Student.statistikText },
 				Student.class.getSimpleName())
 				.join(new String[]
-				{ Statistik.class.getSimpleName() })
+				{ Statistik.class.getSimpleName() },
+						JoinType.Left)
 				.where(mainTable,
 						Student.idText,
 						"=",
@@ -93,7 +94,6 @@ public class DbController
 	private void initializeStatistik()
 	{
 		final var alleStatistiken = datenVerbindung.getAllFromTable(Statistik.class.getSimpleName());
-		final var formatierteStatistiken = new ArrayList<HashMap<String, String>>();
 		final var alleStatistikIds = datenVerbindung.getResultFromQuerry(datenVerbindung.createSelectString(new String[]
 			{ Entity.idText },
 				Statistik.class.getSimpleName(),
@@ -106,10 +106,8 @@ public class DbController
 			final String currentId = statistikId.get(Entity.idText);
 			currentNewStatistik.put(Entity.idText,
 					currentId);
+
 			String richtigkeitText = "";
-
-			final var allRichtigkeitenForStatistik = new ArrayList<HashMap<String, String>>();
-
 			for (final HashMap<String, String> statistik : alleStatistiken)
 				if (statistik.get(Entity.idText)
 						.equals(currentId))

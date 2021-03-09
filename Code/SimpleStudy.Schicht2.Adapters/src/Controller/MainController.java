@@ -9,11 +9,13 @@ import java.util.Map.Entry;
 import Models.Entity;
 import Modifier.AntwortFabrik;
 import Modifier.DozentenFabrik;
+import Modifier.DozentenVerwaltung;
 import Modifier.HochschulFabrik;
 import Modifier.HochschulVerwaltung;
 import Modifier.StatistikFabrik;
 import Modifier.StudentenFabrik;
 import Modifier.StudentenVerwaltung;
+import Renderer.DozentenRenderer;
 import Renderer.HochschulRenderer;
 import Renderer.PrettyHashMap;
 import Renderer.StudentenRenderer;
@@ -105,6 +107,12 @@ public class MainController
 	public static ArrayList<PrettyHashMap> getHochschulen()
 	{
 		return HochschulRenderer.getHochschuleForView(HochschulVerwaltung.getAll()
+				.values());
+	}
+
+	public static ArrayList<PrettyHashMap> getDozenten()
+	{
+		return DozentenRenderer.getDozentenForView(DozentenVerwaltung.getAll()
 				.values());
 	}
 

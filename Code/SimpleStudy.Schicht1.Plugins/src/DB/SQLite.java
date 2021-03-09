@@ -30,6 +30,7 @@ public class SQLite implements DatenVerbindung
 	private String selectStatement = "";
 	private ArrayList<String> joinStatement = new ArrayList<>();
 	private String where = "";
+	private String on = "";
 
 	private SQLite()
 	{
@@ -204,6 +205,15 @@ public class SQLite implements DatenVerbindung
 		return this;
 	}
 
+	public DatenVerbindung on(String tableLeft, String columnLeft, String operator, String tableRight, String columnRight)
+	{
+		if (on != null && on.isEmpty() && on.isBlank())
+			on = " on ";
+
+		on += tableLeft + "." + columnLeft + " " + operator + " " + tableRight + "." + columnRight;
+		return this;
+	}
+
 	public DatenVerbindung where(String tableLeft, String columnLeft, String operator, String tableRight, String columnRight)
 	{
 		if (where != null && where.isEmpty() && where.isBlank())
@@ -237,12 +247,14 @@ public class SQLite implements DatenVerbindung
 			else
 				finishedQuery += ",";
 		}
+		finishedQuery += on;
 
 		finishedQuery += where;
 
 		selectStatement = "";
 		joinStatement = new ArrayList<String>();
 		where = "";
+		on = "";
 		return finishedQuery;
 	}
 
@@ -310,6 +322,7 @@ public class SQLite implements DatenVerbindung
 					"INSERT INTO " + Hochschule.class.getSimpleName() + " VALUES(1, 'DHBW Karlsruhe');",
 					"INSERT INTO " + Kapitel.class.getSimpleName() + " VALUES(1,1,'Deutschland', 1);",
 					"INSERT INTO " + Dozent.class.getSimpleName() + " VALUES(1,'Freudenmann, Johannes',1);",
+					"INSERT INTO " + Dozent.class.getSimpleName() + " VALUES(2,'Lindner, the Best, Daniel',1);",
 					"INSERT INTO " + Lernfach.class.getSimpleName() + " VALUES(1,'Erdkunde',1,8,1);",
 					"INSERT INTO " + Student.class.getSimpleName() + " VALUES(1,'Maul, Johannes');",
 					"INSERT INTO " + Student.class.getSimpleName() + " VALUES(2,'Lickteig, Simon');",
@@ -319,5 +332,4 @@ public class SQLite implements DatenVerbindung
 		for (final String string : insertFirstData)
 			executeQuery(string);
 	}
-
 }

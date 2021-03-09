@@ -17,6 +17,8 @@ public interface DatenVerbindung
 
 	DatenVerbindung where(String tableLeft, String columnLeft, String operator, String tableRight, String columnRight);
 
+	DatenVerbindung on(String tableLeft, String columnLeft, String operator, String tableRight, String columnRight);
+
 	DatenVerbindung and();
 
 	String build();

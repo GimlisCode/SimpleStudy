@@ -7,6 +7,7 @@ import Models.Dozent;
 import Models.Entity;
 import Models.Frage;
 import Models.Hochschule;
+import Models.Lernfach;
 import Models.Richtigkeit;
 import Models.Statistik;
 import Models.Student;
@@ -30,8 +31,34 @@ public class DbController
 		// MainController.createDozent(dozent);
 		initializeAntwort();
 		initializeStudent();
-		initializeHochschule();
 		initializeStatistik();
+		initializeHochschule();
+		initializeDozent();
+	}
+
+	private void initializeDozent()
+	{
+		final String mainTable = Dozent.class.getSimpleName();
+		final String joinTable = Lernfach.class.getSimpleName();
+		final String mainJoinColum = mainTable + Entity.idText;
+		final String select = datenVerbindung.createSelectString(new String[]
+			{ mainTable + "." + Entity.idText, mainTable + "." + Dozent.nameText,
+					joinTable + "." + Entity.idText + " " + Dozent.kurseText },
+				mainTable)
+				.join(new String[]
+				{ joinTable },
+						JoinType.Left)
+				.on(mainTable,
+						Entity.idText,
+						"=",
+						joinTable,
+						mainJoinColum)
+				.build();
+
+		final var alleDozenten = datenVerbindung.getResultFromQuerry(select);
+		for (final HashMap<String, String> dozent : alleDozenten)
+			MainController.createDozent(dozent);
+
 	}
 
 	private void initializeHochschule()
@@ -46,8 +73,8 @@ public class DbController
 				.join(new String[]
 				{ joinTable },
 						JoinType.Left)
-				.where(mainTable,
-						Student.idText,
+				.on(mainTable,
+						Entity.idText,
 						"=",
 						joinTable,
 						mainJoinColum)
@@ -79,7 +106,7 @@ public class DbController
 				.join(new String[]
 				{ Statistik.class.getSimpleName() },
 						JoinType.Left)
-				.where(mainTable,
+				.on(mainTable,
 						Student.idText,
 						"=",
 						joinTable,

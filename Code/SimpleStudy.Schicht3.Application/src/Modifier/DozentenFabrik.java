@@ -27,10 +27,11 @@ public class DozentenFabrik
 
 	public static HashMap<String, String> getDozentAttribute()
 	{
-		HashMap<String, String> dozentAttribute = new HashMap<>();
-		String[] attributNamen = neuerDozent.getAttributeNames();
-		for (String attributName : attributNamen)
-			dozentAttribute.put(attributName, "");
+		final HashMap<String, String> dozentAttribute = new HashMap<>();
+		final String[] attributNamen = neuerDozent.getAttributeNames();
+		for (final String attributName : attributNamen)
+			dozentAttribute.put(attributName,
+					"");
 
 		return dozentAttribute;
 	}
@@ -39,31 +40,33 @@ public class DozentenFabrik
 	{
 		neuerDozent.setId(Integer.parseInt(dozentAttribute.get(Dozent.idText)));
 		neuerDozent.setName(dozentAttribute.get(Dozent.nameText));
-		String[] alleKursId = dozentAttribute.get(Dozent.kurseText).split(";");
-		for (String kursId : alleKursId)
-		{
-			Lernfach fach = LernfachVerwaltung.get(Integer.parseInt(kursId));
-			if (fach != null)
-			{
-				neuerDozent.addKurs(fach);
-			}
-			else
-			{
-				lernfachReferenzen.add(new Tupel<>(neuerDozent.getId(), Integer.parseInt(kursId)));
-			}
 
+		final String kursIds = dozentAttribute.get(Dozent.kurseText);
+		if (kursIds != null)
+		{
+			final String[] alleKursId = kursIds.split(";");
+			for (final String kursId : alleKursId)
+			{
+				final Lernfach fach = LernfachVerwaltung.get(Integer.parseInt(kursId));
+				if (fach != null)
+					neuerDozent.addKurs(fach);
+				else
+					lernfachReferenzen.add(new Tupel<>(neuerDozent.getId(), Integer.parseInt(kursId)));
+			}
 		}
+
 		dozentenVerwaltung.add(neuerDozent);
 		neuerDozent = new Dozent(null, null);
 	}
 
 	public static void resolveReferences()
 	{
-		for (Tupel<Integer, Integer> tupel : lernfachReferenzen)
+		for (final Tupel<Integer, Integer> tupel : lernfachReferenzen)
 		{
-			Lernfach fach = LernfachVerwaltung.get(tupel.y);
+			final Lernfach fach = LernfachVerwaltung.get(tupel.y);
 			if (fach != null)
-				dozentenVerwaltung.get(tupel.x).addKurs(fach);
+				dozentenVerwaltung.get(tupel.x)
+						.addKurs(fach);
 			// else
 			// throw error ask User
 

@@ -102,7 +102,8 @@ public class DbController
 		final String studentenSelect = datenVerbindung.createSelectString(new String[]
 			{ mainTable + "." + Student.idText, Student.nameText,
 					Statistik.class.getSimpleName() + "." + Statistik.idText + " " + Student.statistikText },
-				Student.class.getSimpleName())
+				Student.class.getSimpleName(),
+				"DISTINCT")
 				.join(new String[]
 				{ Statistik.class.getSimpleName() },
 						JoinType.Left)

@@ -9,7 +9,7 @@ import Models.Frage;
 public class FragenFabrik
 {
 
-	private static Frage neueFrage = new Frage(null, 0, null);
+	private static Frage neueFrage = new Frage(null, 0);
 	private static FragenVerwaltung fragenVerwaltung;
 	private static FragenFabrik fragenFabrikSingleton = new FragenFabrik();
 	private static ArrayList<Tupel<Integer, Integer>> antwortReferenzen = new ArrayList<>();
@@ -57,7 +57,7 @@ public class FragenFabrik
 		}
 
 		fragenVerwaltung.add(neueFrage);
-		neueFrage = new Frage(null, 0, null);
+		neueFrage = new Frage(null, 0);
 	}
 
 	public static void resolveReferences()

@@ -14,13 +14,20 @@ public class Frage extends Entity
 	private ArrayList<Antwort> antworten = new ArrayList<>();
 	public final static String antwortenText = "antworten";
 
-	public Frage(String text, int typ, ArrayList<Antwort> antworten)
+	private Frage(String text, int typ, ArrayList<Antwort> antworten)
 	{
 		super();
 		// this.nr = nr;
 		this.text = text;
 		this.typ = typ;
 		this.antworten = antworten;
+	}
+
+	public Frage(String text, int typ)
+	{
+		super(); //
+		this.text = text;
+		this.typ = typ;
 	}
 
 //	public int getNr() {
@@ -77,12 +84,16 @@ public class Frage extends Entity
 	@Override
 	HashMap<String, Object> getDetails()
 	{
-		HashMap<String, Object> details = new HashMap<String, Object>();
+		final HashMap<String, Object> details = new HashMap<String, Object>();
 		// details.put("nr", this.nr);
-		details.put(idText, this.id);
-		details.put(textText, this.text);
-		details.put(typText, this.typ);
-		details.put(antwortenText, this.antworten);
+		details.put(idText,
+				id);
+		details.put(textText,
+				text);
+		details.put(typText,
+				typ);
+		details.put(antwortenText,
+				antworten);
 
 		return details;
 	}

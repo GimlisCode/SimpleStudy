@@ -13,7 +13,6 @@ public class MainClass
 
 		final DbController dbController = new DbController(db);
 
-//		MainFrame mframe = new MainFrame();
 		final LoginFrame lframe = new LoginFrame();
 
 	}

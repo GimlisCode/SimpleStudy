@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import Controller.MainController;
+import Renderer.PrettyHashMap;
 
 public class LoginFrame extends JFrame implements ActionListener
 {
@@ -77,6 +78,13 @@ public class LoginFrame extends JFrame implements ActionListener
 		{
 			this.dispose();
 			UserAnlegenFrame aFrame = new UserAnlegenFrame();
+		}
+
+		if (e.getSource()
+				.equals(login))
+		{
+			MainController.setCurrentUser((PrettyHashMap) cb_benutzer.getSelectedItem());
+			MainFrame mf = new MainFrame();
 		}
 
 	}

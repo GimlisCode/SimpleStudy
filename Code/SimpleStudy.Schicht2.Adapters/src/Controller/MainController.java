@@ -43,6 +43,7 @@ public class MainController
 {
 
 	private static MainController mainControllerSingleton = new MainController();
+	private static Student currentUser = null;
 
 	private MainController()
 	{
@@ -247,6 +248,12 @@ public class MainController
 	{
 		return FragenRenderer.getFragenForView(FragenVerwaltung.getAll()
 				.values());
+	}
+
+	public static void setCurrentUser(PrettyHashMap selectedItem)
+	{
+		StudentenVerwaltung.get(Integer.parseInt(selectedItem.get(Entity.idText)));
+
 	}
 
 }

@@ -27,10 +27,11 @@ public class FragenFabrik
 
 	public static HashMap<String, String> getFragenAttribute()
 	{
-		HashMap<String, String> antwortAttribute = new HashMap<>();
-		String[] attributNamen = neueFrage.getAttributeNames();
-		for (String attributName : attributNamen)
-			antwortAttribute.put(attributName, "");
+		final HashMap<String, String> antwortAttribute = new HashMap<>();
+		final String[] attributNamen = neueFrage.getAttributeNames();
+		for (final String attributName : attributNamen)
+			antwortAttribute.put(attributName,
+					"");
 
 		return antwortAttribute;
 	}
@@ -40,31 +41,33 @@ public class FragenFabrik
 		neueFrage.setId(Integer.parseInt(fragenAttribute.get(Frage.idText)));
 		neueFrage.setText(fragenAttribute.get(Frage.textText));
 		neueFrage.setTyp(Integer.parseInt(fragenAttribute.get(Frage.typText)));
-		String[] alleAntwortId = fragenAttribute.get(Frage.antwortenText).split(";");
-		for (String antwortenID : alleAntwortId)
+		final String antwortIds = fragenAttribute.get(Frage.antwortenText);
+		if (antwortIds != null)
 		{
-			Antwort antwort = AntwortVerwaltung.get(Integer.parseInt(antwortenID));
-			if (antwort != null)
+			final String[] alleAntwortId = antwortIds.split(";");
+			for (final String antwortenID : alleAntwortId)
 			{
-				neueFrage.add(antwort);
-			}
-			else
-			{
-				antwortReferenzen.add(new Tupel<>(neueFrage.getId(), Integer.parseInt(antwortenID)));
-			}
+				final Antwort antwort = AntwortVerwaltung.get(Integer.parseInt(antwortenID));
+				if (antwort != null)
+					neueFrage.add(antwort);
+				else
+					antwortReferenzen.add(new Tupel<>(neueFrage.getId(), Integer.parseInt(antwortenID)));
 
+			}
 		}
+
 		fragenVerwaltung.add(neueFrage);
 		neueFrage = new Frage(null, 0, null);
 	}
 
 	public static void resolveReferences()
 	{
-		for (Tupel<Integer, Integer> tupel : antwortReferenzen)
+		for (final Tupel<Integer, Integer> tupel : antwortReferenzen)
 		{
-			Antwort antwort = AntwortVerwaltung.get(tupel.y);
+			final Antwort antwort = AntwortVerwaltung.get(tupel.y);
 			if (antwort != null)
-				fragenVerwaltung.get(tupel.x).add(antwort);
+				fragenVerwaltung.get(tupel.x)
+						.add(antwort);
 			// else
 			// throw error ask User
 

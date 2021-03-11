@@ -37,6 +37,32 @@ public class DbController
 		initializeDozent();
 		initializeLernfach();
 		initializeKapitel();
+		initializeFrage();
+	}
+
+	private void initializeFrage()
+	{
+		final String mainTable = Frage.class.getSimpleName();
+		final String joinTable = Antwort.class.getSimpleName();
+		final String mainJoinColum = mainTable + Entity.idText;
+		final String select = datenVerbindung.createSelectString(new String[]
+			{ mainTable + "." + Entity.idText, mainTable + "." + Frage.textText, mainTable + "." + Frage.typText,
+					"group_concat(" + joinTable + "." + Entity.idText + ", ';') " + Frage.antwortenText },
+				mainTable)
+				.join(new String[]
+				{ joinTable },
+						JoinType.Left)
+				.on(mainTable,
+						Entity.idText,
+						"=",
+						joinTable,
+						mainJoinColum)
+				.build();
+
+		final var alleFragen = datenVerbindung.getResultFromQuerry(select);
+		for (final HashMap<String, String> frage : alleFragen)
+			MainController.createFrage(frage);
+
 	}
 
 	private void initializeKapitel()

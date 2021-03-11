@@ -10,15 +10,13 @@ import Models.Entity;
 import Modifier.AntwortFabrik;
 import Modifier.DozentenFabrik;
 import Modifier.DozentenVerwaltung;
+import Modifier.FragenFabrik;
 import Modifier.HochschulFabrik;
 import Modifier.HochschulVerwaltung;
-
 import Modifier.KapitelFabrik;
-import Modifier.LernfachFabrik;
-
 import Modifier.KapitelVerwaltung;
+import Modifier.LernfachFabrik;
 import Modifier.LernfachVerwaltung;
-
 import Modifier.StatistikFabrik;
 import Modifier.StudentenFabrik;
 import Modifier.StudentenVerwaltung;
@@ -122,6 +120,16 @@ public class MainController
 			kapitelAttribut.setValue(kapitel.get(kapitelAttribut.getKey()));
 
 		KapitelFabrik.create(kapitelAttribute);
+	}
+
+	public static void createFrage(HashMap<String, String> frage)
+	{
+		final var fragenAttribute = FragenFabrik.getFragenAttribute();
+		for (final Entry<String, String> frageAttribut : fragenAttribute.entrySet())
+			frageAttribut.setValue(frage.get(frageAttribut.getKey()));
+
+		FragenFabrik.create(fragenAttribute);
+
 	}
 
 	public static ArrayList<PrettyHashMap> getStudenten()

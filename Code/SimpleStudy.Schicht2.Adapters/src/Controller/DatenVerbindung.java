@@ -19,6 +19,8 @@ public interface DatenVerbindung
 
 	DatenVerbindung on(String tableLeft, String columnLeft, String operator, String tableRight, String columnRight);
 
+	DatenVerbindung groupBy(String[] columnName);
+
 	DatenVerbindung and();
 
 	String build();

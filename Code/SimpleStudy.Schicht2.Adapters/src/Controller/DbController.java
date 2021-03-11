@@ -57,6 +57,8 @@ public class DbController
 						"=",
 						joinTable,
 						mainJoinColum)
+				.groupBy(new String[]
+				{ mainTable + "." + Entity.idText })
 				.build();
 
 		final var alleFragen = datenVerbindung.getResultFromQuerry(select);

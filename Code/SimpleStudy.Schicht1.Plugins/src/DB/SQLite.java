@@ -31,6 +31,7 @@ public class SQLite implements DatenVerbindung
 	private ArrayList<String> joinStatement = new ArrayList<>();
 	private String where = "";
 	private String on = "";
+	private String groupBy = "";
 
 	private SQLite()
 	{
@@ -231,6 +232,17 @@ public class SQLite implements DatenVerbindung
 		return this;
 	}
 
+	public DatenVerbindung groupBy(String[] columnName)
+	{
+		if (columnName != null && columnName.length > 0)
+			groupBy = " group by " + columnName[0];
+
+		for (int i = 1; i < columnName.length; i++)
+			groupBy += ", " + columnName[i];
+
+		return this;
+	}
+
 	public String build()
 	{
 		String finishedQuery = selectStatement;
@@ -251,10 +263,13 @@ public class SQLite implements DatenVerbindung
 
 		finishedQuery += where;
 
+		finishedQuery += groupBy;
+
 		selectStatement = "";
 		joinStatement = new ArrayList<String>();
 		where = "";
 		on = "";
+		groupBy = "";
 		return finishedQuery;
 	}
 

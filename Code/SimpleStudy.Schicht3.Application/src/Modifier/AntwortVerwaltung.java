@@ -27,14 +27,15 @@ public final class AntwortVerwaltung
 		return antworten.get(id);
 	}
 
-	public HashMap<Integer, Antwort> getAll()
+	public static HashMap<Integer, Antwort> getAll()
 	{
 		return antworten;
 	}
 
 	public void add(Antwort antwort)
 	{
-		antworten.put(antwort.getId(), antwort);
+		antworten.put(antwort.getId(),
+				antwort);
 	}
 
 	public void remove(Antwort antwort)
@@ -49,14 +50,17 @@ public final class AntwortVerwaltung
 
 	public void update(Antwort antwort)
 	{
-		antworten.put(antwort.getId(), antwort);
+		antworten.put(antwort.getId(),
+				antwort);
 	}
 
 	public ArrayList<Antwort> suche(String suchstring)
 	{
 		final ArrayList<Antwort> passendeAntwortenZumSuchstring = new ArrayList<>();
 		for (final Entry<Integer, Antwort> antwort : antworten.entrySet())
-			if (antwort.getValue().toString().contains(suchstring))
+			if (antwort.getValue()
+					.toString()
+					.contains(suchstring))
 				passendeAntwortenZumSuchstring.add(antwort.getValue());
 
 		if (passendeAntwortenZumSuchstring.size() > 0)

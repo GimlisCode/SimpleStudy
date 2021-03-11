@@ -6,63 +6,68 @@ import java.util.Map.Entry;
 
 import Models.Frage;
 
+public class FragenVerwaltung
+{
 
+	static FragenVerwaltung fragenVerwaltungSingleton = new FragenVerwaltung();
+	static private HashMap<Integer, Frage> fragen = new HashMap<>();
 
-public class FragenVerwaltung {
-	
-static FragenVerwaltung fragenVerwaltungSingleton = new FragenVerwaltung();
-static private HashMap<Integer, Frage> fragen = new HashMap<>();
-	
-	private FragenVerwaltung() {
-		super();	
+	private FragenVerwaltung()
+	{
+		super();
 	}
-	
-	static FragenVerwaltung getInstance() {
+
+	static FragenVerwaltung getInstance()
+	{
 		return fragenVerwaltungSingleton;
 	}
+
 	static Frage get(int id)
-	{		
+	{
 		return fragen.get(id);
 	}
-	
-	static HashMap<Integer, Frage> getAll()
+
+	public static HashMap<Integer, Frage> getAll()
 	{
 		return fragen;
 	}
-	
+
 	static void add(Frage frage)
-	{		
-		fragen.put(frage.getId(), frage);		
+	{
+		fragen.put(frage.getId(),
+				frage);
 	}
-		
+
 	static void remove(Frage frage)
-	{		
-		remove(frage.getId());				
+	{
+		remove(frage.getId());
 	}
-	
+
 	static void remove(int id)
-	{		
-		fragen.remove(id);				
+	{
+		fragen.remove(id);
 	}
-	
+
 	static void update(Frage frage)
-	{		
-		fragen.put(frage.getId(), frage);		
+	{
+		fragen.put(frage.getId(),
+				frage);
 	}
-	
+
 	static ArrayList<Frage> suche(String suchstring)
 	{
-		ArrayList<Frage> passendeFragenZumSuchstring = new ArrayList<>();
-		for (Entry<Integer, Frage> frage : fragen.entrySet()) 
-			if (frage.getValue().toString().contains(suchstring)) 
-				passendeFragenZumSuchstring.add(frage.getValue());				
-			
+		final ArrayList<Frage> passendeFragenZumSuchstring = new ArrayList<>();
+		for (final Entry<Integer, Frage> frage : fragen.entrySet())
+			if (frage.getValue()
+					.toString()
+					.contains(suchstring))
+				passendeFragenZumSuchstring.add(frage.getValue());
+
 		if (passendeFragenZumSuchstring.size() > 0)
 			return passendeFragenZumSuchstring;
-		
+
 		return null;
-		
-		
+
 	}
 
 }

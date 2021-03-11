@@ -41,7 +41,6 @@ public class StudentenFabrik
 
 		final String statistikId = studentenAttribute.get(Student.statistikText);
 		if (statistikId != null)
-
 		{
 			final Statistik statistik = StatistikVerwaltung.get(Integer.parseInt(statistikId));
 			if (statistik != null)

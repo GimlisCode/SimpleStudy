@@ -27,10 +27,11 @@ public class HochschulFabrik
 
 	public static HashMap<String, String> getHochschulAttribute()
 	{
-		HashMap<String, String> hochschulAttribute = new HashMap<>();
-		String[] attributNamen = neueHochschule.getAttributeNames();
-		for (String attributName : attributNamen)
-			hochschulAttribute.put(attributName, "");
+		final HashMap<String, String> hochschulAttribute = new HashMap<>();
+		final String[] attributNamen = neueHochschule.getAttributeNames();
+		for (final String attributName : attributNamen)
+			hochschulAttribute.put(attributName,
+					"");
 
 		return hochschulAttribute;
 	}
@@ -39,31 +40,33 @@ public class HochschulFabrik
 	{
 		neueHochschule.setId(Integer.parseInt(hochschulAttribute.get(Hochschule.idText)));
 		neueHochschule.setName(hochschulAttribute.get(Hochschule.nameText));
-		String[] alleDozentenId = hochschulAttribute.get(Hochschule.dozentenText).split(";");
-		for (String dozentenId : alleDozentenId)
+		final String dozentenIds = hochschulAttribute.get(Hochschule.dozentenText);
+		if (dozentenIds != null)
 		{
-			Dozent dozent = DozentenVerwaltung.get(Integer.parseInt(dozentenId));
-			if (dozent != null)
+			final String[] alleDozentenId = dozentenIds.split(";");
+			for (final String dozentenId : alleDozentenId)
 			{
-				neueHochschule.add(dozent);
-			}
-			else
-			{
-				dozentenReferenzen.add(new Tupel<>(neueHochschule.getId(), Integer.parseInt(dozentenId)));
-			}
+				final Dozent dozent = DozentenVerwaltung.get(Integer.parseInt(dozentenId));
+				if (dozent != null)
+					neueHochschule.add(dozent);
+				else
+					dozentenReferenzen.add(new Tupel<>(neueHochschule.getId(), Integer.parseInt(dozentenId)));
 
+			}
 		}
+
 		hochschulVerwaltung.add(neueHochschule);
 		neueHochschule = new Hochschule(null, null);
 	}
 
 	public static void resolveReferences()
 	{
-		for (Tupel<Integer, Integer> tupel : dozentenReferenzen)
+		for (final Tupel<Integer, Integer> tupel : dozentenReferenzen)
 		{
-			Dozent dozent = DozentenVerwaltung.get(tupel.y);
+			final Dozent dozent = DozentenVerwaltung.get(tupel.y);
 			if (dozent != null)
-				hochschulVerwaltung.get(tupel.x).add(dozent);
+				hochschulVerwaltung.get(tupel.x)
+						.add(dozent);
 			// else
 			// throw error ask User
 

@@ -11,6 +11,7 @@ import Modifier.AntwortFabrik;
 import Modifier.DozentenFabrik;
 import Modifier.DozentenVerwaltung;
 import Modifier.FragenFabrik;
+import Modifier.FragenVerwaltung;
 import Modifier.HochschulFabrik;
 import Modifier.HochschulVerwaltung;
 import Modifier.KapitelFabrik;
@@ -21,6 +22,7 @@ import Modifier.StatistikFabrik;
 import Modifier.StudentenFabrik;
 import Modifier.StudentenVerwaltung;
 import Renderer.DozentenRenderer;
+import Renderer.FragenRenderer;
 import Renderer.HochschulRenderer;
 import Renderer.KapitelRenderer;
 import Renderer.LernfachRenderer;
@@ -160,6 +162,12 @@ public class MainController
 	public static ArrayList<PrettyHashMap> getKapitel()
 	{
 		return KapitelRenderer.getKapitelForView(KapitelVerwaltung.getAll()
+				.values());
+	}
+
+	public static ArrayList<PrettyHashMap> getFragen()
+	{
+		return FragenRenderer.getFragenForView(FragenVerwaltung.getAll()
 				.values());
 	}
 

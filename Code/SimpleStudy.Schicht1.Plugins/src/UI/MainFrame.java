@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -15,8 +17,17 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import Controller.MainController;
+import Models.Dozent;
+import Models.Frage;
+import Models.Hochschule;
+import Models.Kapitel;
+import Models.Lernfach;
+import Modifier.DozentenFabrik;
+import Modifier.HochschulFabrik;
+import Modifier.LernfachFabrik;
+import Renderer.PrettyHashMap;
 
-public class MainFrame extends JFrame
+public class MainFrame extends JFrame implements ActionListener
 {
 
 	// Attribute
@@ -99,6 +110,7 @@ public class MainFrame extends JFrame
 		suche = new JMenu("Suche");
 		ueber = new JMenu("Ueber");
 		beenden = new JMenu("Beenden");
+		beenden.addActionListener(this);
 
 		menu.add(datei);
 		menu.add(datei);
@@ -126,11 +138,11 @@ public class MainFrame extends JFrame
 		pnl_kap_btn = new JPanel();
 		pnl_frag_btn = new JPanel();
 
-		lbl_hochschule = new JLabel("Hochschulen");
-		lbl_dozent = new JLabel("Dozenten");
-		lbl_lernfach = new JLabel("Lernfaecher");
-		lbl_kapitel = new JLabel("Kapitel");
-		lbl_fragen = new JLabel("Fragen");
+		lbl_hochschule = new JLabel(Hochschule.class.getSimpleName());
+		lbl_dozent = new JLabel(Dozent.class.getSimpleName());
+		lbl_lernfach = new JLabel(Lernfach.class.getSimpleName());
+		lbl_kapitel = new JLabel(Kapitel.class.getSimpleName());
+		lbl_fragen = new JLabel(Frage.class.getSimpleName());
 
 		pnl_listenlbl.add(lbl_hochschule);
 		pnl_listenlbl.add(lbl_dozent);
@@ -150,7 +162,8 @@ public class MainFrame extends JFrame
 		kapitelliste = new JList<>(MainController.getKapitel()
 				.toArray());
 
-		fragenliste = new JList<>();
+		fragenliste = new JList<>(MainController.getFragen()
+				.toArray());
 
 		pnl_listen.add(hochschulliste);
 		pnl_listen.add(dozentenliste);
@@ -163,8 +176,11 @@ public class MainFrame extends JFrame
 		// Hochschule
 
 		btn_hoch_neu = new JButton("Neu");
+		btn_hoch_neu.addActionListener(this);
 		btn_hoch_bear = new JButton("Bearbeiten");
+		btn_hoch_bear.addActionListener(this);
 		btn_hoch_del = new JButton("Loeschen");
+		btn_hoch_del.addActionListener(this);
 
 		pnl_hoch_btn.add(btn_hoch_neu);
 		pnl_hoch_btn.add(btn_hoch_bear);
@@ -173,17 +189,21 @@ public class MainFrame extends JFrame
 		// Dozenten
 
 		btn_doz_neu = new JButton("Neu");
+		btn_doz_neu.addActionListener(this);
 		btn_doz_bear = new JButton("Bearbeiten");
+		btn_doz_bear.addActionListener(this);
 		btn_doz_del = new JButton("Loeschen");
 
 		pnl_doz_btn.add(btn_doz_neu);
 		pnl_doz_btn.add(btn_doz_bear);
 		pnl_doz_btn.add(btn_doz_del);
 
-		// Lernf�cher
+		// Lernfaecher
 
 		btn_lern_neu = new JButton("Neu");
+		btn_lern_neu.addActionListener(this);
 		btn_lern_bear = new JButton("Bearbeiten");
+		btn_lern_bear.addActionListener(this);
 		btn_lern_del = new JButton("Loeschen");
 
 		pnl_lern_btn.add(btn_lern_neu);
@@ -236,6 +256,41 @@ public class MainFrame extends JFrame
 				BorderLayout.SOUTH);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
+
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e)
+	{
+		if (e.getSource() == beenden)
+		{
+			this.dispose();
+		}
+
+		else if (e.getSource() == btn_hoch_neu)
+		{
+			NeuFrame nf = new NeuFrame(Hochschule.class.getSimpleName(), HochschulFabrik.getHochschulAttribute());
+		}
+
+		else if (e.getSource() == btn_hoch_bear)
+		{
+			NeuFrame nf = new NeuFrame(Hochschule.class.getSimpleName(), (PrettyHashMap) hochschulliste.getSelectedValue());
+		}
+
+		else if (e.getSource() == btn_doz_neu)
+		{
+			NeuFrame nf = new NeuFrame(Dozent.class.getSimpleName(), DozentenFabrik.getDozentAttribute());
+		}
+
+		else if (e.getSource() == btn_doz_bear)
+		{
+			NeuFrame nf = new NeuFrame(Dozent.class.getSimpleName(), (PrettyHashMap) dozentenliste.getSelectedValue());
+		}
+
+		else if (e.getSource() == btn_lern_neu)
+		{
+			NeuFrame nf = new NeuFrame(Lernfach.class.getSimpleName(), LernfachFabrik.getLernfachAttribute());
+		}
 
 	}
 

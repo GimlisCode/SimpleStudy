@@ -84,6 +84,8 @@ public class DbController
 						"=",
 						joinTable,
 						mainJoinColum)
+				.groupBy(new String[]
+				{ mainTable + "." + Entity.idText })
 				.build();
 
 		final var alleKapitel = datenVerbindung.getResultFromQuerry(select);
@@ -110,6 +112,8 @@ public class DbController
 						"=",
 						joinTable,
 						mainJoinColum)
+				.groupBy(new String[]
+				{ mainTable + "." + Entity.idText })
 				.build();
 
 		final var alleLernfaecher = datenVerbindung.getResultFromQuerry(select);
@@ -135,6 +139,8 @@ public class DbController
 						"=",
 						joinTable,
 						mainJoinColum)
+				.groupBy(new String[]
+				{ mainTable + "." + Entity.idText })
 				.build();
 
 		final var alleDozenten = datenVerbindung.getResultFromQuerry(select);
@@ -160,6 +166,8 @@ public class DbController
 						"=",
 						joinTable,
 						mainJoinColum)
+				.groupBy(new String[]
+				{ mainTable + "." + Entity.idText })
 				.build();
 
 		final var alleHochschulen = datenVerbindung.getResultFromQuerry(select);
@@ -194,6 +202,8 @@ public class DbController
 						"=",
 						joinTable,
 						mainJoinColum)
+				.groupBy(new String[]
+				{ mainTable + "." + Entity.idText })
 				.build();
 
 		final var alleStudenten = datenVerbindung.getResultFromQuerry(studentenSelect);

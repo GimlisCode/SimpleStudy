@@ -56,7 +56,7 @@ public class DozentenFabrik
 		}
 
 		dozentenVerwaltung.add(neuerDozent);
-		neuerDozent = new Dozent(null, null);
+		neuerDozent = new Dozent("");
 	}
 
 	public static void resolveReferences()

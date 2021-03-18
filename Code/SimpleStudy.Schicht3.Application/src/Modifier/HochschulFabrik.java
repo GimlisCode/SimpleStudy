@@ -56,7 +56,7 @@ public class HochschulFabrik
 		}
 
 		hochschulVerwaltung.add(neueHochschule);
-		neueHochschule = new Hochschule(null, null);
+		neueHochschule = new Hochschule("");
 	}
 
 	public static void resolveReferences()

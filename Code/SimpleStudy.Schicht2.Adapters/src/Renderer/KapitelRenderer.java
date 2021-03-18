@@ -3,6 +3,7 @@ package Renderer;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import Models.Frage;
 import Models.Kapitel;
 
 public class KapitelRenderer
@@ -15,12 +16,19 @@ public class KapitelRenderer
 		for (Kapitel kapitel : kapitels)
 		{
 			PrettyHashMap gerendertesKapitel = new PrettyHashMap();
-			gerendertesKapitel.put(Kapitel.idText,
+			gerendertesKapitel.addVisible(Kapitel.idText,
 					kapitel.getId() + "");
-			gerendertesKapitel.put(Kapitel.nameText,
+			gerendertesKapitel.addVisible(Kapitel.nameText,
 					kapitel.getName() + "");
-			gerendertesKapitel.put(Kapitel.nrText,
+			gerendertesKapitel.addVisible(Kapitel.nrText,
 					"(" + kapitel.getNr() + ")");
+			String fragen = "";
+			for (Frage frage : kapitel.getFragen())
+			{
+				fragen += frage.getId() + ";";
+			}
+			gerendertesKapitel.addUnvisible(Kapitel.fragenText,
+					null);
 
 			gerenderteKapitel.add(gerendertesKapitel);
 		}

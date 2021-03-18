@@ -282,7 +282,8 @@ public class MainFrame extends JFrame implements ActionListener, UiBeobachter
 
 		else if (e.getSource() == btnHochBear)
 		{
-			NeuFrame nf = new NeuFrame(Hochschule.class.getSimpleName(), (PrettyHashMap) hochschulListe.getSelectedValue());
+			NeuFrame nf = new NeuFrame(Hochschule.class.getSimpleName(),
+					((PrettyHashMap) hochschulListe.getSelectedValue()).getNormalHashMap());
 		}
 
 		else if (e.getSource() == btnDozNeu)
@@ -292,7 +293,8 @@ public class MainFrame extends JFrame implements ActionListener, UiBeobachter
 
 		else if (e.getSource() == btnDozBear)
 		{
-			NeuFrame nf = new NeuFrame(Dozent.class.getSimpleName(), (PrettyHashMap) dozentenListe.getSelectedValue());
+			NeuFrame nf = new NeuFrame(Dozent.class.getSimpleName(),
+					((PrettyHashMap) dozentenListe.getSelectedValue()).getNormalHashMap());
 		}
 
 		else if (e.getSource() == btnLernNeu)
@@ -302,7 +304,8 @@ public class MainFrame extends JFrame implements ActionListener, UiBeobachter
 
 		else if (e.getSource() == btnLernBear)
 		{
-			NeuFrame nf = new NeuFrame(Lernfach.class.getSimpleName(), (PrettyHashMap) lernfachListe.getSelectedValue());
+			NeuFrame nf = new NeuFrame(Lernfach.class.getSimpleName(),
+					((PrettyHashMap) lernfachListe.getSelectedValue()).getNormalHashMap());
 		}
 
 		else if (e.getSource() == btnKapNeu)
@@ -312,7 +315,8 @@ public class MainFrame extends JFrame implements ActionListener, UiBeobachter
 
 		else if (e.getSource() == btnKapBear)
 		{
-			NeuFrame nf = new NeuFrame(Kapitel.class.getSimpleName(), (PrettyHashMap) kapitelListe.getSelectedValue());
+			NeuFrame nf = new NeuFrame(Kapitel.class.getSimpleName(),
+					((PrettyHashMap) kapitelListe.getSelectedValue()).getNormalHashMap());
 		}
 
 		else if (e.getSource() == btnFragNeu)
@@ -322,7 +326,8 @@ public class MainFrame extends JFrame implements ActionListener, UiBeobachter
 
 		else if (e.getSource() == btnFragBear)
 		{
-			NeuFrame nf = new NeuFrame(Frage.class.getSimpleName(), (PrettyHashMap) fragenListe.getSelectedValue());
+			NeuFrame nf = new NeuFrame(Frage.class.getSimpleName(),
+					((PrettyHashMap) fragenListe.getSelectedValue()).getNormalHashMap());
 		}
 
 	}

@@ -15,8 +15,17 @@ public class StudentenRenderer
 		for (Student student : studenten)
 		{
 			PrettyHashMap gerenderterStudent = new PrettyHashMap();
-			gerenderterStudent.put(Student.idText, student.getId() + "");
-			gerenderterStudent.put(Student.nameText, student.getName());
+			gerenderterStudent.addVisible(Student.idText,
+					student.getId() + "");
+			gerenderterStudent.addVisible(Student.nameText,
+					student.getName());
+
+			if (student.getStatistik() != null)
+			{
+				gerenderterStudent.addUnvisible(Student.statistikText,
+						student.getStatistik()
+								.getId() + "");
+			}
 
 			gerenderteStudenten.add(gerenderterStudent);
 

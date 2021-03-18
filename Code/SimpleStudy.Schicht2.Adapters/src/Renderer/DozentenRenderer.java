@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import Models.Dozent;
+import Models.Lernfach;
 
 public class DozentenRenderer
 {
@@ -15,10 +16,18 @@ public class DozentenRenderer
 		for (Dozent dozent : dozenten)
 		{
 			PrettyHashMap gerenderterDozent = new PrettyHashMap();
-			gerenderterDozent.put(Dozent.idText,
+			gerenderterDozent.addVisible(Dozent.idText,
 					dozent.getId() + "");
-			gerenderterDozent.put(Dozent.nameText,
+			gerenderterDozent.addVisible(Dozent.nameText,
 					dozent.getName() + "");
+			String kurse = "";
+			for (Lernfach lernfach : dozent.getKurse())
+			{
+				kurse += lernfach.getId() + ";";
+			}
+
+			gerenderterDozent.addUnvisible(Dozent.kurseText,
+					kurse);
 
 			gerenderteDozenten.add(gerenderterDozent);
 		}

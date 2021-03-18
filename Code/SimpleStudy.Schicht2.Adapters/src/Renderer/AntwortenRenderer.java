@@ -15,10 +15,12 @@ public class AntwortenRenderer
 		for (Antwort antwort : antworten)
 		{
 			PrettyHashMap gerenderteAntwort = new PrettyHashMap();
-			gerenderteAntwort.put(Antwort.idText,
+			gerenderteAntwort.addVisible(Antwort.idText,
 					antwort.getId() + "");
-			gerenderteAntwort.put(Antwort.textText,
+			gerenderteAntwort.addVisible(Antwort.textText,
 					antwort.getText() + "");
+			gerenderteAntwort.addUnvisible(Antwort.correctText,
+					antwort.isCorrect() + "");
 
 			gerenderteAntworten.add(gerenderteAntwort);
 		}

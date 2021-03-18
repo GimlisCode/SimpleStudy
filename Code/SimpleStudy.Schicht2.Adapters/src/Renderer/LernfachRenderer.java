@@ -3,6 +3,7 @@ package Renderer;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import Models.Kapitel;
 import Models.Lernfach;
 
 public class LernfachRenderer
@@ -15,10 +16,22 @@ public class LernfachRenderer
 		for (Lernfach lernfach : lernfaecher)
 		{
 			PrettyHashMap gerendertesLernfach = new PrettyHashMap();
-			gerendertesLernfach.put(Lernfach.idText,
+			gerendertesLernfach.addVisible(Lernfach.idText,
 					lernfach.getId() + "");
-			gerendertesLernfach.put(Lernfach.nameText,
+			gerendertesLernfach.addVisible(Lernfach.nameText,
 					lernfach.getName() + "");
+			gerendertesLernfach.addUnvisible(Lernfach.creditsText,
+					lernfach.getCredits() + "");
+			gerendertesLernfach.addUnvisible(Lernfach.semesterText,
+					lernfach.getSemester() + "");
+			String kapitels = "";
+			for (Kapitel kapitel : lernfach.getLernkapitel())
+			{
+				kapitels += kapitel.getId() + ";";
+			}
+
+			gerendertesLernfach.addUnvisible(Lernfach.kapitelText,
+					kapitels);
 
 			gerenderteLernfaecher.add(gerendertesLernfach);
 		}

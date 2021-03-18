@@ -3,6 +3,7 @@ package Renderer;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import Models.Antwort;
 import Models.Frage;
 
 public class FragenRenderer
@@ -15,11 +16,19 @@ public class FragenRenderer
 		for (Frage frage : fragen)
 		{
 			PrettyHashMap gerenderteFrage = new PrettyHashMap();
-			gerenderteFrage.put(Frage.idText,
+			gerenderteFrage.addVisible(Frage.idText,
 					frage.getId() + "");
-			gerenderteFrage.put(Frage.textText,
+			gerenderteFrage.addVisible(Frage.textText,
 					frage.getText() + "");
-
+			gerenderteFrage.addUnvisible(Frage.typText,
+					frage.getTyp() + "");
+			String antworten = "";
+			for (Antwort antwort : frage.getAntworten())
+			{
+				antworten += antwort.getId() + ";";
+			}
+			gerenderteFrage.addUnvisible(Frage.antwortenText,
+					antworten);
 			gerenderteFragen.add(gerenderteFrage);
 		}
 

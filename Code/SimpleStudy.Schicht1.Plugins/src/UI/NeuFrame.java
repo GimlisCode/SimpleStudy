@@ -79,7 +79,7 @@ public class NeuFrame extends JFrame implements ActionListener, UiBeobachter
 			lbl_1 = new JLabel("Name");
 			lbl_2 = new JLabel("Dozent");
 
-			tf_1 = new JTextField();
+			tf_1 = new JTextField(modelAttribute.get(Hochschule.nameText));
 
 			lst_1 = new JList(MainController.getDozenten()
 					.toArray());
@@ -222,7 +222,8 @@ public class NeuFrame extends JFrame implements ActionListener, UiBeobachter
 						tf_1.getText());
 				for (Object doz : lst_1.getSelectedValuesList())
 				{
-					dozenten += ((PrettyHashMap) doz).get(Models.Entity.idText) + ";";
+					dozenten += ((PrettyHashMap) doz).getNormalHashMap()
+							.get(Models.Entity.idText) + ";";
 				}
 
 				modelAttribute.replace(Hochschule.dozentenText,
@@ -237,7 +238,8 @@ public class NeuFrame extends JFrame implements ActionListener, UiBeobachter
 						tf_1.getText());
 				for (Object kurs : lst_1.getSelectedValuesList())
 				{
-					kurse += ((PrettyHashMap) kurs).get(Models.Entity.idText) + ";";
+					kurse += ((PrettyHashMap) kurs).getNormalHashMap()
+							.get(Models.Entity.idText) + ";";
 				}
 
 				modelAttribute.replace(Dozent.kurseText,
@@ -253,7 +255,8 @@ public class NeuFrame extends JFrame implements ActionListener, UiBeobachter
 						tf_1.getText());
 				for (Object kapitel : lst_1.getSelectedValuesList())
 				{
-					kapitels += ((PrettyHashMap) kapitel).get(Models.Entity.idText) + ";";
+					kapitels += ((PrettyHashMap) kapitel).getNormalHashMap()
+							.get(Models.Entity.idText) + ";";
 				}
 				modelAttribute.replace(Lernfach.kapitelText,
 						kapitels);
@@ -267,7 +270,8 @@ public class NeuFrame extends JFrame implements ActionListener, UiBeobachter
 						tf_1.getText());
 				for (Object frage : lst_1.getSelectedValuesList())
 				{
-					fragen += ((PrettyHashMap) frage).get(Models.Entity.idText) + ";";
+					fragen += ((PrettyHashMap) frage).getNormalHashMap()
+							.get(Models.Entity.idText) + ";";
 				}
 				modelAttribute.replace(Kapitel.fragenText,
 						fragen);
@@ -281,7 +285,8 @@ public class NeuFrame extends JFrame implements ActionListener, UiBeobachter
 						tf_1.getText());
 				for (Object antwort : lst_2.getSelectedValuesList())
 				{
-					antworten += ((PrettyHashMap) antwort).get(Models.Entity.idText) + ";";
+					antworten += ((PrettyHashMap) antwort).getNormalHashMap()
+							.get(Models.Entity.idText) + ";";
 
 				}
 				modelAttribute.replace(Frage.antwortenText,

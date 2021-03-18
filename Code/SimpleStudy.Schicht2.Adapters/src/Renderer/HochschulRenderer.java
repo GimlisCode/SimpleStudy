@@ -3,6 +3,7 @@ package Renderer;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import Models.Dozent;
 import Models.Hochschule;
 
 public class HochschulRenderer
@@ -15,10 +16,17 @@ public class HochschulRenderer
 		for (Hochschule hochschule : hochschulen)
 		{
 			PrettyHashMap gerenderteHochschule = new PrettyHashMap();
-			gerenderteHochschule.put(Hochschule.idText,
+			gerenderteHochschule.addVisible(Hochschule.idText,
 					hochschule.getId() + "");
-			gerenderteHochschule.put(Hochschule.nameText,
+			gerenderteHochschule.addVisible(Hochschule.nameText,
 					hochschule.getName());
+			String dozenten = "";
+			for (Dozent dozent : hochschule.getDozenten())
+			{
+				dozenten += dozent.getId() + ";";
+			}
+			gerenderteHochschule.addUnvisible(Hochschule.dozentenText,
+					dozenten);
 
 			gerenderteHochschulen.add(gerenderteHochschule);
 		}

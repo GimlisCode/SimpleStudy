@@ -22,7 +22,7 @@ public class StudentenVerwaltung
 		return studentenVerwaltungSingleton;
 	}
 
-	static Student get(int id)
+	public static Student get(int id)
 	{
 		return studenten.get(id);
 	}
@@ -34,7 +34,8 @@ public class StudentenVerwaltung
 
 	static void add(Student student)
 	{
-		studenten.put(student.getId(), student);
+		studenten.put(student.getId(),
+				student);
 	}
 
 	static void remove(Student student)
@@ -49,14 +50,17 @@ public class StudentenVerwaltung
 
 	static void update(Student student)
 	{
-		studenten.put(student.getId(), student);
+		studenten.put(student.getId(),
+				student);
 	}
 
 	static ArrayList<Student> suche(String suchstring)
 	{
 		ArrayList<Student> passendeStudentenZumSuchstring = new ArrayList<>();
 		for (Entry<Integer, Student> student : studenten.entrySet())
-			if (student.getValue().toString().contains(suchstring))
+			if (student.getValue()
+					.toString()
+					.contains(suchstring))
 				passendeStudentenZumSuchstring.add(student.getValue());
 
 		if (passendeStudentenZumSuchstring.size() > 0)

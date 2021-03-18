@@ -31,6 +31,7 @@ import Modifier.StatistikFabrik;
 import Modifier.StatistikVerwaltung;
 import Modifier.StudentenFabrik;
 import Modifier.StudentenVerwaltung;
+import Renderer.AntwortenRenderer;
 import Renderer.DozentenRenderer;
 import Renderer.FragenRenderer;
 import Renderer.HochschulRenderer;
@@ -249,6 +250,12 @@ public class MainController implements UiBeobachtete
 	public static ArrayList<PrettyHashMap> getFragen()
 	{
 		return FragenRenderer.getFragenForView(FragenVerwaltung.getAll()
+				.values());
+	}
+
+	public static ArrayList<PrettyHashMap> getAntworten()
+	{
+		return AntwortenRenderer.getAntwortenForView(AntwortVerwaltung.getAll()
 				.values());
 	}
 

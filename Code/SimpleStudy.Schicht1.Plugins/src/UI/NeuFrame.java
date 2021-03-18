@@ -18,7 +18,9 @@ import javax.swing.JTextField;
 
 import Controller.MainController;
 import Models.Dozent;
+import Models.Frage;
 import Models.Hochschule;
+import Models.Kapitel;
 import Models.Lernfach;
 import Renderer.PrettyHashMap;
 
@@ -35,6 +37,7 @@ public class NeuFrame extends JFrame implements ActionListener
 	private JTextField tf_3;
 
 	private JList lst_1;
+	private JList lst_2;
 
 	private JComboBox cb_1;
 
@@ -136,6 +139,55 @@ public class NeuFrame extends JFrame implements ActionListener
 
 		}
 
+		// Kapitel
+
+		else if (model == Kapitel.class.getSimpleName())
+		{
+			lbl_1 = new JLabel("Name");
+			lbl_2 = new JLabel("Nr.");
+			lbl_3 = new JLabel("Fragen");
+
+			tf_1 = new JTextField();
+			tf_2 = new JTextField();
+
+			lst_1 = new JList(MainController.getFragen()
+					.toArray());
+
+			pnl_mitte = new JPanel(new GridLayout(3, 2));
+			pnl_mitte.add(lbl_1);
+			pnl_mitte.add(tf_1);
+			pnl_mitte.add(lbl_2);
+			pnl_mitte.add(tf_2);
+			pnl_mitte.add(lbl_3);
+			pnl_mitte.add(lst_1);
+		}
+
+		// Fragen
+
+		else if (model == Frage.class.getSimpleName())
+		{
+
+			lbl_1 = new JLabel("Text");
+			lbl_2 = new JLabel("Fragentyp");
+			lbl_3 = new JLabel("Antworten");
+
+			tf_1 = new JTextField();
+			Integer[] typen =
+				{ 1, 2, 3 };
+			lst_1 = new JList<Integer>(typen);
+			lst_2 = new JList(MainController.getAntworten()
+					.toArray());
+
+			pnl_mitte = new JPanel(new GridLayout(3, 2));
+			pnl_mitte.add(lbl_1);
+			pnl_mitte.add(tf_1);
+			pnl_mitte.add(lbl_2);
+			pnl_mitte.add(lst_1);
+			pnl_mitte.add(lbl_3);
+			pnl_mitte.add(lst_2);
+
+		}
+
 		this.add(pnl_kopf,
 				BorderLayout.NORTH);
 		this.add(pnl_mitte,
@@ -177,7 +229,7 @@ public class NeuFrame extends JFrame implements ActionListener
 				MainController.createHochschule(modelAttribute);
 			}
 
-			if (model == Dozent.class.getSimpleName())
+			else if (model == Dozent.class.getSimpleName())
 			{
 				String kurse = new String();
 				modelAttribute.replace(Dozent.nameText,
@@ -190,6 +242,50 @@ public class NeuFrame extends JFrame implements ActionListener
 				modelAttribute.replace(Dozent.kurseText,
 						kurse);
 				MainController.createDozent(modelAttribute);
+
+			}
+
+			else if (model == Lernfach.class.getSimpleName())
+			{
+				String kapitels = new String();
+				modelAttribute.replace(Lernfach.nameText,
+						tf_1.getText());
+				for (Object kapitel : lst_1.getSelectedValuesList())
+				{
+					kapitels += ((PrettyHashMap) kapitel).get(Models.Entity.idText) + ";";
+				}
+				modelAttribute.replace(Lernfach.kapitelText,
+						kapitels);
+				MainController.createLernfach(modelAttribute);
+			}
+
+			else if (model == Kapitel.class.getSimpleName())
+			{
+				String fragen = new String();
+				modelAttribute.replace(Kapitel.nameText,
+						tf_1.getText());
+				for (Object frage : lst_1.getSelectedValuesList())
+				{
+					fragen += ((PrettyHashMap) frage).get(Models.Entity.idText) + ";";
+				}
+				modelAttribute.replace(Kapitel.fragenText,
+						fragen);
+				MainController.createKapitel(modelAttribute);
+			}
+
+			else if (model == Frage.class.getSimpleName())
+			{
+				String antworten = new String();
+				modelAttribute.replace(Frage.textText,
+						tf_1.getText());
+				for (Object antwort : lst_2.getSelectedValuesList())
+				{
+					antworten += ((PrettyHashMap) antwort).get(Models.Entity.idText) + ";";
+
+				}
+				modelAttribute.replace(Frage.antwortenText,
+						antworten);
+				MainController.createFrage(modelAttribute);
 
 			}
 

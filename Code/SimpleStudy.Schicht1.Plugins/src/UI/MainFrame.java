@@ -23,7 +23,9 @@ import Models.Hochschule;
 import Models.Kapitel;
 import Models.Lernfach;
 import Modifier.DozentenFabrik;
+import Modifier.FragenFabrik;
 import Modifier.HochschulFabrik;
+import Modifier.KapitelFabrik;
 import Modifier.LernfachFabrik;
 import Renderer.PrettyHashMap;
 
@@ -213,7 +215,9 @@ public class MainFrame extends JFrame implements ActionListener
 		// Kapitel
 
 		btn_kap_neu = new JButton("Neu");
+		btn_kap_neu.addActionListener(this);
 		btn_kap_bear = new JButton("Bearbeiten");
+		btn_kap_bear.addActionListener(this);
 		btn_kap_del = new JButton("Loeschen");
 
 		pnl_kap_btn.add(btn_kap_neu);
@@ -223,7 +227,9 @@ public class MainFrame extends JFrame implements ActionListener
 		// Fragen
 
 		btn_frag_neu = new JButton("Neu");
+		btn_frag_neu.addActionListener(this);
 		btn_frag_bear = new JButton("Bearbeiten");
+		btn_frag_bear.addActionListener(this);
 		btn_frag_del = new JButton("Loeschen");
 
 		pnl_frag_btn.add(btn_frag_neu);
@@ -290,6 +296,31 @@ public class MainFrame extends JFrame implements ActionListener
 		else if (e.getSource() == btn_lern_neu)
 		{
 			NeuFrame nf = new NeuFrame(Lernfach.class.getSimpleName(), LernfachFabrik.getLernfachAttribute());
+		}
+
+		else if (e.getSource() == btn_lern_bear)
+		{
+			NeuFrame nf = new NeuFrame(Lernfach.class.getSimpleName(), (PrettyHashMap) lernfachliste.getSelectedValue());
+		}
+
+		else if (e.getSource() == btn_kap_neu)
+		{
+			NeuFrame nf = new NeuFrame(Kapitel.class.getSimpleName(), KapitelFabrik.getKaptielAttribute());
+		}
+
+		else if (e.getSource() == btn_kap_bear)
+		{
+			NeuFrame nf = new NeuFrame(Kapitel.class.getSimpleName(), (PrettyHashMap) kapitelliste.getSelectedValue());
+		}
+
+		else if (e.getSource() == btn_frag_neu)
+		{
+			NeuFrame nf = new NeuFrame(Frage.class.getSimpleName(), FragenFabrik.getFragenAttribute());
+		}
+
+		else if (e.getSource() == btn_frag_bear)
+		{
+			NeuFrame nf = new NeuFrame(Frage.class.getSimpleName(), (PrettyHashMap) fragenliste.getSelectedValue());
 		}
 
 	}

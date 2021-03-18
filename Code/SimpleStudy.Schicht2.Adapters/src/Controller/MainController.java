@@ -39,10 +39,11 @@ import Renderer.LernfachRenderer;
 import Renderer.PrettyHashMap;
 import Renderer.StudentenRenderer;
 
-public class MainController
+public class MainController implements UiBeobachtete
 {
 
 	private static MainController mainControllerSingleton = new MainController();
+	private static ArrayList<UiBeobachter> registrierteUiBeobachter = new ArrayList<UiBeobachter>();
 
 	private MainController()
 	{
@@ -247,6 +248,28 @@ public class MainController
 	{
 		return FragenRenderer.getFragenForView(FragenVerwaltung.getAll()
 				.values());
+	}
+
+	@Override
+	public void registriere(UiBeobachter uiBeobachter)
+	{
+		registrierteUiBeobachter.add(uiBeobachter);
+
+	}
+
+	@Override
+	public void entferne(UiBeobachter uiBeobachter)
+	{
+		registrierteUiBeobachter.remove(uiBeobachter);
+
+	}
+
+	@Override
+	public void benachrichtigeUis()
+	{
+		for (final UiBeobachter uiBeobachter : registrierteUiBeobachter)
+			uiBeobachter.aktualisiere();
+
 	}
 
 }

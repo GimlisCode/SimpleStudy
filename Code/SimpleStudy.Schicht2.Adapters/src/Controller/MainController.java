@@ -39,11 +39,13 @@ import Renderer.LernfachRenderer;
 import Renderer.PrettyHashMap;
 import Renderer.StudentenRenderer;
 
-public class MainController
+public class MainController implements UiBeobachtete
 {
 
 	private static MainController mainControllerSingleton = new MainController();
 	private static Student currentUser = null;
+	private static ArrayList<UiBeobachter> registrierteUiBeobachter = new ArrayList<UiBeobachter>();
+
 
 	private MainController()
 	{
@@ -250,10 +252,31 @@ public class MainController
 				.values());
 	}
 
+
 	public static void setCurrentUser(PrettyHashMap selectedItem)
 	{
 		StudentenVerwaltung.get(Integer.parseInt(selectedItem.get(Entity.idText)));
+	}
 
+	@Override
+	public void registriere(UiBeobachter uiBeobachter)
+	{
+		registrierteUiBeobachter.add(uiBeobachter);
+
+	}
+
+	@Override
+	public void entferne(UiBeobachter uiBeobachter)
+	{
+		registrierteUiBeobachter.remove(uiBeobachter);
+
+	}
+
+	@Override
+	public void benachrichtigeUis()
+	{
+		for (final UiBeobachter uiBeobachter : registrierteUiBeobachter)
+			uiBeobachter.aktualisiere();
 	}
 
 }

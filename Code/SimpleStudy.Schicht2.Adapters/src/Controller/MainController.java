@@ -47,7 +47,6 @@ public class MainController implements UiBeobachtete
 	private static Student currentUser = null;
 	private static ArrayList<UiBeobachter> registrierteUiBeobachter = new ArrayList<UiBeobachter>();
 
-
 	private MainController()
 	{
 		super();
@@ -142,6 +141,13 @@ public class MainController implements UiBeobachtete
 					getNewIdFor(Student.class.getSimpleName()) + "");
 
 		StudentenFabrik.create(studentAttribute);
+	}
+
+	public static void updateStudent(HashMap<String, String> studentWerte)
+	{
+		createStudent(studentWerte);
+		StudentenFabrik.resolveReferences();
+		getInstance().benachrichtigeUis();
 	}
 
 	public static void createHochschule(HashMap<String, String> hochschulen)
@@ -258,7 +264,6 @@ public class MainController implements UiBeobachtete
 		return AntwortenRenderer.getAntwortenForView(AntwortVerwaltung.getAll()
 				.values());
 	}
-
 
 	public static void setCurrentUser(PrettyHashMap selectedItem)
 	{

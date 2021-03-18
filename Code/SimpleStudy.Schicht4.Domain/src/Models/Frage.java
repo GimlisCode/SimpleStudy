@@ -14,7 +14,7 @@ public class Frage extends Entity
 	private ArrayList<Antwort> antworten = new ArrayList<>();
 	public final static String antwortenText = "antworten";
 
-	private Frage(String text, int typ, ArrayList<Antwort> antworten)
+	public Frage(String text, int typ, ArrayList<Antwort> antworten)
 	{
 		super();
 		// this.nr = nr;

@@ -9,7 +9,7 @@ import Models.Lernfach;
 public class DozentenFabrik
 {
 
-	private static Dozent neuerDozent = new Dozent(null, null);
+	private static Dozent neuerDozent = new Dozent("");
 	private static DozentenVerwaltung dozentenVerwaltung;
 	private static DozentenFabrik dozentenFabrikSingleton = new DozentenFabrik();
 	private static ArrayList<Tupel<Integer, Integer>> lernfachReferenzen = new ArrayList<>();

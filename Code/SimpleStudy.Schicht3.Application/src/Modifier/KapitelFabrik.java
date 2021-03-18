@@ -9,7 +9,7 @@ import Models.Kapitel;
 public class KapitelFabrik
 {
 
-	private static Kapitel neuesKapitel = new Kapitel(null, 0, null);
+	private static Kapitel neuesKapitel = new Kapitel("", 0);
 	private static KapitelVerwaltung kapitelVerwaltung;
 	private static KapitelFabrik kapitelFabrikSingleton = new KapitelFabrik();
 	private static ArrayList<Tupel<Integer, Integer>> fragenReferenzen = new ArrayList<>();
@@ -57,7 +57,7 @@ public class KapitelFabrik
 		}
 
 		KapitelVerwaltung.add(neuesKapitel);
-		neuesKapitel = new Kapitel(null, 0, null);
+		neuesKapitel = new Kapitel("", 0);
 	}
 
 	public static void resolveReferences()

@@ -24,6 +24,14 @@ public class Lernfach extends Entity
 		this.lernkapitel = lernkapitel;
 	}
 
+	public Lernfach(String name, int semester, int credits)
+	{
+		super();
+		this.name = name;
+		this.semester = semester;
+		this.credits = credits;
+	}
+
 	public String getName()
 	{
 		return name;
@@ -79,12 +87,17 @@ public class Lernfach extends Entity
 	@Override
 	HashMap<String, Object> getDetails()
 	{
-		HashMap<String, Object> details = new HashMap<String, Object>();
-		details.put(idText, this.id);
-		details.put(nameText, this.name);
-		details.put(semesterText, this.semester);
-		details.put(creditsText, this.credits);
-		details.put(kapitelText, this.lernkapitel);
+		final HashMap<String, Object> details = new HashMap<String, Object>();
+		details.put(idText,
+				id);
+		details.put(nameText,
+				name);
+		details.put(semesterText,
+				semester);
+		details.put(creditsText,
+				credits);
+		details.put(kapitelText,
+				lernkapitel);
 
 		return details;
 	}

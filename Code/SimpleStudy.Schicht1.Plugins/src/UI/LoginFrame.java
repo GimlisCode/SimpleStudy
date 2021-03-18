@@ -85,6 +85,7 @@ public class LoginFrame extends JFrame implements ActionListener
 		{
 			MainController.setCurrentUser((PrettyHashMap) cb_benutzer.getSelectedItem());
 			MainFrame mf = new MainFrame();
+			this.dispose();
 		}
 
 	}

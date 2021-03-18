@@ -21,6 +21,14 @@ public class Kapitel extends Entity
 		this.fragen = fragen;
 	}
 
+	public Kapitel(String name, int nr)
+	{
+		super();
+		this.name = name;
+		this.nr = nr;
+
+	}
+
 	public String getName()
 	{
 		return name;
@@ -66,11 +74,15 @@ public class Kapitel extends Entity
 	@Override
 	HashMap<String, Object> getDetails()
 	{
-		HashMap<String, Object> details = new HashMap<String, Object>();
-		details.put(idText, this.id);
-		details.put(nrText, this.nr);
-		details.put(nameText, this.name);
-		details.put(fragenText, this.fragen);
+		final HashMap<String, Object> details = new HashMap<String, Object>();
+		details.put(idText,
+				id);
+		details.put(nrText,
+				nr);
+		details.put(nameText,
+				name);
+		details.put(fragenText,
+				fragen);
 
 		return details;
 	}

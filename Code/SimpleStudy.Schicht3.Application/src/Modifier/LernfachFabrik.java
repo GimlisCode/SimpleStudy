@@ -9,7 +9,7 @@ import Models.Lernfach;
 public class LernfachFabrik
 {
 
-	private static Lernfach neuesLernfach = new Lernfach("", 0, 0, null);
+	private static Lernfach neuesLernfach = new Lernfach("", 0, 0);
 	private static LernfachVerwaltung lernfachVerwaltung;
 	private static LernfachFabrik lernfachFabrikSingleton = new LernfachFabrik();
 	private static ArrayList<Tupel<Integer, Integer>> kapitelReferenzen = new ArrayList<>();
@@ -58,7 +58,7 @@ public class LernfachFabrik
 		}
 
 		lernfachVerwaltung.add(neuesLernfach);
-		neuesLernfach = new Lernfach("", 0, 0, null);
+		neuesLernfach = new Lernfach("", 0, 0);
 	}
 
 	public static void resolveReferences()

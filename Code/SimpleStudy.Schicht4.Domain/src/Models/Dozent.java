@@ -18,6 +18,12 @@ public class Dozent extends Entity
 		this.kurse = kurse;
 	}
 
+	public Dozent(String name)
+	{
+		super();
+		this.name = name;
+	}
+
 	public String getName()
 	{
 		return name;
@@ -36,26 +42,25 @@ public class Dozent extends Entity
 	public void addKurs(Lernfach l)
 	{
 		if (kurse.contains(l) != true)
-		{
 			kurse.add(l);
-		}
 	}
 
 	public void removeKurs(Lernfach l)
 	{
 		if (kurse.contains(l))
-		{
 			kurse.remove(l);
-		}
 	}
 
 	@Override
 	HashMap<String, Object> getDetails()
 	{
-		HashMap<String, Object> details = new HashMap<String, Object>();
-		details.put(idText, this.id);
-		details.put(nameText, this.name);
-		details.put(kurseText, this.kurse);
+		final HashMap<String, Object> details = new HashMap<String, Object>();
+		details.put(idText,
+				id);
+		details.put(nameText,
+				name);
+		details.put(kurseText,
+				kurse);
 		return details;
 	}
 

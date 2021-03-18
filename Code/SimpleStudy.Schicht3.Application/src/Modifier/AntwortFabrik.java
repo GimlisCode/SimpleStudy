@@ -6,7 +6,7 @@ import Models.Antwort;
 
 public class AntwortFabrik
 {
-	private static Antwort neueAntwort = new Antwort(null, false);
+	private static Antwort neueAntwort = new Antwort("", false);
 	private static AntwortVerwaltung antwortenVerwaltung;
 	private static AntwortFabrik antwortFabrikSingleton = new AntwortFabrik();
 
@@ -23,10 +23,11 @@ public class AntwortFabrik
 
 	public static HashMap<String, String> getAntwortAttribute()
 	{
-		HashMap<String, String> antwortAttribute = new HashMap<>();
-		String[] attributNamen = neueAntwort.getAttributeNames();
-		for (String attributName : attributNamen)
-			antwortAttribute.put(attributName, "");
+		final HashMap<String, String> antwortAttribute = new HashMap<>();
+		final String[] attributNamen = neueAntwort.getAttributeNames();
+		for (final String attributName : attributNamen)
+			antwortAttribute.put(attributName,
+					"");
 
 		return antwortAttribute;
 	}
@@ -37,6 +38,6 @@ public class AntwortFabrik
 		neueAntwort.setText(antwortAttribute.get(Antwort.textText));
 		neueAntwort.setCorrect(Boolean.getBoolean(antwortAttribute.get(Antwort.textText)));
 		antwortenVerwaltung.add(neueAntwort);
-		neueAntwort = new Antwort(null, false);
+		neueAntwort = new Antwort("", false);
 	}
 }

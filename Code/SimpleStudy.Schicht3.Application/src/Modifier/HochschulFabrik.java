@@ -9,7 +9,7 @@ import Models.Hochschule;
 public class HochschulFabrik
 {
 
-	private static Hochschule neueHochschule = new Hochschule(null, null);
+	private static Hochschule neueHochschule = new Hochschule("");
 	private static HochschulVerwaltung hochschulVerwaltung;
 	private static HochschulFabrik hochschulFabrikSingleton = new HochschulFabrik();
 	private static ArrayList<Tupel<Integer, Integer>> dozentenReferenzen = new ArrayList<>();

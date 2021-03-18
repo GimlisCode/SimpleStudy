@@ -115,6 +115,12 @@ public class MainController implements UiBeobachtete
 
 	}
 
+	public static void updateAntwort(HashMap<String, String> antwortWerte)
+	{
+		createAntwort(antwortWerte);
+		getInstance().benachrichtigeUis();
+	}
+
 	public static void createDozent(HashMap<String, String> dozentWerte)
 	{
 		final var dozentAttribute = DozentenFabrik.getDozentAttribute();
@@ -127,6 +133,13 @@ public class MainController implements UiBeobachtete
 					getNewIdFor(Dozent.class.getSimpleName()) + "");
 
 		DozentenFabrik.create(dozentAttribute);
+	}
+
+	public static void updateDozent(HashMap<String, String> dozentWerte)
+	{
+		createDozent(dozentWerte);
+		DozentenFabrik.resolveReferences();
+		getInstance().benachrichtigeUis();
 	}
 
 	public static void createStudent(HashMap<String, String> studentWerte)
@@ -164,6 +177,13 @@ public class MainController implements UiBeobachtete
 		HochschulFabrik.create(hochschulAttribute);
 	}
 
+	public static void updateHochschule(HashMap<String, String> hochschuleWerte)
+	{
+		createHochschule(hochschuleWerte);
+		HochschulFabrik.resolveReferences();
+		getInstance().benachrichtigeUis();
+	}
+
 	public static void createStatistik(HashMap<String, String> currentNewStatistik)
 	{
 		final var statistikAttribute = StatistikFabrik.getStatistikAttribute();
@@ -177,6 +197,12 @@ public class MainController implements UiBeobachtete
 
 		StatistikFabrik.create(statistikAttribute);
 
+	}
+
+	public static void updateStatistik(HashMap<String, String> statistikWerte)
+	{
+		createStatistik(statistikWerte);
+		getInstance().benachrichtigeUis();
 	}
 
 	public static void createLernfach(HashMap<String, String> lernfach)
@@ -193,6 +219,13 @@ public class MainController implements UiBeobachtete
 		LernfachFabrik.create(lernfachAttribute);
 	}
 
+	public static void updateLernfach(HashMap<String, String> lernfachWerte)
+	{
+		createLernfach(lernfachWerte);
+		LernfachFabrik.resolveReferences();
+		getInstance().benachrichtigeUis();
+	}
+
 	public static void createKapitel(HashMap<String, String> kapitel)
 	{
 		final var kapitelAttribute = KapitelFabrik.getKaptielAttribute();
@@ -207,6 +240,13 @@ public class MainController implements UiBeobachtete
 		KapitelFabrik.create(kapitelAttribute);
 	}
 
+	public static void updateKapitel(HashMap<String, String> kapitelWerte)
+	{
+		createKapitel(kapitelWerte);
+		KapitelFabrik.resolveReferences();
+		getInstance().benachrichtigeUis();
+	}
+
 	public static void createFrage(HashMap<String, String> frage)
 	{
 		final var fragenAttribute = FragenFabrik.getFragenAttribute();
@@ -219,7 +259,13 @@ public class MainController implements UiBeobachtete
 					getNewIdFor(Frage.class.getSimpleName()) + "");
 
 		FragenFabrik.create(fragenAttribute);
+	}
 
+	public static void updateFrage(HashMap<String, String> frageWerte)
+	{
+		createFrage(frageWerte);
+		FragenFabrik.resolveReferences();
+		getInstance().benachrichtigeUis();
 	}
 
 	public static ArrayList<PrettyHashMap> getStudenten()

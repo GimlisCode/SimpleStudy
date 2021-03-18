@@ -73,7 +73,8 @@ public class UserAnlegenFrame extends JFrame implements ActionListener
 			HashMap<String, String> student = new HashMap<>();
 			student.put(Student.nameText,
 					benutzer);
-			MainController.createStudent(student);
+			MainController.updateStudent(student);
+			this.dispose();
 		}
 
 	}

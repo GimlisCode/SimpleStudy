@@ -5,6 +5,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -12,9 +13,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import Controller.MainController;
+import Controller.UiBeobachter;
 import Renderer.PrettyHashMap;
 
-public class LoginFrame extends JFrame implements ActionListener
+public class LoginFrame extends JFrame implements ActionListener, UiBeobachter
 {
 
 	private final JPanel oben = new JPanel();
@@ -31,6 +33,8 @@ public class LoginFrame extends JFrame implements ActionListener
 
 	public LoginFrame()
 	{
+		MainController.getInstance()
+				.registriere(this);
 		this.setTitle("Login");
 
 		setLayout(new BorderLayout());
@@ -64,7 +68,6 @@ public class LoginFrame extends JFrame implements ActionListener
 		this.setSize(350,
 				200);
 		setVisible(true);
-
 	}
 
 	@Override
@@ -76,7 +79,6 @@ public class LoginFrame extends JFrame implements ActionListener
 		if (e.getSource()
 				.equals(neu))
 		{
-			this.dispose();
 			UserAnlegenFrame aFrame = new UserAnlegenFrame();
 		}
 
@@ -88,6 +90,13 @@ public class LoginFrame extends JFrame implements ActionListener
 			this.dispose();
 		}
 
+	}
+
+	@Override
+	public void aktualisiere()
+	{
+		cb_benutzer.setModel(new DefaultComboBoxModel(MainController.getStudenten()
+				.toArray()));
 	}
 
 }

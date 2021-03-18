@@ -267,7 +267,8 @@ public class MainController implements UiBeobachtete
 
 	public static void setCurrentUser(PrettyHashMap selectedItem)
 	{
-		StudentenVerwaltung.get(Integer.parseInt(selectedItem.get(Entity.idText)));
+		currentUser = StudentenVerwaltung.get(Integer.parseInt(selectedItem.get(Entity.idText)));
+
 	}
 
 	@Override

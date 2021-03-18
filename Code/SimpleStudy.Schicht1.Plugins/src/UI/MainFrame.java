@@ -17,6 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import Controller.MainController;
+import Controller.UiBeobachter;
 import Models.Dozent;
 import Models.Frage;
 import Models.Hochschule;
@@ -29,30 +30,30 @@ import Modifier.KapitelFabrik;
 import Modifier.LernfachFabrik;
 import Renderer.PrettyHashMap;
 
-public class MainFrame extends JFrame implements ActionListener
+public class MainFrame extends JFrame implements ActionListener, UiBeobachter
 {
 
 	// Attribute
-	private JLabel lbl_titel;
-	private JLabel lbl_hochschule;
-	private JLabel lbl_dozent;
-	private JLabel lbl_lernfach;
-	private JLabel lbl_kapitel;
-	private JLabel lbl_fragen;
+	private JLabel lblTitel;
+	private JLabel lblHochschule;
+	private JLabel lblDozent;
+	private JLabel lblLernfach;
+	private JLabel lblKapitel;
+	private JLabel lblFragen;
 
-	private JPanel pnl_menu;
-	private JPanel pnl_kopf;
-	private JPanel pnl_oben;
-	private JPanel pnl_listen;
-	private JPanel pnl_listenlbl;
-	private JPanel pnl_listenbtn;
-	private JPanel pnl_hoch_btn;
-	private JPanel pnl_doz_btn;
-	private JPanel pnl_lern_btn;
-	private JPanel pnl_kap_btn;
-	private JPanel pnl_frag_btn;
-	private JPanel pnl_mitte;
-	private JPanel pnl_fuss;
+	private JPanel pnlMenu;
+	private JPanel pnlKopf;
+	private JPanel pnlOben;
+	private JPanel pnlListen;
+	private JPanel pnlListenlbl;
+	private JPanel pnlListenbtn;
+	private JPanel pnlHochBtn;
+	private JPanel pnlDozBtn;
+	private JPanel pnlLernBtn;
+	private JPanel pnlKapBtn;
+	private JPanel pnlFragBtn;
+	private JPanel pnlMitte;
+	private JPanel pnlFuss;
 
 	private final JMenuBar menu;
 	private final JMenu datei;
@@ -60,53 +61,54 @@ public class MainFrame extends JFrame implements ActionListener
 	private final JMenu ueber;
 	private final JMenu beenden;
 
-	private JScrollPane scr_liste;
+	private JScrollPane scrListe;
 
-	private JList hochschulliste;
-	private JList dozentenliste;
-	private JList lernfachliste;
-	private JList kapitelliste;
-	private JList fragenliste;
+	private JList hochschulListe;
+	private JList dozentenListe;
+	private JList lernfachListe;
+	private JList kapitelListe;
+	private JList fragenListe;
 
-	private JButton btn_hoch_neu;
-	private JButton btn_hoch_bear;
-	private JButton btn_hoch_del;
+	private JButton btnHochNeu;
+	private JButton btnHochBear;
+	private JButton btnHochDel;
 
-	private JButton btn_doz_neu;
-	private JButton btn_doz_bear;
-	private JButton btn_doz_del;
+	private JButton btnDozNeu;
+	private JButton btnDozBear;
+	private JButton btnDozDel;
 
-	private JButton btn_lern_neu;
-	private JButton btn_lern_bear;
-	private JButton btn_lern_del;
+	private JButton btnLernNeu;
+	private JButton btnLernBear;
+	private JButton btnLernDel;
 
-	private JButton btn_kap_neu;
-	private JButton btn_kap_bear;
-	private JButton btn_kap_del;
+	private JButton btnKapNeu;
+	private JButton btnKapBear;
+	private JButton btnKapDel;
 
-	private JButton btn_frag_neu;
-	private JButton btn_frag_bear;
-	private JButton btn_frag_del;
+	private JButton btnFragNeu;
+	private JButton btnFragBear;
+	private JButton btnFragDel;
 
 	public MainFrame()
 	{
-
+		MainController.getInstance()
+				.registriere(this);
 		setTitle("Simple Study");
 		final Dimension screen = Toolkit.getDefaultToolkit()
 				.getScreenSize();
 		this.setSize(screen);
 		setLayout(new BorderLayout());
-		pnl_kopf = new JPanel();
-		pnl_oben = new JPanel(new BorderLayout());
+		pnlKopf = new JPanel();
+		pnlOben = new JPanel(new BorderLayout());
 
 		// Kopfzeile
-		lbl_titel = new JLabel("Simple Study");
-		pnl_kopf.add(lbl_titel);
-		pnl_oben.add(pnl_kopf,
+		lblTitel = new JLabel("Simple Study");
+		pnlKopf.add(lblTitel);
+		pnlOben.add(pnlKopf,
 				BorderLayout.PAGE_START);
 
 		// Men�leiste
-		pnl_menu = new JPanel();
+		pnlMenu = new JPanel();
 		menu = new JMenuBar();
 		datei = new JMenu("Datei");
 		suche = new JMenu("Suche");
@@ -119,146 +121,146 @@ public class MainFrame extends JFrame implements ActionListener
 		menu.add(ueber);
 		menu.add(beenden);
 
-		pnl_menu.add(menu);
+		pnlMenu.add(menu);
 
-		pnl_oben.add(pnl_menu,
+		pnlOben.add(pnlMenu,
 				BorderLayout.LINE_START);
 
 		// Auswahllisten
-		pnl_mitte = new JPanel();
-		pnl_mitte.setLayout(new BorderLayout());
-		pnl_listen = new JPanel();
-		pnl_listen.setLayout(new GridLayout(1, 5));
-		pnl_listenlbl = new JPanel();
-		pnl_listenlbl.setLayout(new GridLayout(1, 5));
-		pnl_listenbtn = new JPanel();
-		pnl_listenbtn.setLayout(new GridLayout(1, 5));
+		pnlMitte = new JPanel();
+		pnlMitte.setLayout(new BorderLayout());
+		pnlListen = new JPanel();
+		pnlListen.setLayout(new GridLayout(1, 5));
+		pnlListenlbl = new JPanel();
+		pnlListenlbl.setLayout(new GridLayout(1, 5));
+		pnlListenbtn = new JPanel();
+		pnlListenbtn.setLayout(new GridLayout(1, 5));
 
-		pnl_hoch_btn = new JPanel();
-		pnl_doz_btn = new JPanel();
-		pnl_lern_btn = new JPanel();
-		pnl_kap_btn = new JPanel();
-		pnl_frag_btn = new JPanel();
+		pnlHochBtn = new JPanel();
+		pnlDozBtn = new JPanel();
+		pnlLernBtn = new JPanel();
+		pnlKapBtn = new JPanel();
+		pnlFragBtn = new JPanel();
 
-		lbl_hochschule = new JLabel(Hochschule.class.getSimpleName());
-		lbl_dozent = new JLabel(Dozent.class.getSimpleName());
-		lbl_lernfach = new JLabel(Lernfach.class.getSimpleName());
-		lbl_kapitel = new JLabel(Kapitel.class.getSimpleName());
-		lbl_fragen = new JLabel(Frage.class.getSimpleName());
+		lblHochschule = new JLabel(Hochschule.class.getSimpleName());
+		lblDozent = new JLabel(Dozent.class.getSimpleName());
+		lblLernfach = new JLabel(Lernfach.class.getSimpleName());
+		lblKapitel = new JLabel(Kapitel.class.getSimpleName());
+		lblFragen = new JLabel(Frage.class.getSimpleName());
 
-		pnl_listenlbl.add(lbl_hochschule);
-		pnl_listenlbl.add(lbl_dozent);
-		pnl_listenlbl.add(lbl_lernfach);
-		pnl_listenlbl.add(lbl_kapitel);
-		pnl_listenlbl.add(lbl_fragen);
+		pnlListenlbl.add(lblHochschule);
+		pnlListenlbl.add(lblDozent);
+		pnlListenlbl.add(lblLernfach);
+		pnlListenlbl.add(lblKapitel);
+		pnlListenlbl.add(lblFragen);
 
-		hochschulliste = new JList<>(MainController.getHochschulen()
+		hochschulListe = new JList<>(MainController.getHochschulen()
 				.toArray());
 
-		dozentenliste = new JList<>(MainController.getDozenten()
+		dozentenListe = new JList<>(MainController.getDozenten()
 				.toArray());
 
-		lernfachliste = new JList<>(MainController.getLernfaecher()
+		lernfachListe = new JList<>(MainController.getLernfaecher()
 				.toArray());
 
-		kapitelliste = new JList<>(MainController.getKapitel()
+		kapitelListe = new JList<>(MainController.getKapitel()
 				.toArray());
 
-		fragenliste = new JList<>(MainController.getFragen()
+		fragenListe = new JList<>(MainController.getFragen()
 				.toArray());
 
-		pnl_listen.add(hochschulliste);
-		pnl_listen.add(dozentenliste);
-		pnl_listen.add(lernfachliste);
-		pnl_listen.add(kapitelliste);
-		pnl_listen.add(fragenliste);
+		pnlListen.add(hochschulListe);
+		pnlListen.add(dozentenListe);
+		pnlListen.add(lernfachListe);
+		pnlListen.add(kapitelListe);
+		pnlListen.add(fragenListe);
 
 		// Buttons fuer die Auswahllisten
 
 		// Hochschule
 
-		btn_hoch_neu = new JButton("Neu");
-		btn_hoch_neu.addActionListener(this);
-		btn_hoch_bear = new JButton("Bearbeiten");
-		btn_hoch_bear.addActionListener(this);
-		btn_hoch_del = new JButton("Loeschen");
-		btn_hoch_del.addActionListener(this);
+		btnHochNeu = new JButton("Neu");
+		btnHochNeu.addActionListener(this);
+		btnHochBear = new JButton("Bearbeiten");
+		btnHochBear.addActionListener(this);
+		btnHochDel = new JButton("Loeschen");
+		btnHochDel.addActionListener(this);
 
-		pnl_hoch_btn.add(btn_hoch_neu);
-		pnl_hoch_btn.add(btn_hoch_bear);
-		pnl_hoch_btn.add(btn_hoch_del);
+		pnlHochBtn.add(btnHochNeu);
+		pnlHochBtn.add(btnHochBear);
+		pnlHochBtn.add(btnHochDel);
 
 		// Dozenten
 
-		btn_doz_neu = new JButton("Neu");
-		btn_doz_neu.addActionListener(this);
-		btn_doz_bear = new JButton("Bearbeiten");
-		btn_doz_bear.addActionListener(this);
-		btn_doz_del = new JButton("Loeschen");
+		btnDozNeu = new JButton("Neu");
+		btnDozNeu.addActionListener(this);
+		btnDozBear = new JButton("Bearbeiten");
+		btnDozBear.addActionListener(this);
+		btnDozDel = new JButton("Loeschen");
 
-		pnl_doz_btn.add(btn_doz_neu);
-		pnl_doz_btn.add(btn_doz_bear);
-		pnl_doz_btn.add(btn_doz_del);
+		pnlDozBtn.add(btnDozNeu);
+		pnlDozBtn.add(btnDozBear);
+		pnlDozBtn.add(btnDozDel);
 
 		// Lernfaecher
 
-		btn_lern_neu = new JButton("Neu");
-		btn_lern_neu.addActionListener(this);
-		btn_lern_bear = new JButton("Bearbeiten");
-		btn_lern_bear.addActionListener(this);
-		btn_lern_del = new JButton("Loeschen");
+		btnLernNeu = new JButton("Neu");
+		btnLernNeu.addActionListener(this);
+		btnLernBear = new JButton("Bearbeiten");
+		btnLernBear.addActionListener(this);
+		btnLernDel = new JButton("Loeschen");
 
-		pnl_lern_btn.add(btn_lern_neu);
-		pnl_lern_btn.add(btn_lern_bear);
-		pnl_lern_btn.add(btn_lern_del);
+		pnlLernBtn.add(btnLernNeu);
+		pnlLernBtn.add(btnLernBear);
+		pnlLernBtn.add(btnLernDel);
 
 		// Kapitel
 
-		btn_kap_neu = new JButton("Neu");
-		btn_kap_neu.addActionListener(this);
-		btn_kap_bear = new JButton("Bearbeiten");
-		btn_kap_bear.addActionListener(this);
-		btn_kap_del = new JButton("Loeschen");
+		btnKapNeu = new JButton("Neu");
+		btnKapNeu.addActionListener(this);
+		btnKapBear = new JButton("Bearbeiten");
+		btnKapBear.addActionListener(this);
+		btnKapDel = new JButton("Loeschen");
 
-		pnl_kap_btn.add(btn_kap_neu);
-		pnl_kap_btn.add(btn_kap_bear);
-		pnl_kap_btn.add(btn_kap_del);
+		pnlKapBtn.add(btnKapNeu);
+		pnlKapBtn.add(btnKapBear);
+		pnlKapBtn.add(btnKapDel);
 
 		// Fragen
 
-		btn_frag_neu = new JButton("Neu");
-		btn_frag_neu.addActionListener(this);
-		btn_frag_bear = new JButton("Bearbeiten");
-		btn_frag_bear.addActionListener(this);
-		btn_frag_del = new JButton("Loeschen");
+		btnFragNeu = new JButton("Neu");
+		btnFragNeu.addActionListener(this);
+		btnFragBear = new JButton("Bearbeiten");
+		btnFragBear.addActionListener(this);
+		btnFragDel = new JButton("Loeschen");
 
-		pnl_frag_btn.add(btn_frag_neu);
-		pnl_frag_btn.add(btn_frag_bear);
-		pnl_frag_btn.add(btn_frag_del);
+		pnlFragBtn.add(btnFragNeu);
+		pnlFragBtn.add(btnFragBear);
+		pnlFragBtn.add(btnFragDel);
 
 		// ButtonComponent
 
-		pnl_listenbtn.add(pnl_hoch_btn);
-		pnl_listenbtn.add(pnl_doz_btn);
-		pnl_listenbtn.add(pnl_lern_btn);
-		pnl_listenbtn.add(pnl_kap_btn);
-		pnl_listenbtn.add(pnl_frag_btn);
+		pnlListenbtn.add(pnlHochBtn);
+		pnlListenbtn.add(pnlDozBtn);
+		pnlListenbtn.add(pnlLernBtn);
+		pnlListenbtn.add(pnlKapBtn);
+		pnlListenbtn.add(pnlFragBtn);
 
 		// Fusszeile
-		pnl_fuss = new JPanel();
+		pnlFuss = new JPanel();
 
 		// Layouting
-		pnl_mitte.add(pnl_listenlbl,
+		pnlMitte.add(pnlListenlbl,
 				BorderLayout.NORTH);
-		pnl_mitte.add(pnl_listen,
+		pnlMitte.add(pnlListen,
 				BorderLayout.CENTER);
-		pnl_mitte.add(pnl_listenbtn,
+		pnlMitte.add(pnlListenbtn,
 				BorderLayout.SOUTH);
-		this.add(pnl_oben,
+		this.add(pnlOben,
 				BorderLayout.NORTH);
-		this.add(pnl_mitte,
+		this.add(pnlMitte,
 				BorderLayout.CENTER);
-		this.add(pnl_fuss,
+		this.add(pnlFuss,
 				BorderLayout.SOUTH);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
@@ -273,55 +275,76 @@ public class MainFrame extends JFrame implements ActionListener
 			this.dispose();
 		}
 
-		else if (e.getSource() == btn_hoch_neu)
+		else if (e.getSource() == btnHochNeu)
 		{
 			NeuFrame nf = new NeuFrame(Hochschule.class.getSimpleName(), HochschulFabrik.getHochschulAttribute());
 		}
 
-		else if (e.getSource() == btn_hoch_bear)
+		else if (e.getSource() == btnHochBear)
 		{
-			NeuFrame nf = new NeuFrame(Hochschule.class.getSimpleName(), (PrettyHashMap) hochschulliste.getSelectedValue());
+			NeuFrame nf = new NeuFrame(Hochschule.class.getSimpleName(), (PrettyHashMap) hochschulListe.getSelectedValue());
 		}
 
-		else if (e.getSource() == btn_doz_neu)
+		else if (e.getSource() == btnDozNeu)
 		{
 			NeuFrame nf = new NeuFrame(Dozent.class.getSimpleName(), DozentenFabrik.getDozentAttribute());
 		}
 
-		else if (e.getSource() == btn_doz_bear)
+		else if (e.getSource() == btnDozBear)
 		{
-			NeuFrame nf = new NeuFrame(Dozent.class.getSimpleName(), (PrettyHashMap) dozentenliste.getSelectedValue());
+			NeuFrame nf = new NeuFrame(Dozent.class.getSimpleName(), (PrettyHashMap) dozentenListe.getSelectedValue());
 		}
 
-		else if (e.getSource() == btn_lern_neu)
+		else if (e.getSource() == btnLernNeu)
 		{
 			NeuFrame nf = new NeuFrame(Lernfach.class.getSimpleName(), LernfachFabrik.getLernfachAttribute());
 		}
 
-		else if (e.getSource() == btn_lern_bear)
+		else if (e.getSource() == btnLernBear)
 		{
-			NeuFrame nf = new NeuFrame(Lernfach.class.getSimpleName(), (PrettyHashMap) lernfachliste.getSelectedValue());
+			NeuFrame nf = new NeuFrame(Lernfach.class.getSimpleName(), (PrettyHashMap) lernfachListe.getSelectedValue());
 		}
 
-		else if (e.getSource() == btn_kap_neu)
+		else if (e.getSource() == btnKapNeu)
 		{
 			NeuFrame nf = new NeuFrame(Kapitel.class.getSimpleName(), KapitelFabrik.getKaptielAttribute());
 		}
 
-		else if (e.getSource() == btn_kap_bear)
+		else if (e.getSource() == btnKapBear)
 		{
-			NeuFrame nf = new NeuFrame(Kapitel.class.getSimpleName(), (PrettyHashMap) kapitelliste.getSelectedValue());
+			NeuFrame nf = new NeuFrame(Kapitel.class.getSimpleName(), (PrettyHashMap) kapitelListe.getSelectedValue());
 		}
 
-		else if (e.getSource() == btn_frag_neu)
+		else if (e.getSource() == btnFragNeu)
 		{
 			NeuFrame nf = new NeuFrame(Frage.class.getSimpleName(), FragenFabrik.getFragenAttribute());
 		}
 
-		else if (e.getSource() == btn_frag_bear)
+		else if (e.getSource() == btnFragBear)
 		{
-			NeuFrame nf = new NeuFrame(Frage.class.getSimpleName(), (PrettyHashMap) fragenliste.getSelectedValue());
+			NeuFrame nf = new NeuFrame(Frage.class.getSimpleName(), (PrettyHashMap) fragenListe.getSelectedValue());
 		}
+
+	}
+
+	@Override
+	public void aktualisiere()
+	{
+
+		hochschulListe.setListData(MainController.getHochschulen()
+				.toArray());
+
+		dozentenListe.setListData(MainController.getDozenten()
+				.toArray());
+
+		lernfachListe.setListData(MainController.getLernfaecher()
+				.toArray());
+
+		kapitelListe.setListData(MainController.getKapitel()
+				.toArray());
+
+		fragenListe.setListData(MainController.getFragen()
+				.toArray());
 
 	}
 

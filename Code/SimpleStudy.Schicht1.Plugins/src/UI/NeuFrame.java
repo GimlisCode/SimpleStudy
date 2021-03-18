@@ -17,6 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import Controller.MainController;
+import Controller.UiBeobachter;
 import Models.Dozent;
 import Models.Frage;
 import Models.Hochschule;
@@ -24,7 +25,7 @@ import Models.Kapitel;
 import Models.Lernfach;
 import Renderer.PrettyHashMap;
 
-public class NeuFrame extends JFrame implements ActionListener
+public class NeuFrame extends JFrame implements ActionListener, UiBeobachter
 {
 	private JLabel lbl_model;
 	private JLabel lbl_1;
@@ -296,6 +297,13 @@ public class NeuFrame extends JFrame implements ActionListener
 		{
 			this.dispose();
 		}
+
+	}
+
+	@Override
+	public void aktualisiere()
+	{
+		// TODO Auto-generated method stub
 
 	}
 

@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 
 import Controller.MainController;
 import Controller.UiBeobachter;
+import Models.Entity;
 import Renderer.PrettyHashMap;
 
 public class LoginFrame extends JFrame implements ActionListener, UiBeobachter
@@ -97,7 +98,7 @@ public class LoginFrame extends JFrame implements ActionListener, UiBeobachter
 		else if (e.getSource()
 				.equals(delete))
 		{
-			// TODO: Deletefunktion einführen
+			MainController.deleteStudent(((PrettyHashMap) cb_benutzer.getSelectedItem()).visible.get(Entity.idText));
 		}
 
 	}

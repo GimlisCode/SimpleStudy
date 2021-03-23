@@ -12,7 +12,13 @@ import Models.Lernfach;
 import Models.Richtigkeit;
 import Models.Statistik;
 import Models.Student;
+import Modifier.DozentenFabrik;
+import Modifier.FragenFabrik;
+import Modifier.HochschulFabrik;
+import Modifier.KapitelFabrik;
+import Modifier.LernfachFabrik;
 import Modifier.StatistikFabrik;
+import Modifier.StudentenFabrik;
 
 public class DbController
 {
@@ -22,6 +28,17 @@ public class DbController
 	{
 		this.datenVerbindung = datenVerbindung;
 		initiliazeData();
+		resolveAll();
+	}
+
+	public void resolveAll()
+	{
+		StudentenFabrik.resolveReferences();
+		HochschulFabrik.resolveReferences();
+		DozentenFabrik.resolveReferences();
+		LernfachFabrik.resolveReferences();
+		KapitelFabrik.resolveReferences();
+		FragenFabrik.resolveReferences();
 	}
 
 	public void initiliazeData()

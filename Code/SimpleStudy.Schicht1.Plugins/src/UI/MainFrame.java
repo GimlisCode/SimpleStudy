@@ -13,12 +13,15 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.ListSelectionModel;
 
 import Controller.MainController;
 import Controller.UiBeobachter;
 import Models.Dozent;
+import Models.Entity;
 import Models.Frage;
 import Models.Hochschule;
 import Models.Kapitel;
@@ -156,18 +159,23 @@ public class MainFrame extends JFrame implements ActionListener, UiBeobachter
 
 		hochschulListe = new JList<>(MainController.getHochschulen()
 				.toArray());
+		hochschulListe.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
 		dozentenListe = new JList<>(MainController.getDozenten()
 				.toArray());
+		dozentenListe.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
 		lernfachListe = new JList<>(MainController.getLernfaecher()
 				.toArray());
+		lernfachListe.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
 		kapitelListe = new JList<>(MainController.getKapitel()
 				.toArray());
+		kapitelListe.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
 		fragenListe = new JList<>(MainController.getFragen()
 				.toArray());
+		fragenListe.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
 		pnlListen.add(hochschulListe);
 		pnlListen.add(dozentenListe);
@@ -197,6 +205,7 @@ public class MainFrame extends JFrame implements ActionListener, UiBeobachter
 		btnDozBear = new JButton("Bearbeiten");
 		btnDozBear.addActionListener(this);
 		btnDozDel = new JButton("Loeschen");
+		btnDozDel.addActionListener(this);
 
 		pnlDozBtn.add(btnDozNeu);
 		pnlDozBtn.add(btnDozBear);
@@ -209,6 +218,7 @@ public class MainFrame extends JFrame implements ActionListener, UiBeobachter
 		btnLernBear = new JButton("Bearbeiten");
 		btnLernBear.addActionListener(this);
 		btnLernDel = new JButton("Loeschen");
+		btnLernDel.addActionListener(this);
 
 		pnlLernBtn.add(btnLernNeu);
 		pnlLernBtn.add(btnLernBear);
@@ -221,6 +231,7 @@ public class MainFrame extends JFrame implements ActionListener, UiBeobachter
 		btnKapBear = new JButton("Bearbeiten");
 		btnKapBear.addActionListener(this);
 		btnKapDel = new JButton("Loeschen");
+		btnKapDel.addActionListener(this);
 
 		pnlKapBtn.add(btnKapNeu);
 		pnlKapBtn.add(btnKapBear);
@@ -233,6 +244,7 @@ public class MainFrame extends JFrame implements ActionListener, UiBeobachter
 		btnFragBear = new JButton("Bearbeiten");
 		btnFragBear.addActionListener(this);
 		btnFragDel = new JButton("Loeschen");
+		btnFragDel.addActionListener(this);
 
 		pnlFragBtn.add(btnFragNeu);
 		pnlFragBtn.add(btnFragBear);
@@ -286,6 +298,16 @@ public class MainFrame extends JFrame implements ActionListener, UiBeobachter
 					((PrettyHashMap) hochschulListe.getSelectedValue()).getNormalHashMap());
 		}
 
+		else if (e.getSource() == btnHochDel)
+		{
+			int ret = JOptionPane.showConfirmDialog(MainFrame.this,
+					"Soll die gewählte Hochschule wirklich gelöscht werden?");
+			if (ret == JOptionPane.YES_OPTION)
+			{
+				MainController.deleteHochschule(((PrettyHashMap) hochschulListe.getSelectedValue()).visible.get(Entity.idText));
+			}
+		}
+
 		else if (e.getSource() == btnDozNeu)
 		{
 			NeuFrame nf = new NeuFrame(Dozent.class.getSimpleName(), DozentenFabrik.getDozentAttribute());
@@ -295,6 +317,16 @@ public class MainFrame extends JFrame implements ActionListener, UiBeobachter
 		{
 			NeuFrame nf = new NeuFrame(Dozent.class.getSimpleName(),
 					((PrettyHashMap) dozentenListe.getSelectedValue()).getNormalHashMap());
+		}
+
+		else if (e.getSource() == btnDozDel)
+		{
+			int ret = JOptionPane.showConfirmDialog(MainFrame.this,
+					"Soll der/die gewählte Dozent/in wirklich gelöscht werden?");
+			if (ret == JOptionPane.YES_OPTION)
+			{
+				MainController.deleteDozent(((PrettyHashMap) dozentenListe.getSelectedValue()).visible.get(Entity.idText));
+			}
 		}
 
 		else if (e.getSource() == btnLernNeu)
@@ -308,6 +340,16 @@ public class MainFrame extends JFrame implements ActionListener, UiBeobachter
 					((PrettyHashMap) lernfachListe.getSelectedValue()).getNormalHashMap());
 		}
 
+		else if (e.getSource() == btnLernDel)
+		{
+			int ret = JOptionPane.showConfirmDialog(MainFrame.this,
+					"Soll das gewählte Lernfach wirklich gelöscht werden?");
+			if (ret == JOptionPane.YES_OPTION)
+			{
+				MainController.deleteLernfach(((PrettyHashMap) lernfachListe.getSelectedValue()).visible.get(Entity.idText));
+			}
+		}
+
 		else if (e.getSource() == btnKapNeu)
 		{
 			NeuFrame nf = new NeuFrame(Kapitel.class.getSimpleName(), KapitelFabrik.getKaptielAttribute());
@@ -319,6 +361,16 @@ public class MainFrame extends JFrame implements ActionListener, UiBeobachter
 					((PrettyHashMap) kapitelListe.getSelectedValue()).getNormalHashMap());
 		}
 
+		else if (e.getSource() == btnKapDel)
+		{
+			int ret = JOptionPane.showConfirmDialog(MainFrame.this,
+					"Soll das gewählte Kapitel wirklich gelöscht werden?");
+			if (ret == JOptionPane.YES_OPTION)
+			{
+				MainController.deleteKapitel(((PrettyHashMap) kapitelListe.getSelectedValue()).visible.get(Entity.idText));
+			}
+		}
+
 		else if (e.getSource() == btnFragNeu)
 		{
 			NeuFrame nf = new NeuFrame(Frage.class.getSimpleName(), FragenFabrik.getFragenAttribute());
@@ -328,6 +380,16 @@ public class MainFrame extends JFrame implements ActionListener, UiBeobachter
 		{
 			NeuFrame nf = new NeuFrame(Frage.class.getSimpleName(),
 					((PrettyHashMap) fragenListe.getSelectedValue()).getNormalHashMap());
+		}
+
+		else if (e.getSource() == btnFragDel)
+		{
+			int ret = JOptionPane.showConfirmDialog(MainFrame.this,
+					"Soll die gewählte Frage wirklich gelöscht werden?");
+			if (ret == JOptionPane.YES_OPTION)
+			{
+				MainController.deleteFrage(((PrettyHashMap) fragenListe.getSelectedValue()).visible.get(Entity.idText));
+			}
 		}
 
 	}

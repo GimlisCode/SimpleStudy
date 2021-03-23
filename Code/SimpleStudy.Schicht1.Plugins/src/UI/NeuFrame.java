@@ -83,6 +83,8 @@ public class NeuFrame extends JFrame implements ActionListener, UiBeobachter
 
 			lst_1 = new JList(MainController.getDozenten()
 					.toArray());
+			// lst_1.setSelectedIndex(0);
+			// lst_1.setSelectedIndex(modelAttribute.get(Hochschule.dozentenText));
 
 			pnl_mitte = new JPanel(new GridLayout(2, 2));
 			pnl_mitte.add(lbl_1);
@@ -99,7 +101,7 @@ public class NeuFrame extends JFrame implements ActionListener, UiBeobachter
 			lbl_1 = new JLabel("Name");
 			lbl_2 = new JLabel("Kurs");
 
-			tf_1 = new JTextField();
+			tf_1 = new JTextField(modelAttribute.get(Dozent.nameText));
 
 			lst_1 = new JList(MainController.getLernfaecher()
 					.toArray());
@@ -121,9 +123,9 @@ public class NeuFrame extends JFrame implements ActionListener, UiBeobachter
 			lbl_3 = new JLabel("Credits");
 			lbl_4 = new JLabel("Kapitel");
 
-			tf_1 = new JTextField();
-			tf_2 = new JTextField();
-			tf_3 = new JTextField();
+			tf_1 = new JTextField(modelAttribute.get(Lernfach.nameText));
+			tf_2 = new JTextField(modelAttribute.get(Lernfach.creditsText));
+			tf_3 = new JTextField(modelAttribute.get(Lernfach.kapitelText));
 
 			lst_1 = new JList(MainController.getKapitel()
 					.toArray());
@@ -148,8 +150,8 @@ public class NeuFrame extends JFrame implements ActionListener, UiBeobachter
 			lbl_2 = new JLabel("Nr.");
 			lbl_3 = new JLabel("Fragen");
 
-			tf_1 = new JTextField();
-			tf_2 = new JTextField();
+			tf_1 = new JTextField(modelAttribute.get(Kapitel.nameText));
+			tf_2 = new JTextField(modelAttribute.get(Kapitel.nrText));
 
 			lst_1 = new JList(MainController.getFragen()
 					.toArray());
@@ -172,7 +174,7 @@ public class NeuFrame extends JFrame implements ActionListener, UiBeobachter
 			lbl_2 = new JLabel("Fragentyp");
 			lbl_3 = new JLabel("Antworten");
 
-			tf_1 = new JTextField();
+			tf_1 = new JTextField(modelAttribute.get(Frage.textText));
 			Integer[] typen =
 				{ 1, 2, 3 };
 			lst_1 = new JList<Integer>(typen);

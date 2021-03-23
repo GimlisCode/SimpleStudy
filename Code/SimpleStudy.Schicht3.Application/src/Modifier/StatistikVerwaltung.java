@@ -24,7 +24,7 @@ public class StatistikVerwaltung
 		return statistikVerwaltungSingleton;
 	}
 
-	static Statistik get(int id)
+	public static Statistik get(int id)
 	{
 		return statistiken.get(id);
 	}

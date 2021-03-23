@@ -22,7 +22,7 @@ public class HochschulVerwaltung
 		return hochschulVerwaltungSingleton;
 	}
 
-	static Hochschule get(int id)
+	public static Hochschule get(int id)
 	{
 		return hochschulen.get(id);
 	}
@@ -43,7 +43,7 @@ public class HochschulVerwaltung
 		remove(kapitel.getId());
 	}
 
-	static void remove(int id)
+	public static void remove(int id)
 	{
 		hochschulen.remove(id);
 	}
@@ -56,8 +56,8 @@ public class HochschulVerwaltung
 
 	static ArrayList<Hochschule> suche(String suchstring)
 	{
-		ArrayList<Hochschule> passendeLernfaecherZumSuchstring = new ArrayList<>();
-		for (Entry<Integer, Hochschule> hochschule : hochschulen.entrySet())
+		final ArrayList<Hochschule> passendeLernfaecherZumSuchstring = new ArrayList<>();
+		for (final Entry<Integer, Hochschule> hochschule : hochschulen.entrySet())
 			if (hochschule.getValue()
 					.toString()
 					.contains(suchstring))

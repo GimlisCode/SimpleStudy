@@ -22,7 +22,7 @@ public class KapitelVerwaltung
 		return kapitelVerwaltungSingleton;
 	}
 
-	static Kapitel get(int id)
+	public static Kapitel get(int id)
 	{
 		return kapitel.get(id);
 	}
@@ -43,7 +43,7 @@ public class KapitelVerwaltung
 		remove(kapitel.getId());
 	}
 
-	static void remove(int id)
+	public static void remove(int id)
 	{
 		kapitel.remove(id);
 	}
@@ -56,8 +56,8 @@ public class KapitelVerwaltung
 
 	static ArrayList<Kapitel> suche(String suchstring)
 	{
-		ArrayList<Kapitel> passendeLernfaecherZumSuchstring = new ArrayList<>();
-		for (Entry<Integer, Kapitel> kapitel : kapitel.entrySet())
+		final ArrayList<Kapitel> passendeLernfaecherZumSuchstring = new ArrayList<>();
+		for (final Entry<Integer, Kapitel> kapitel : kapitel.entrySet())
 			if (kapitel.getValue()
 					.toString()
 					.contains(suchstring))

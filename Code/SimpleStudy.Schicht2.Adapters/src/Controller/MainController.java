@@ -271,9 +271,72 @@ public class MainController implements UiBeobachtete
 	public static void deleteStudent(String studentenId)
 	{
 		final var student = StudentenVerwaltung.get(Integer.parseInt(studentenId));
-		final var studentEchteWerte = student.getDetails();
-		StatistikVerwaltung.remove(((Statistik) studentEchteWerte.get(Student.statistikText)).getId());
+		deleteStatistik(student.getStatistik()
+				.getId() + "");
 		StudentenVerwaltung.remove(Integer.parseInt(studentenId));
+		getInstance().benachrichtigeUis();
+	}
+
+	public static void deleteStatistik(String statistikId)
+	{
+		StatistikVerwaltung.remove(Integer.parseInt(statistikId));
+		getInstance().benachrichtigeUis();
+	}
+
+	public static void deleteHochschule(String hocschulId)
+	{
+		final var hochschule = HochschulVerwaltung.get(Integer.parseInt(hocschulId));
+		final var dozenten = hochschule.getDozenten();
+		for (final Dozent dozent : dozenten)
+			deleteDozent(dozent.getId() + "");
+
+		HochschulVerwaltung.remove(Integer.parseInt(hocschulId));
+		getInstance().benachrichtigeUis();
+
+	}
+
+	public static void deleteDozent(String dozentId)
+	{
+		final var dozent = DozentenVerwaltung.get(Integer.parseInt(dozentId));
+		final var kurse = dozent.getKurse();
+		for (final Lernfach kurs : kurse)
+			deleteLernfach(kurs.getId() + "");
+
+		DozentenVerwaltung.remove(Integer.parseInt(dozentId));
+		getInstance().benachrichtigeUis();
+
+	}
+
+	public static void deleteLernfach(String lernfachId)
+	{
+		final var lernfach = LernfachVerwaltung.get(Integer.parseInt(lernfachId));
+		final var kapitel = lernfach.getLernkapitel();
+		for (final Kapitel kapi : kapitel)
+			deleteKapitel(kapi.getId() + "");
+
+		LernfachVerwaltung.remove(Integer.parseInt(lernfachId));
+		getInstance().benachrichtigeUis();
+	}
+
+	public static void deleteKapitel(String kapitelId)
+	{
+		final var kapitel = KapitelVerwaltung.get(Integer.parseInt(kapitelId));
+		final var fragen = kapitel.getFragen();
+		for (final Frage frage : fragen)
+			deleteFrage(frage.getId() + "");
+
+		KapitelVerwaltung.remove(Integer.parseInt(kapitelId));
+		getInstance().benachrichtigeUis();
+	}
+
+	public static void deleteFrage(String fragenId)
+	{
+		final var frage = FragenVerwaltung.get(Integer.parseInt(fragenId));
+		final var antworten = frage.getAntworten();
+		for (final Antwort antwort : antworten)
+			deleteAntwort(antwort.getId() + "");
+
+		FragenVerwaltung.remove(Integer.parseInt(fragenId));
 		getInstance().benachrichtigeUis();
 	}
 

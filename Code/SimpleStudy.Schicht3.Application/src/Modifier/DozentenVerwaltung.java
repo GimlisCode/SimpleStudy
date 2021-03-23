@@ -22,7 +22,7 @@ public final class DozentenVerwaltung
 		return dozentenVerwaltungSingleton;
 	}
 
-	static Dozent get(int id)
+	public static Dozent get(int id)
 	{
 		return dozenten.get(id);
 	}
@@ -43,7 +43,7 @@ public final class DozentenVerwaltung
 		remove(dozent.getId());
 	}
 
-	static void remove(int id)
+	public static void remove(int id)
 	{
 		dozenten.remove(id);
 	}
@@ -56,8 +56,8 @@ public final class DozentenVerwaltung
 
 	static ArrayList<Dozent> suche(String suchstring)
 	{
-		ArrayList<Dozent> passendeDozentenZumSuchstring = new ArrayList<>();
-		for (Entry<Integer, Dozent> dozent : dozenten.entrySet())
+		final ArrayList<Dozent> passendeDozentenZumSuchstring = new ArrayList<>();
+		for (final Entry<Integer, Dozent> dozent : dozenten.entrySet())
 			if (dozent.getValue()
 					.toString()
 					.contains(suchstring))

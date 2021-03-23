@@ -22,7 +22,7 @@ public class LernfachVerwaltung
 		return lernfachVerwaltungSingleton;
 	}
 
-	static Lernfach get(int id)
+	public static Lernfach get(int id)
 	{
 		return lernfaecher.get(id);
 	}
@@ -43,7 +43,7 @@ public class LernfachVerwaltung
 		remove(lernfach.getId());
 	}
 
-	static void remove(int id)
+	public static void remove(int id)
 	{
 		lernfaecher.remove(id);
 	}
@@ -56,8 +56,8 @@ public class LernfachVerwaltung
 
 	static ArrayList<Lernfach> suche(String suchstring)
 	{
-		ArrayList<Lernfach> passendeLernfaecherZumSuchstring = new ArrayList<>();
-		for (Entry<Integer, Lernfach> student : lernfaecher.entrySet())
+		final ArrayList<Lernfach> passendeLernfaecherZumSuchstring = new ArrayList<>();
+		for (final Entry<Integer, Lernfach> student : lernfaecher.entrySet())
 			if (student.getValue()
 					.toString()
 					.contains(suchstring))

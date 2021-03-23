@@ -82,7 +82,7 @@ public class Frage extends Entity
 	}
 
 	@Override
-	HashMap<String, Object> getDetails()
+	public HashMap<String, Object> getDetails()
 	{
 		final HashMap<String, Object> details = new HashMap<String, Object>();
 		// details.put("nr", this.nr);

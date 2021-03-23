@@ -22,7 +22,7 @@ public class FragenVerwaltung
 		return fragenVerwaltungSingleton;
 	}
 
-	static Frage get(int id)
+	public static Frage get(int id)
 	{
 		return fragen.get(id);
 	}
@@ -43,7 +43,7 @@ public class FragenVerwaltung
 		remove(frage.getId());
 	}
 
-	static void remove(int id)
+	public static void remove(int id)
 	{
 		fragen.remove(id);
 	}

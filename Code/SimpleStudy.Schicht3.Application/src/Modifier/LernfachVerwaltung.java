@@ -38,7 +38,7 @@ public class LernfachVerwaltung
 				lernfach);
 	}
 
-	static void remove(Lernfach lernfach)
+	public static void remove(Lernfach lernfach)
 	{
 		remove(lernfach.getId());
 	}

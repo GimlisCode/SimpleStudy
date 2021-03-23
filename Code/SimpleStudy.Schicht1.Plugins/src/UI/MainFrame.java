@@ -97,9 +97,8 @@ public class MainFrame extends JFrame implements ActionListener, UiBeobachter
 		MainController.getInstance()
 				.registriere(this);
 		setTitle("Simple Study");
-		final Dimension screen = Toolkit.getDefaultToolkit()
-				.getScreenSize();
-		this.setSize(screen);
+		this.setSize(1600,900);
+		this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
 		setLayout(new BorderLayout());
 		pnlKopf = new JPanel();
 		pnlOben = new JPanel(new BorderLayout());

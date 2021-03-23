@@ -38,7 +38,7 @@ public class FragenVerwaltung
 				frage);
 	}
 
-	static void remove(Frage frage)
+	public static void remove(Frage frage)
 	{
 		remove(frage.getId());
 	}

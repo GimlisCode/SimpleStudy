@@ -38,7 +38,7 @@ public class KapitelVerwaltung
 				neuesKapitel);
 	}
 
-	static void remove(Kapitel kapitel)
+	public static void remove(Kapitel kapitel)
 	{
 		remove(kapitel.getId());
 	}

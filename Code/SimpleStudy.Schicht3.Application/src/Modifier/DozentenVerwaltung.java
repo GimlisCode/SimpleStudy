@@ -38,7 +38,7 @@ public final class DozentenVerwaltung
 				dozent);
 	}
 
-	static void remove(Dozent dozent)
+	public static void remove(Dozent dozent)
 	{
 		remove(dozent.getId());
 	}

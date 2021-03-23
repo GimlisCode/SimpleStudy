@@ -30,6 +30,7 @@ public class LoginFrame extends JFrame implements ActionListener, UiBeobachter
 
 	private final JButton login;
 	private final JButton neu;
+	private final JButton delete;
 
 	public LoginFrame()
 	{
@@ -53,10 +54,13 @@ public class LoginFrame extends JFrame implements ActionListener, UiBeobachter
 
 		login = new JButton("Login");
 		neu = new JButton("Neu");
+		delete = new JButton("Loeschen");
 		login.addActionListener(this);
 		neu.addActionListener(this);
+		delete.addActionListener(this);
 		unten.add(login);
 		unten.add(neu);
+		unten.add(delete);
 
 		this.add(intro,
 				BorderLayout.NORTH);
@@ -82,12 +86,18 @@ public class LoginFrame extends JFrame implements ActionListener, UiBeobachter
 			UserAnlegenFrame aFrame = new UserAnlegenFrame();
 		}
 
-		if (e.getSource()
+		else if (e.getSource()
 				.equals(login))
 		{
 			MainController.setCurrentUser((PrettyHashMap) cb_benutzer.getSelectedItem());
 			MainFrame mf = new MainFrame();
 			this.dispose();
+		}
+
+		else if (e.getSource()
+				.equals(delete))
+		{
+			// TODO: Deletefunktion einführen
 		}
 
 	}

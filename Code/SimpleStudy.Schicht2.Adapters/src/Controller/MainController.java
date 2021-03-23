@@ -268,6 +268,16 @@ public class MainController implements UiBeobachtete
 		getInstance().benachrichtigeUis();
 	}
 
+	public static void deleteStudent(HashMap<String, String> studentenWerte)
+	{
+		final var studentenId = Integer.parseInt(studentenWerte.get(Entity.idText));
+		final var student = StudentenVerwaltung.get(studentenId);
+		final var studentEchteWerte = student.getDetails();
+		StatistikVerwaltung.remove(((Statistik) studentEchteWerte.get(Student.statistikText)).getId());
+		StudentenVerwaltung.remove(studentenId);
+		getInstance().benachrichtigeUis();
+	}
+
 	public static ArrayList<PrettyHashMap> getStudenten()
 	{
 

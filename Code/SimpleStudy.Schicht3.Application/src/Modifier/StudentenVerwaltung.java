@@ -38,12 +38,12 @@ public class StudentenVerwaltung
 				student);
 	}
 
-	static void remove(Student student)
+	public static void remove(Student student)
 	{
 		remove(student.getId());
 	}
 
-	static void remove(int id)
+	public static void remove(int id)
 	{
 		studenten.remove(id);
 	}
@@ -56,8 +56,8 @@ public class StudentenVerwaltung
 
 	static ArrayList<Student> suche(String suchstring)
 	{
-		ArrayList<Student> passendeStudentenZumSuchstring = new ArrayList<>();
-		for (Entry<Integer, Student> student : studenten.entrySet())
+		final ArrayList<Student> passendeStudentenZumSuchstring = new ArrayList<>();
+		for (final Entry<Integer, Student> student : studenten.entrySet())
 			if (student.getValue()
 					.toString()
 					.contains(suchstring))

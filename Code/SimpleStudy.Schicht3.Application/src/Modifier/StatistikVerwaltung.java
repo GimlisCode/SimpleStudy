@@ -40,12 +40,12 @@ public class StatistikVerwaltung
 				statistik);
 	}
 
-	static void remove(Statistik statistik)
+	public static void remove(Statistik statistik)
 	{
 		statistiken.remove(statistik.getId());
 	}
 
-	static void remove(int id)
+	public static void remove(int id)
 	{
 		statistiken.remove(id);
 	}

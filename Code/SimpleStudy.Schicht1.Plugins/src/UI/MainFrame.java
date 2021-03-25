@@ -1,9 +1,7 @@
 package UI;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -72,6 +70,8 @@ public class MainFrame extends JFrame implements ActionListener, UiBeobachter
 	private JList kapitelListe;
 	private JList fragenListe;
 
+	private JButton btnNeuAbfrage;
+
 	private JButton btnHochNeu;
 	private JButton btnHochBear;
 	private JButton btnHochDel;
@@ -97,15 +97,21 @@ public class MainFrame extends JFrame implements ActionListener, UiBeobachter
 		MainController.getInstance()
 				.registriere(this);
 		setTitle("Simple Study");
-		this.setSize(1600,900);
-		this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
+		this.setSize(1600,
+				900);
+		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setLayout(new BorderLayout());
-		pnlKopf = new JPanel();
+		pnlKopf = new JPanel(new BorderLayout());
 		pnlOben = new JPanel(new BorderLayout());
 
 		// Kopfzeile
 		lblTitel = new JLabel("Simple Study");
-		pnlKopf.add(lblTitel);
+		btnNeuAbfrage = new JButton("Abfrage starten");
+		btnNeuAbfrage.addActionListener(this);
+		pnlKopf.add(lblTitel,
+				BorderLayout.CENTER);
+		pnlKopf.add(btnNeuAbfrage,
+				BorderLayout.EAST);
 		pnlOben.add(pnlKopf,
 				BorderLayout.PAGE_START);
 

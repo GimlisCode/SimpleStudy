@@ -10,6 +10,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
@@ -129,6 +130,29 @@ public class AbfrageFrame extends JFrame implements ActionListener
 					.size())
 			{
 				MainController.abfrageAuswerten(currentAbfrage);
+
+				int richtige = 0;
+				int falsche = 0;
+
+				for (var ergebnis : currentAbfrage.getErgebnis()
+						.getErgebnis()
+						.entrySet())
+				{
+					if (ergebnis.getValue())
+					{
+						richtige++;
+					}
+					else
+					{
+						falsche++;
+					}
+				}
+
+				String testergebnis = "Das Ergebnis deiner heutigen Abfrage lautet: \n\r Richtige Antworten: " + richtige
+						+ "\r\n Falsche Antworten: " + falsche;
+				JOptionPane.showMessageDialog(null,
+						testergebnis);
+
 				dispose();
 				return;
 			}

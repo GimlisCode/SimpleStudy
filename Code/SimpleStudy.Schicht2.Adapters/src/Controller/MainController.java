@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
 
+import Models.Abfrage;
+import Models.Abfragesystem;
 import Models.Antwort;
 import Models.Dozent;
 import Models.Entity;
@@ -13,8 +15,10 @@ import Models.Frage;
 import Models.Hochschule;
 import Models.Kapitel;
 import Models.Lernfach;
+import Models.Modus;
 import Models.Statistik;
 import Models.Student;
+import Modifier.AbfrageVerwaltung;
 import Modifier.AntwortFabrik;
 import Modifier.AntwortVerwaltung;
 import Modifier.DozentenFabrik;
@@ -55,6 +59,25 @@ public class MainController implements UiBeobachtete
 	public static MainController getInstance()
 	{
 		return mainControllerSingleton;
+	}
+
+	public static Abfrage createAbfrage(ArrayList<HashMap<String, String>> fragenWerte)
+	{
+		final ArrayList<Frage> fragen = new ArrayList<Frage>();
+		for (final HashMap<String, String> frage : fragenWerte)
+			fragen.add(FragenVerwaltung.get(Integer.parseInt(frage.get(Entity.idText))));
+
+		return AbfrageVerwaltung.getInstance()
+				.neueAbfrage(Modus.ABFRAGE,
+						Abfragesystem.LINEAR,
+						fragen,
+						currentUser);
+	}
+
+	public static void abfrageAuswerten(Abfrage abfrage)
+	{
+		AbfrageVerwaltung.getInstance()
+				.abfrageAuswerten(abfrage);
 	}
 
 	private static int getNewIdFor(String className)

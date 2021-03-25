@@ -47,12 +47,22 @@ public class Richtigkeit extends Entity
 	@Override
 	HashMap<String, Object> getDetails()
 	{
-		HashMap<String, Object> details = new HashMap<String, Object>();
-		details.put(idText, this.id);
-		details.put(richtigText, this.richtig);
-		details.put(falschText, this.falsch);
-		details.put(fragenstufeText, this.fragenstufe);
+		final HashMap<String, Object> details = new HashMap<String, Object>();
+		details.put(idText,
+				id);
+		details.put(richtigText,
+				richtig);
+		details.put(falschText,
+				falsch);
+		details.put(fragenstufeText,
+				fragenstufe);
 
 		return details;
+	}
+
+	@Override
+	public String toString()
+	{
+		return "Richtige: " + richtig + ",\n\r" + " Falsche: " + falsch + ",\n\r" + " Fragenstufe: " + fragenstufe + "\n\r";
 	}
 }

@@ -281,6 +281,7 @@ public class MainController implements UiBeobachtete
 					getNewIdFor(Kapitel.class.getSimpleName()) + "");
 
 		KapitelFabrik.create(kapitelAttribute);
+		getInstance().benachrichtigeUis();
 	}
 
 	public static void updateKapitel(HashMap<String, String> kapitelWerte)
@@ -476,6 +477,11 @@ public class MainController implements UiBeobachtete
 	{
 		currentUser = StudentenVerwaltung.get(Integer.parseInt(selectedItem.visible.get(Entity.idText)));
 
+	}
+
+	public static Student getCurrentUser()
+	{
+		return currentUser;
 	}
 
 	@Override

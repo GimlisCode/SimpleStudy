@@ -112,6 +112,7 @@ public class MainController implements UiBeobachtete
 					getNewIdFor(Antwort.class.getSimpleName()) + "");
 
 		AntwortFabrik.create(antwortAttribute);
+		getInstance().benachrichtigeUis();
 
 	}
 
@@ -133,6 +134,7 @@ public class MainController implements UiBeobachtete
 					getNewIdFor(Dozent.class.getSimpleName()) + "");
 
 		DozentenFabrik.create(dozentAttribute);
+		getInstance().benachrichtigeUis();
 	}
 
 	public static void updateDozent(HashMap<String, String> dozentWerte)
@@ -168,6 +170,7 @@ public class MainController implements UiBeobachtete
 		}
 
 		StudentenFabrik.create(studentAttribute);
+		getInstance().benachrichtigeUis();
 	}
 
 	public static void updateStudent(HashMap<String, String> studentWerte)
@@ -189,6 +192,7 @@ public class MainController implements UiBeobachtete
 					getNewIdFor(Hochschule.class.getSimpleName()) + "");
 
 		HochschulFabrik.create(hochschulAttribute);
+		getInstance().benachrichtigeUis();
 	}
 
 	public static void updateHochschule(HashMap<String, String> hochschuleWerte)
@@ -210,6 +214,7 @@ public class MainController implements UiBeobachtete
 					getNewIdFor(Statistik.class.getSimpleName()) + "");
 
 		StatistikFabrik.create(statistikAttribute);
+		getInstance().benachrichtigeUis();
 
 	}
 
@@ -231,6 +236,7 @@ public class MainController implements UiBeobachtete
 					getNewIdFor(Lernfach.class.getSimpleName()) + "");
 
 		LernfachFabrik.create(lernfachAttribute);
+		getInstance().benachrichtigeUis();
 	}
 
 	public static void updateLernfach(HashMap<String, String> lernfachWerte)
@@ -273,6 +279,7 @@ public class MainController implements UiBeobachtete
 					getNewIdFor(Frage.class.getSimpleName()) + "");
 
 		FragenFabrik.create(fragenAttribute);
+		getInstance().benachrichtigeUis();
 	}
 
 	public static void updateFrage(HashMap<String, String> frageWerte)

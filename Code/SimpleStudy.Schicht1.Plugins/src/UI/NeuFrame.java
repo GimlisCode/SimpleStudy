@@ -285,6 +285,9 @@ public class NeuFrame extends JFrame implements ActionListener, UiBeobachter
 				String antworten = new String();
 				modelAttribute.replace(Frage.textText,
 						tf_1.getText());
+				modelAttribute.replace(Frage.typText,
+						lst_1.getSelectedValue()
+								.toString());
 				for (Object antwort : lst_2.getSelectedValuesList())
 				{
 					antworten += ((PrettyHashMap) antwort).getNormalHashMap()

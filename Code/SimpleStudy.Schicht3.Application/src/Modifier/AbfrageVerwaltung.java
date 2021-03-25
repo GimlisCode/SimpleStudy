@@ -10,11 +10,11 @@ import Models.Student;
 
 public class AbfrageVerwaltung
 {
-	private static AbfrageVerwaltung abfrageVerwaltungSingleton;
+	private static AbfrageVerwaltung abfrageVerwaltungSingleton = new AbfrageVerwaltung();
 
 	private AbfrageVerwaltung()
 	{
-		abfrageVerwaltungSingleton = AbfrageVerwaltung.getInstance();
+		super();
 	}
 
 	public static AbfrageVerwaltung getInstance()

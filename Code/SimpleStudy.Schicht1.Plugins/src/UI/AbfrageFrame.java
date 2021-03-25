@@ -13,37 +13,38 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
+import Controller.MainController;
 import Models.Abfrage;
 import Models.Frage;
 
 public class AbfrageFrame extends JFrame implements ActionListener
 {
-	ArrayList<Frage> fragen;
-
+	ArrayList<JRadioButton> radioButtonListe = new ArrayList<>();
 	JPanel pnlFragen;
 	JPanel pnlAntworten;
 	JPanel pnlButtons;
 
 	JLabel lblFragentext;
 
-	ButtonGroup buttongroup;
+	ButtonGroup buttongroup = new ButtonGroup();
 
 	JButton btnAuswerten;
 	JButton btnAbrechen;
 	JButton btnUeberspringen;
+	Abfrage currentAbfrage;
+	int beantworteteFragen = 0;
 
 	public AbfrageFrame(Abfrage abfrage)
 	{
-
-		this.fragen = abfrage.getFragen();
-
-		this.setTitle("Abfrage");
+		currentAbfrage = abfrage;
+		setTitle("Abfrage");
 		this.setSize(1600,
 				900);
-		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-		this.setLayout(new BorderLayout());
+		setExtendedState(JFrame.MAXIMIZED_BOTH);
+		setLayout(new BorderLayout());
 
 		pnlFragen = new JPanel();
+		lblFragentext = new JLabel();
 		pnlFragen.add(lblFragentext);
 
 		pnlAntworten = new JPanel();
@@ -67,14 +68,16 @@ public class AbfrageFrame extends JFrame implements ActionListener
 		this.add(pnlButtons,
 				BorderLayout.EAST);
 
-		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		this.setVisible(true);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		setVisible(true);
+		neueFrage(abfrage.getFragen()
+				.get(beantworteteFragen));
 	}
 
 	public void neueFrage(Frage frage)
 	{
 		lblFragentext.setText(frage.getText());
-		ArrayList<JRadioButton> radioButtonListe = new ArrayList<>();
+		radioButtonListe = new ArrayList<>();
 		pnlAntworten.setLayout(new GridLayout(frage.getAntworten()
 				.size(), 2));
 
@@ -89,13 +92,49 @@ public class AbfrageFrame extends JFrame implements ActionListener
 					.get(i)
 					.getText()));
 		}
-
+		radioButtonListe.get(0)
+				.setSelected(true);
+		this.repaint();
+		revalidate();
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-		// TODO Auto-generated method stub
+		if (e.getSource() == btnAuswerten)
+		{
+
+			int antwortId = 0;
+			for (int i = 0; i < radioButtonListe.size(); i++)
+				if (radioButtonListe.get(i)
+						.isSelected())
+				{
+					antwortId = i;
+					break;
+				}
+
+			final Frage frage = currentAbfrage.getFragen()
+					.get(beantworteteFragen);
+			boolean richtig = false;
+			if (frage.getAntworten()
+					.get(antwortId)
+					.isCorrect())
+				richtig = true;
+
+			currentAbfrage.getErgebnis()
+					.add(frage.getId(),
+							richtig);
+			beantworteteFragen++;
+			if (beantworteteFragen >= currentAbfrage.getFragen()
+					.size())
+			{
+				MainController.abfrageAuswerten(currentAbfrage);
+				dispose();
+				return;
+			}
+			neueFrage(currentAbfrage.getFragen()
+					.get(beantworteteFragen));
+		}
 
 	}
 }

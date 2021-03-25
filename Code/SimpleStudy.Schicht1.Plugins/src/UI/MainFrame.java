@@ -403,9 +403,10 @@ public class MainFrame extends JFrame implements ActionListener, UiBeobachter
 		{
 
 			ArrayList<HashMap<String, String>> fragen = new ArrayList<>();
-			for (PrettyHashMap value : (PrettyHashMap[]) (fragenListe.getSelectedValues()))
+			for (Object value : (fragenListe.getSelectedValuesList()))
 			{
-				fragen.add(value.getNormalHashMap());
+				
+				fragen.add(((PrettyHashMap)value).getNormalHashMap());
 			}
 
 			AbfrageFrame af = new AbfrageFrame(MainController.createAbfrage(fragen));

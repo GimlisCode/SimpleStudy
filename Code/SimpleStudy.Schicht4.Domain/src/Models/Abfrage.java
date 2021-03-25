@@ -2,36 +2,44 @@ package Models;
 
 import java.util.ArrayList;
 
-public class Abfrage {
-	
+public class Abfrage
+{
+
 	private Ergebnis ergebnis;
-	private Modus modus;
-	private Abfragesystem abfragesystem;
-	private ArrayList<Frage> fragen;
-	
-	public Abfrage(Modus modus, Abfragesystem abfragesystem, ArrayList<Frage> fragen) {
-		this.ergebnis = new Ergebnis();
+	private final Modus modus;
+	private final Abfragesystem abfragesystem;
+	private final ArrayList<Frage> fragen;
+	private final Student currentStudent;
+
+	public Abfrage(Modus modus, Abfragesystem abfragesystem, ArrayList<Frage> fragen, Student currentStudent)
+	{
+		ergebnis = new Ergebnis();
 		this.modus = modus;
 		this.abfragesystem = abfragesystem;
 		this.fragen = fragen;
-	}
-	
-	public void add (Frage f) {
-		if(fragen.contains(f) != true) {
-			fragen.add(f);
-		}
+		this.currentStudent = currentStudent;
 	}
 
-	public Ergebnis getErgebnis() {
+	public void add(Frage f)
+	{
+		if (fragen.contains(f) != true)
+			fragen.add(f);
+	}
+
+	public Ergebnis getErgebnis()
+	{
 		return ergebnis;
 	}
 
-	public void setErgebnis(Ergebnis ergebnis) {
+	public void setErgebnis(Ergebnis ergebnis)
+	{
 		this.ergebnis = ergebnis;
 	}
-	
-	
 
-   
+	public Student getStudent()
+	{
+
+		return currentStudent;
+	}
 
 }

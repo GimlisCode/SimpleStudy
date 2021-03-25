@@ -8,23 +8,30 @@ import Models.Frage;
 import Models.Modus;
 import Models.Student;
 
-public class AbfrageVerwaltung {
-	
-	private Abfrage abfrage;
-	private Student currentStudent;
-	
-	public AbfrageVerwaltung() {
-		
-	}
-	
-	public void neueAbfrage(Modus modus, Abfragesystem abfragesystem, ArrayList<Frage> fragen)
+public class AbfrageVerwaltung
+{
+	private static AbfrageVerwaltung abfrageVerwaltungSingleton;
+
+	private AbfrageVerwaltung()
 	{
-		abfrage = new Abfrage(modus, abfragesystem, fragen);
+		abfrageVerwaltungSingleton = AbfrageVerwaltung.getInstance();
 	}
-	
-	public void abfrageAuswerten()
+
+	public static AbfrageVerwaltung getInstance()
 	{
-		StatistikVerwaltung.update(currentStudent.getStatistik(), abfrage.getErgebnis());
+		return abfrageVerwaltungSingleton;
 	}
-	
+
+	public Abfrage neueAbfrage(Modus modus, Abfragesystem abfragesystem, ArrayList<Frage> fragen, Student student)
+	{
+		return new Abfrage(modus, abfragesystem, fragen, student);
+	}
+
+	public void abfrageAuswerten(Abfrage abfrage)
+	{
+		StatistikVerwaltung.update(abfrage.getStudent()
+				.getStatistik(),
+				abfrage.getErgebnis());
+	}
+
 }

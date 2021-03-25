@@ -67,6 +67,8 @@ public class AbfrageFrame extends JFrame implements ActionListener
 		this.add(pnlButtons,
 				BorderLayout.EAST);
 
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		this.setVisible(true);
 	}
 
 	public void neueFrage(Frage frage)

@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -395,6 +397,19 @@ public class MainFrame extends JFrame implements ActionListener, UiBeobachter
 			{
 				MainController.deleteFrage(((PrettyHashMap) fragenListe.getSelectedValue()).visible.get(Entity.idText));
 			}
+		}
+
+		else if (e.getSource() == btnNeuAbfrage)
+		{
+
+			ArrayList<HashMap<String, String>> fragen = new ArrayList<>();
+			for (PrettyHashMap value : (PrettyHashMap[]) (fragenListe.getSelectedValues()))
+			{
+				fragen.add(value.getNormalHashMap());
+			}
+
+			AbfrageFrame af = new AbfrageFrame(MainController.createAbfrage(fragen));
+
 		}
 
 	}

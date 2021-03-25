@@ -29,13 +29,17 @@ public class Abfrage
 	public Ergebnis getErgebnis()
 	{
 		return ergebnis;
-		this.ergebnis = ergebnis;
 	}
 
 	public Student getStudent()
 	{
 
 		return currentStudent;
+	}
+
+	public ArrayList<Frage> getFragen()
+	{
+		return fragen;
 	}
 
 }

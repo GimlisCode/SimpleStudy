@@ -36,7 +36,11 @@ public class AntwortFabrik
 	{
 		neueAntwort.setId(Integer.parseInt(antwortAttribute.get(Antwort.idText)));
 		neueAntwort.setText(antwortAttribute.get(Antwort.textText));
-		neueAntwort.setCorrect(Boolean.getBoolean(antwortAttribute.get(Antwort.textText)));
+		if (Integer.parseInt(antwortAttribute.get(Antwort.correctText)) != 0)
+			neueAntwort.setCorrect(true);
+		else
+			neueAntwort.setCorrect(false);
+
 		antwortenVerwaltung.add(neueAntwort);
 		neueAntwort = new Antwort("", false);
 	}

@@ -8,9 +8,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import Controller.MainController;
+import Controller.UiBeobachter;
 import Models.Student;
 
-public class StatistikFrame extends JFrame
+public class StatistikFrame extends JFrame implements UiBeobachter
 {
 	Student currentUser = null;
 	JPanel statistikPanel = new JPanel();
@@ -28,8 +29,8 @@ public class StatistikFrame extends JFrame
 				BorderLayout.CENTER);
 		showStatistik();
 
-//		MainController.getInstance() /TODO: kann man mal noch machen, dass die Statistik aktualisiert wird
-//		.registriere(this);
+		MainController.getInstance()
+				.registriere(this);
 
 		setVisible(true);
 	}
@@ -45,5 +46,12 @@ public class StatistikFrame extends JFrame
 
 		this.repaint();
 		revalidate();
+	}
+
+	@Override
+	public void aktualisiere()
+	{
+		showStatistik();
+
 	}
 }

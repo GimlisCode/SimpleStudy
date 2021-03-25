@@ -57,6 +57,7 @@ public class MainFrame extends JFrame implements ActionListener, UiBeobachter
 	private JPanel pnlFragBtn;
 	private JPanel pnlMitte;
 	private JPanel pnlFuss;
+	private JPanel pnlObenBtn;
 
 	private final JMenuBar menu;
 	private final JMenu datei;
@@ -73,6 +74,7 @@ public class MainFrame extends JFrame implements ActionListener, UiBeobachter
 	private JList fragenListe;
 
 	private JButton btnNeuAbfrage;
+	private JButton btnStatistikAnzeigen;
 
 	private JButton btnHochNeu;
 	private JButton btnHochBear;
@@ -105,14 +107,19 @@ public class MainFrame extends JFrame implements ActionListener, UiBeobachter
 		setLayout(new BorderLayout());
 		pnlKopf = new JPanel(new BorderLayout());
 		pnlOben = new JPanel(new BorderLayout());
+		pnlObenBtn = new JPanel();
 
 		// Kopfzeile
 		lblTitel = new JLabel("Simple Study");
 		btnNeuAbfrage = new JButton("Abfrage starten");
 		btnNeuAbfrage.addActionListener(this);
+		btnStatistikAnzeigen = new JButton("Statistik zeigen");
+		btnStatistikAnzeigen.addActionListener(this);
+		pnlObenBtn.add(btnNeuAbfrage);
+		pnlObenBtn.add(btnStatistikAnzeigen);
 		pnlKopf.add(lblTitel,
 				BorderLayout.CENTER);
-		pnlKopf.add(btnNeuAbfrage,
+		pnlKopf.add(pnlObenBtn,
 				BorderLayout.EAST);
 		pnlOben.add(pnlKopf,
 				BorderLayout.PAGE_START);
@@ -405,11 +412,18 @@ public class MainFrame extends JFrame implements ActionListener, UiBeobachter
 			ArrayList<HashMap<String, String>> fragen = new ArrayList<>();
 			for (Object value : (fragenListe.getSelectedValuesList()))
 			{
-				
-				fragen.add(((PrettyHashMap)value).getNormalHashMap());
+
+				fragen.add(((PrettyHashMap) value).getNormalHashMap());
 			}
 
 			AbfrageFrame af = new AbfrageFrame(MainController.createAbfrage(fragen));
+
+		}
+
+		else if (e.getSource() == btnStatistikAnzeigen)
+		{
+
+			StatistikFrame sf = new StatistikFrame();
 
 		}
 

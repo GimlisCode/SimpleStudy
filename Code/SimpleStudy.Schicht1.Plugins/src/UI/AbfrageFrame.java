@@ -27,7 +27,7 @@ public class AbfrageFrame extends JFrame implements ActionListener
 
 	JLabel lblFragentext;
 
-	ButtonGroup buttongroup = new ButtonGroup();
+	ButtonGroup buttongroup;
 
 	JButton btnAuswerten;
 	JButton btnAbrechen;
@@ -77,10 +77,12 @@ public class AbfrageFrame extends JFrame implements ActionListener
 
 	public void neueFrage(Frage frage)
 	{
+		pnlAntworten.removeAll();
 		lblFragentext.setText(frage.getText());
 		radioButtonListe = new ArrayList<>();
 		pnlAntworten.setLayout(new GridLayout(frage.getAntworten()
 				.size(), 2));
+		buttongroup = new ButtonGroup();
 
 		for (int i = 0; i < frage.getAntworten()
 				.size(); i++)
@@ -125,6 +127,53 @@ public class AbfrageFrame extends JFrame implements ActionListener
 			currentAbfrage.getErgebnis()
 					.add(frage.getId(),
 							richtig);
+			beantworteteFragen++;
+			if (beantworteteFragen >= currentAbfrage.getFragen()
+					.size())
+			{
+				MainController.abfrageAuswerten(currentAbfrage);
+
+				int richtige = 0;
+				int falsche = 0;
+
+				for (var ergebnis : currentAbfrage.getErgebnis()
+						.getErgebnis()
+						.entrySet())
+				{
+					if (ergebnis.getValue())
+					{
+						richtige++;
+					}
+					else
+					{
+						falsche++;
+					}
+				}
+
+				String testergebnis = "Das Ergebnis deiner heutigen Abfrage lautet: \n\r Richtige Antworten: " + richtige
+						+ "\r\n Falsche Antworten: " + falsche;
+				JOptionPane.showMessageDialog(null,
+						testergebnis);
+
+				dispose();
+				return;
+			}
+			neueFrage(currentAbfrage.getFragen()
+					.get(beantworteteFragen));
+		}
+
+		else if (e.getSource() == btnAbrechen)
+		{
+			int ret = JOptionPane.showConfirmDialog(null,
+					"Soll die Abfrage wirklich abgebrochen werden? \n\r Das Ergebnis wird nicht gespeichert.");
+			if (ret == JOptionPane.YES_OPTION)
+			{
+				this.dispose();
+			}
+		}
+
+		else if (e.getSource() == btnUeberspringen)
+		{
 			beantworteteFragen++;
 			if (beantworteteFragen >= currentAbfrage.getFragen()
 					.size())

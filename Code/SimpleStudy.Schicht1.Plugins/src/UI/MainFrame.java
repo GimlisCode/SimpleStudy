@@ -189,7 +189,7 @@ public class MainFrame extends JFrame implements ActionListener, UiBeobachter
 
 		fragenListe = new JList<>(MainController.getFragen()
 				.toArray());
-		fragenListe.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		fragenListe.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 
 		pnlListen.add(hochschulListe);
 		pnlListen.add(dozentenListe);

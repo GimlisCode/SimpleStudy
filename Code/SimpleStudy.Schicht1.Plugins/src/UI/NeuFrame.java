@@ -77,6 +77,7 @@ public class NeuFrame extends JFrame implements ActionListener, UiBeobachter
 			ArrayList<PrettyHashMap> dozenten = MainController.getDozenten();
 			lst_1 = new JList(dozenten.toArray());
 			String[] selektierteDozenten;
+			ArrayList<Integer> selektierteEintraege = new ArrayList<>();
 			if (modelAttribute.get(Hochschule.dozentenText) != null)
 			{
 				selektierteDozenten = modelAttribute.get(Hochschule.dozentenText)
@@ -87,12 +88,18 @@ public class NeuFrame extends JFrame implements ActionListener, UiBeobachter
 					{
 						if (dozenten.get(j)
 								.getNormalHashMap()
-								.get(Entity.idText) == selektierteDozenten[i])
+								.get(Entity.idText)
+								.equals(selektierteDozenten[i]))
 						{
-							lst_1.setSelectedIndex(j);
+
+							selektierteEintraege.add(j);
+
 						}
 					}
 				}
+				lst_1.setSelectedIndices(selektierteEintraege.stream()
+						.mapToInt(i -> i)
+						.toArray());
 			}
 
 			pnl_mitte = new JPanel(new GridLayout(2, 2));

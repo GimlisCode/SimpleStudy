@@ -19,6 +19,7 @@ import javax.swing.JTextField;
 import Controller.MainController;
 import Controller.UiBeobachter;
 import Models.Dozent;
+import Models.Entity;
 import Models.Frage;
 import Models.Hochschule;
 import Models.Kapitel;
@@ -64,14 +65,6 @@ public class NeuFrame extends JFrame implements ActionListener, UiBeobachter
 		lbl_model = new JLabel(model);
 		pnl_kopf.add(lbl_model);
 
-		var labellist = new ArrayList<>();
-		var textfeld = new ArrayList<>();
-
-		for (var entrySet : hashMap.entrySet())
-		{
-			labellist.add(new JLabel(entrySet.getKey()));
-		}
-
 		// Hochschule
 		if (model == Hochschule.class.getSimpleName())
 		{
@@ -81,10 +74,26 @@ public class NeuFrame extends JFrame implements ActionListener, UiBeobachter
 
 			tf_1 = new JTextField(modelAttribute.get(Hochschule.nameText));
 
-			lst_1 = new JList(MainController.getDozenten()
-					.toArray());
-			// lst_1.setSelectedIndex(0);
-			// lst_1.setSelectedIndex(modelAttribute.get(Hochschule.dozentenText));
+			ArrayList<PrettyHashMap> dozenten = MainController.getDozenten();
+			lst_1 = new JList(dozenten.toArray());
+			String[] selektierteDozenten;
+			if (modelAttribute.get(Hochschule.dozentenText) != null)
+			{
+				selektierteDozenten = modelAttribute.get(Hochschule.dozentenText)
+						.split(";");
+				for (int i = 0; i < selektierteDozenten.length; i++)
+				{
+					for (int j = 0; j < dozenten.size(); j++)
+					{
+						if (dozenten.get(j)
+								.getNormalHashMap()
+								.get(Entity.idText) == selektierteDozenten[i])
+						{
+							lst_1.setSelectedIndex(j);
+						}
+					}
+				}
+			}
 
 			pnl_mitte = new JPanel(new GridLayout(2, 2));
 			pnl_mitte.add(lbl_1);
@@ -97,6 +106,7 @@ public class NeuFrame extends JFrame implements ActionListener, UiBeobachter
 		// Dozent
 
 		else if (model == Dozent.class.getSimpleName())
+
 		{
 			lbl_1 = new JLabel("Name");
 			lbl_2 = new JLabel("Kurs");
@@ -175,6 +185,7 @@ public class NeuFrame extends JFrame implements ActionListener, UiBeobachter
 			lbl_3 = new JLabel("Antworten");
 
 			tf_1 = new JTextField(modelAttribute.get(Frage.textText));
+
 			Integer[] typen =
 				{ 1, 2, 3 };
 			lst_1 = new JList<Integer>(typen);

@@ -73,6 +73,12 @@ public class MainFrame extends JFrame implements ActionListener, UiBeobachter
 	private JList kapitelListe;
 	private JList fragenListe;
 
+	private JScrollPane hochScrollPane;
+	private JScrollPane dozScrollPane;
+	private JScrollPane lernScrollPane;
+	private JScrollPane kapScrollPane;
+	private JScrollPane fragScrollPane;
+
 	private JButton btnNeuAbfrage;
 	private JButton btnStatistikAnzeigen;
 
@@ -174,28 +180,33 @@ public class MainFrame extends JFrame implements ActionListener, UiBeobachter
 		hochschulListe = new JList<>(MainController.getHochschulen()
 				.toArray());
 		hochschulListe.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		hochScrollPane = new JScrollPane(hochschulListe);
 
 		dozentenListe = new JList<>(MainController.getDozenten()
 				.toArray());
 		dozentenListe.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		dozScrollPane = new JScrollPane(dozentenListe);
 
 		lernfachListe = new JList<>(MainController.getLernfaecher()
 				.toArray());
 		lernfachListe.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		lernScrollPane = new JScrollPane(lernfachListe);
 
 		kapitelListe = new JList<>(MainController.getKapitel()
 				.toArray());
 		kapitelListe.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		kapScrollPane = new JScrollPane(kapitelListe);
 
 		fragenListe = new JList<>(MainController.getFragen()
 				.toArray());
 		fragenListe.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+		fragScrollPane = new JScrollPane(fragenListe);
 
-		pnlListen.add(hochschulListe);
-		pnlListen.add(dozentenListe);
-		pnlListen.add(lernfachListe);
-		pnlListen.add(kapitelListe);
-		pnlListen.add(fragenListe);
+		pnlListen.add(hochScrollPane);
+		pnlListen.add(dozScrollPane);
+		pnlListen.add(lernScrollPane);
+		pnlListen.add(kapScrollPane);
+		pnlListen.add(fragScrollPane);
 
 		// Buttons fuer die Auswahllisten
 

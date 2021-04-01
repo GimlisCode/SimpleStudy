@@ -14,6 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 import Controller.MainController;
@@ -40,6 +41,9 @@ public class NeuFrame extends JFrame implements ActionListener, UiBeobachter
 
 	private JList lst_1;
 	private JList lst_2;
+
+	private JScrollPane sp1;
+	private JScrollPane sp2;
 
 	private JComboBox cb_1;
 
@@ -102,11 +106,12 @@ public class NeuFrame extends JFrame implements ActionListener, UiBeobachter
 						.toArray());
 			}
 
+			sp1 = new JScrollPane(lst_1);
 			pnl_mitte = new JPanel(new GridLayout(2, 2));
 			pnl_mitte.add(lbl_1);
 			pnl_mitte.add(tf_1);
 			pnl_mitte.add(lbl_2);
-			pnl_mitte.add(lst_1);
+			pnl_mitte.add(sp1);
 
 		}
 
@@ -151,11 +156,12 @@ public class NeuFrame extends JFrame implements ActionListener, UiBeobachter
 						.toArray());
 			}
 
+			sp1 = new JScrollPane(lst_1);
 			pnl_mitte = new JPanel(new GridLayout(2, 2));
 			pnl_mitte.add(lbl_1);
 			pnl_mitte.add(tf_1);
 			pnl_mitte.add(lbl_2);
-			pnl_mitte.add(lst_1);
+			pnl_mitte.add(sp1);
 
 		}
 
@@ -203,6 +209,7 @@ public class NeuFrame extends JFrame implements ActionListener, UiBeobachter
 						.toArray());
 			}
 
+			sp1 = new JScrollPane(lst_1);
 			pnl_mitte = new JPanel(new GridLayout(4, 2));
 			pnl_mitte.add(lbl_1);
 			pnl_mitte.add(tf_1);
@@ -211,7 +218,7 @@ public class NeuFrame extends JFrame implements ActionListener, UiBeobachter
 			pnl_mitte.add(lbl_3);
 			pnl_mitte.add(tf_3);
 			pnl_mitte.add(lbl_4);
-			pnl_mitte.add(lst_1);
+			pnl_mitte.add(sp1);
 
 		}
 
@@ -255,13 +262,15 @@ public class NeuFrame extends JFrame implements ActionListener, UiBeobachter
 						.toArray());
 			}
 
+			sp1 = new JScrollPane(lst_1);
+
 			pnl_mitte = new JPanel(new GridLayout(3, 2));
 			pnl_mitte.add(lbl_1);
 			pnl_mitte.add(tf_1);
 			pnl_mitte.add(lbl_2);
 			pnl_mitte.add(tf_2);
 			pnl_mitte.add(lbl_3);
-			pnl_mitte.add(lst_1);
+			pnl_mitte.add(sp1);
 		}
 
 		// Fragen
@@ -307,13 +316,15 @@ public class NeuFrame extends JFrame implements ActionListener, UiBeobachter
 						.toArray());
 			}
 
+			sp1 = new JScrollPane(lst_1);
+			sp2 = new JScrollPane(lst_2);
 			pnl_mitte = new JPanel(new GridLayout(3, 2));
 			pnl_mitte.add(lbl_1);
 			pnl_mitte.add(tf_1);
 			pnl_mitte.add(lbl_2);
-			pnl_mitte.add(lst_1);
+			pnl_mitte.add(sp1);
 			pnl_mitte.add(lbl_3);
-			pnl_mitte.add(lst_2);
+			pnl_mitte.add(sp2);
 
 		}
 

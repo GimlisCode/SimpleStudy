@@ -28,7 +28,7 @@ public class KapitelRenderer
 				fragen += frage.getId() + ";";
 			}
 			gerendertesKapitel.addUnvisible(Kapitel.fragenText,
-					null);
+					fragen);
 
 			gerenderteKapitel.add(gerendertesKapitel);
 		}

@@ -123,6 +123,34 @@ public class NeuFrame extends JFrame implements ActionListener, UiBeobachter
 			lst_1 = new JList(MainController.getLernfaecher()
 					.toArray());
 
+			ArrayList<PrettyHashMap> faecher = MainController.getLernfaecher();
+			lst_1 = new JList(faecher.toArray());
+			String[] selektierteFaecher;
+			ArrayList<Integer> selektierteEintraege = new ArrayList<>();
+			if (modelAttribute.get(Dozent.kurseText) != null)
+			{
+				selektierteFaecher = modelAttribute.get(Dozent.kurseText)
+						.split(";");
+				for (int i = 0; i < selektierteFaecher.length; i++)
+				{
+					for (int j = 0; j < faecher.size(); j++)
+					{
+						if (faecher.get(j)
+								.getNormalHashMap()
+								.get(Entity.idText)
+								.equals(selektierteFaecher[i]))
+						{
+
+							selektierteEintraege.add(j);
+
+						}
+					}
+				}
+				lst_1.setSelectedIndices(selektierteEintraege.stream()
+						.mapToInt(i -> i)
+						.toArray());
+			}
+
 			pnl_mitte = new JPanel(new GridLayout(2, 2));
 			pnl_mitte.add(lbl_1);
 			pnl_mitte.add(tf_1);
@@ -146,6 +174,34 @@ public class NeuFrame extends JFrame implements ActionListener, UiBeobachter
 
 			lst_1 = new JList(MainController.getKapitel()
 					.toArray());
+
+			ArrayList<PrettyHashMap> kapitel = MainController.getKapitel();
+			lst_1 = new JList(kapitel.toArray());
+			String[] selektierteKapitel;
+			ArrayList<Integer> selektierteEintraege = new ArrayList<>();
+			if (modelAttribute.get(Lernfach.kapitelText) != null)
+			{
+				selektierteKapitel = modelAttribute.get(Lernfach.kapitelText)
+						.split(";");
+				for (int i = 0; i < selektierteKapitel.length; i++)
+				{
+					for (int j = 0; j < kapitel.size(); j++)
+					{
+						if (kapitel.get(j)
+								.getNormalHashMap()
+								.get(Entity.idText)
+								.equals(selektierteKapitel[i]))
+						{
+
+							selektierteEintraege.add(j);
+
+						}
+					}
+				}
+				lst_1.setSelectedIndices(selektierteEintraege.stream()
+						.mapToInt(i -> i)
+						.toArray());
+			}
 
 			pnl_mitte = new JPanel(new GridLayout(4, 2));
 			pnl_mitte.add(lbl_1);
@@ -173,6 +229,32 @@ public class NeuFrame extends JFrame implements ActionListener, UiBeobachter
 			lst_1 = new JList(MainController.getFragen()
 					.toArray());
 
+			ArrayList<PrettyHashMap> fragen = MainController.getFragen();
+			lst_1 = new JList(fragen.toArray());
+			String[] selektierteFragen;
+			ArrayList<Integer> selektierteEintraege = new ArrayList<>();
+			if (modelAttribute.get(Kapitel.fragenText) != null)
+			{
+				selektierteFragen = modelAttribute.get(Kapitel.fragenText)
+						.split(";");
+				for (int i = 0; i < selektierteFragen.length; i++)
+				{
+					for (int j = 0; j < fragen.size(); j++)
+					{
+						if (fragen.get(j)
+								.getNormalHashMap()
+								.get(Entity.idText)
+								.equals(selektierteFragen[i]))
+						{
+							selektierteEintraege.add(j);
+						}
+					}
+				}
+				lst_1.setSelectedIndices(selektierteEintraege.stream()
+						.mapToInt(i -> i)
+						.toArray());
+			}
+
 			pnl_mitte = new JPanel(new GridLayout(3, 2));
 			pnl_mitte.add(lbl_1);
 			pnl_mitte.add(tf_1);
@@ -193,11 +275,37 @@ public class NeuFrame extends JFrame implements ActionListener, UiBeobachter
 
 			tf_1 = new JTextField(modelAttribute.get(Frage.textText));
 
-			Integer[] typen =
+			Integer[] typVarianten =
 				{ 1, 2, 3 };
-			lst_1 = new JList<Integer>(typen);
+			lst_1 = new JList<Integer>(typVarianten);
 			lst_2 = new JList(MainController.getAntworten()
 					.toArray());
+
+			ArrayList<PrettyHashMap> antworten = MainController.getAntworten();
+			lst_2 = new JList(antworten.toArray());
+			String[] selektierteAntworten;
+			ArrayList<Integer> selektierteEintraege = new ArrayList<>();
+			if (modelAttribute.get(Frage.antwortenText) != null)
+			{
+				selektierteAntworten = modelAttribute.get(Frage.antwortenText)
+						.split(";");
+				for (int i = 0; i < selektierteAntworten.length; i++)
+				{
+					for (int j = 0; j < antworten.size(); j++)
+					{
+						if (antworten.get(j)
+								.getNormalHashMap()
+								.get(Entity.idText)
+								.equals(selektierteAntworten[i]))
+						{
+							selektierteEintraege.add(j);
+						}
+					}
+				}
+				lst_2.setSelectedIndices(selektierteEintraege.stream()
+						.mapToInt(i -> i)
+						.toArray());
+			}
 
 			pnl_mitte = new JPanel(new GridLayout(3, 2));
 			pnl_mitte.add(lbl_1);

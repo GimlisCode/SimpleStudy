@@ -13,6 +13,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
@@ -356,18 +357,30 @@ public class NeuFrame extends JFrame implements ActionListener, UiBeobachter
 		{
 			if (model == Hochschule.class.getSimpleName())
 			{
-				String dozenten = new String();
-				modelAttribute.replace(Hochschule.nameText,
-						tf_1.getText());
-				for (Object doz : lst_1.getSelectedValuesList())
+				if (lst_1.getSelectedValuesList()
+						.isEmpty() || tf_1.getText() == "")
 				{
-					dozenten += ((PrettyHashMap) doz).getNormalHashMap()
-							.get(Models.Entity.idText) + ";";
+					JOptionPane.showMessageDialog(this,
+							"Bitte füllen Sie alle Felder aus!");
+
+				}
+				else
+				{
+					String dozenten = new String();
+					modelAttribute.replace(Hochschule.nameText,
+							tf_1.getText());
+					for (Object doz : lst_1.getSelectedValuesList())
+					{
+						dozenten += ((PrettyHashMap) doz).getNormalHashMap()
+								.get(Models.Entity.idText) + ";";
+					}
+
+					modelAttribute.replace(Hochschule.dozentenText,
+							dozenten);
+					MainController.createHochschule(modelAttribute);
+					this.dispose();
 				}
 
-				modelAttribute.replace(Hochschule.dozentenText,
-						dozenten);
-				MainController.createHochschule(modelAttribute);
 			}
 
 			else if (model == Dozent.class.getSimpleName())
@@ -384,6 +397,7 @@ public class NeuFrame extends JFrame implements ActionListener, UiBeobachter
 				modelAttribute.replace(Dozent.kurseText,
 						kurse);
 				MainController.createDozent(modelAttribute);
+				this.dispose();
 
 			}
 
@@ -400,6 +414,7 @@ public class NeuFrame extends JFrame implements ActionListener, UiBeobachter
 				modelAttribute.replace(Lernfach.kapitelText,
 						kapitels);
 				MainController.createLernfach(modelAttribute);
+				this.dispose();
 			}
 
 			else if (model == Kapitel.class.getSimpleName())
@@ -415,6 +430,7 @@ public class NeuFrame extends JFrame implements ActionListener, UiBeobachter
 				modelAttribute.replace(Kapitel.fragenText,
 						fragen);
 				MainController.createKapitel(modelAttribute);
+				this.dispose();
 			}
 
 			else if (model == Frage.class.getSimpleName())
@@ -434,15 +450,20 @@ public class NeuFrame extends JFrame implements ActionListener, UiBeobachter
 				modelAttribute.replace(Frage.antwortenText,
 						antworten);
 				MainController.createFrage(modelAttribute);
+				this.dispose();
 
 			}
 
-			this.dispose();
 		}
 
 		else if (e.getSource() == btn_abbrechen)
 		{
-			this.dispose();
+			int ret = JOptionPane.showConfirmDialog(this,
+					"Durch das Abbrechen des Vorgangs, werden die Änderungen nicht gespeichert. Sicher?");
+			if (ret == JOptionPane.YES_OPTION)
+			{
+				this.dispose();
+			}
 		}
 
 	}

@@ -10,6 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import Controller.MainController;
@@ -41,12 +42,12 @@ public class LoginFrame extends JFrame implements ActionListener, UiBeobachter
 
 		setLayout(new BorderLayout());
 
-		lbl_intro = new JLabel("Willkommen bei SimpleStudy! \n Bitte geben Sie ihre ID ein.");
+		lbl_intro = new JLabel("Willkommen bei SimpleStudy! \n \r Bitte wählen Sie Ihren Benutzer aus.");
 		intro.add(lbl_intro);
 
 		oben.setLayout(new GridLayout(1, 1));
 
-		lbl_benutzer = new JLabel("Benutzer-ID");
+		lbl_benutzer = new JLabel("Benutzer");
 		cb_benutzer = new JComboBox(MainController.getStudenten()
 				.toArray());
 
@@ -70,7 +71,7 @@ public class LoginFrame extends JFrame implements ActionListener, UiBeobachter
 		this.add(unten,
 				BorderLayout.SOUTH);
 
-		this.setSize(350,
+		this.setSize(400,
 				200);
 		setVisible(true);
 	}
@@ -98,7 +99,16 @@ public class LoginFrame extends JFrame implements ActionListener, UiBeobachter
 		else if (e.getSource()
 				.equals(delete))
 		{
-			MainController.deleteStudent(((PrettyHashMap) cb_benutzer.getSelectedItem()).visible.get(Entity.idText));
+			if (cb_benutzer.getSelectedItem() == null)
+			{
+				JOptionPane.showMessageDialog(this,
+						"Bitte wählen Sie eine*n Student*in aus!");
+			}
+			else
+			{
+				MainController.deleteStudent(((PrettyHashMap) cb_benutzer.getSelectedItem()).visible.get(Entity.idText));
+			}
+
 		}
 
 	}

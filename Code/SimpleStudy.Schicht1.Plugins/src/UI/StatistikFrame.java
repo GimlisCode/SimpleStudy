@@ -1,8 +1,12 @@
 package UI;
 
 import java.awt.BorderLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -11,22 +15,46 @@ import Controller.MainController;
 import Controller.UiBeobachter;
 import Models.Student;
 
-public class StatistikFrame extends JFrame implements UiBeobachter
+public class StatistikFrame extends JFrame implements UiBeobachter, ActionListener
 {
 	Student currentUser = null;
-	JPanel statistikPanel = new JPanel();
+
+	JPanel pnlKopf;
+	JPanel pnlStatistik;
+	JPanel pnlFuss;
+	JLabel lblText;
+
+	JButton btnSchliessen;
 
 	public StatistikFrame()
 	{
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		currentUser = MainController.getCurrentUser();
-		setTitle("Simple Study: Statistik von Nutzer: " + currentUser.getName());
+		setTitle("Simple Study: Statistik");
 		this.setSize(1600,
 				900);
 
 		setLayout(new BorderLayout());
-		this.add(statistikPanel,
+		pnlKopf = new JPanel();
+		pnlKopf.setLayout(new BorderLayout());
+		btnSchliessen = new JButton("Statistik schliessen");
+		btnSchliessen.addActionListener(this);
+		lblText = new JLabel("Statistik von " + currentUser.getName());
+		lblText.setFont(new Font("Arial", Font.BOLD, 20));
+		pnlKopf.add(lblText,
 				BorderLayout.CENTER);
+		pnlKopf.add(btnSchliessen,
+				BorderLayout.EAST);
+
+		pnlStatistik = new JPanel();
+		pnlFuss = new JPanel();
+
+		this.add(pnlKopf,
+				BorderLayout.NORTH);
+		this.add(pnlStatistik,
+				BorderLayout.CENTER);
+		this.add(pnlFuss,
+				BorderLayout.SOUTH);
 		showStatistik();
 
 		MainController.getInstance()
@@ -39,10 +67,20 @@ public class StatistikFrame extends JFrame implements UiBeobachter
 	{
 		final var userStatistik = currentUser.getStatistik()
 				.getStatistik();
-		statistikPanel.setLayout(new GridLayout(userStatistik.size(), 1));
+		pnlStatistik.setLayout(new GridLayout(userStatistik.size(), 3));
 		for (final var statistikEintrag : userStatistik.entrySet())
-			statistikPanel.add(new JLabel("FradenID: " + statistikEintrag.getKey() + "; " + statistikEintrag.getValue()
-					.toString()));
+		{
+			pnlStatistik.add(
+					new JLabel("Frage (" + statistikEintrag.getKey() + "): " + MainController.getFrage(statistikEintrag.getKey())
+							.getText()));
+
+			pnlStatistik.add(new JLabel("Richtig beantwortet: " + Integer.toString(statistikEintrag.getValue()
+					.getRichtig())));
+
+			pnlStatistik.add(new JLabel("Falsch beantwortet: " + Integer.toString(statistikEintrag.getValue()
+					.getFalsch())));
+
+		}
 
 		this.repaint();
 		revalidate();
@@ -53,5 +91,11 @@ public class StatistikFrame extends JFrame implements UiBeobachter
 	{
 		showStatistik();
 
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e)
+	{
+		this.dispose();
 	}
 }

@@ -47,7 +47,8 @@ public class AntwortFabrikTest
 				isKorrekteAntwort.toString());
 
 		AntwortFabrik.create(antwortAttribute);
-		final var erzeugteAntwort = AntwortVerwaltung.get(antwortId);
+		final var erzeugteAntwort = AntwortVerwaltung.getInstance()
+				.get(antwortId);
 
 		assertNotEquals(null,
 				erzeugteAntwort);
@@ -71,7 +72,8 @@ public class AntwortFabrikTest
 		final Boolean defaultAnswerCorrectness = false;
 
 		AntwortFabrik.create(antwortAttribute);
-		final var erzeugteAntwort = AntwortVerwaltung.get(antwortId);
+		final var erzeugteAntwort = AntwortVerwaltung.getInstance()
+				.get(antwortId);
 
 		assertNotEquals(null,
 				erzeugteAntwort);
@@ -94,7 +96,8 @@ public class AntwortFabrikTest
 		final Boolean defaultAnswerCorrectness = false;
 
 		AntwortFabrik.create(antwortAttribute);
-		final var erzeugteAntwort = AntwortVerwaltung.get(antwortId);
+		final var erzeugteAntwort = AntwortVerwaltung.getInstance()
+				.get(antwortId);
 
 		assertNotEquals(null,
 				erzeugteAntwort);
@@ -114,7 +117,8 @@ public class AntwortFabrikTest
 		final var antwortAttribute = AntwortFabrik.getAntwortAttribute();
 
 		AntwortFabrik.create(antwortAttribute);
-		final var erzeugteAntwort = AntwortVerwaltung.get(antwortId);
+		final var erzeugteAntwort = AntwortVerwaltung.getInstance()
+				.get(antwortId);
 
 		assertEquals(null,
 				erzeugteAntwort);

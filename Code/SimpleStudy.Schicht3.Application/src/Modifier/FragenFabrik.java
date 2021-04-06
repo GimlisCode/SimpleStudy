@@ -47,7 +47,8 @@ public class FragenFabrik
 			final String[] alleAntwortId = antwortIds.split(";");
 			for (final String antwortenID : alleAntwortId)
 			{
-				final Antwort antwort = AntwortVerwaltung.get(Integer.parseInt(antwortenID));
+				final Antwort antwort = AntwortVerwaltung.getInstance()
+						.get(Integer.parseInt(antwortenID));
 				if (antwort != null)
 					neueFrage.add(antwort);
 				else
@@ -64,7 +65,8 @@ public class FragenFabrik
 	{
 		for (final Tupel<Integer, Integer> tupel : antwortReferenzen)
 		{
-			final Antwort antwort = AntwortVerwaltung.get(tupel.y);
+			final Antwort antwort = AntwortVerwaltung.getInstance()
+					.get(tupel.y);
 			if (antwort != null)
 				fragenVerwaltung.get(tupel.x)
 						.add(antwort);

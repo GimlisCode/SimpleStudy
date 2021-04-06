@@ -34,12 +34,23 @@ public class AntwortFabrik
 
 	public static void create(HashMap<String, String> antwortAttribute)
 	{
+		if (antwortAttribute.get(Antwort.idText) == null || antwortAttribute.get(Antwort.idText)
+				.isEmpty() || antwortAttribute.get(Antwort.idText)
+						.isBlank())
+			return;
+
 		neueAntwort.setId(Integer.parseInt(antwortAttribute.get(Antwort.idText)));
 		neueAntwort.setText(antwortAttribute.get(Antwort.textText));
-		if (Integer.parseInt(antwortAttribute.get(Antwort.correctText)) != 0)
-			neueAntwort.setCorrect(true);
+		if (antwortAttribute.get(Antwort.correctText)
+				.contains("1")
+				|| antwortAttribute.get(Antwort.correctText)
+						.contains("1"))
+			if (Integer.parseInt(antwortAttribute.get(Antwort.correctText)) != 0)
+				neueAntwort.setCorrect(true);
+			else
+				neueAntwort.setCorrect(false);
 		else
-			neueAntwort.setCorrect(false);
+			neueAntwort.setCorrect(Boolean.parseBoolean(antwortAttribute.get(Antwort.correctText)));
 
 		antwortenVerwaltung.add(neueAntwort);
 		neueAntwort = new Antwort("", false);

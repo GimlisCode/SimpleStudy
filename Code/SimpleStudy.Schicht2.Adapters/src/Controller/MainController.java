@@ -84,7 +84,8 @@ public class MainController implements UiBeobachtete
 	{
 		List<Integer> keyList = new ArrayList<Integer>();
 		if (className == Antwort.class.getSimpleName())
-			keyList = new ArrayList<>(AntwortVerwaltung.getAll()
+			keyList = new ArrayList<>(AntwortVerwaltung.getInstance()
+					.getAll()
 					.keySet());
 
 		else if (className == Dozent.class.getSimpleName())
@@ -418,7 +419,8 @@ public class MainController implements UiBeobachtete
 
 	public static void deleteAntwort(String antwortId)
 	{
-		final var antwort = AntwortVerwaltung.get(Integer.parseInt(antwortId));
+		final var antwort = AntwortVerwaltung.getInstance()
+				.get(Integer.parseInt(antwortId));
 		AntwortVerwaltung.getInstance()
 				.remove(antwort);
 
@@ -474,7 +476,8 @@ public class MainController implements UiBeobachtete
 
 	public static ArrayList<PrettyHashMap> getAntworten()
 	{
-		return AntwortenRenderer.getAntwortenForView(AntwortVerwaltung.getAll()
+		return AntwortenRenderer.getAntwortenForView(AntwortVerwaltung.getInstance()
+				.getAll()
 				.values());
 	}
 

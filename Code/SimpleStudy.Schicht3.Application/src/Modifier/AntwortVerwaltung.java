@@ -22,12 +22,12 @@ public final class AntwortVerwaltung
 		return antwortVerwaltungSingleton;
 	}
 
-	public static Antwort get(int id)
+	public Antwort get(int id)
 	{
 		return antworten.get(id);
 	}
 
-	public static HashMap<Integer, Antwort> getAll()
+	public HashMap<Integer, Antwort> getAll()
 	{
 		return antworten;
 	}

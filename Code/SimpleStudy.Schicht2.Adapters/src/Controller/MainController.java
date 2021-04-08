@@ -80,7 +80,7 @@ public class MainController implements UiBeobachtete
 				.abfrageAuswerten(abfrage);
 	}
 
-	private static int getNewIdFor(String className)
+	public static int getNewIdFor(String className)
 	{
 		List<Integer> keyList = new ArrayList<Integer>();
 		if (className == Antwort.class.getSimpleName())

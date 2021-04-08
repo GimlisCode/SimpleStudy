@@ -62,7 +62,7 @@ public class AntwortFabrikTest
 				erzeugteAntwort.isCorrect());
 	}
 
-	// #Requirement: Create
+	// #Bugfix: 665c9a4
 	@Test
 	public void createAntwortWithProperDbValues()
 	{
@@ -88,7 +88,7 @@ public class AntwortFabrikTest
 				erzeugteAntwort.isCorrect());
 	}
 
-	// #Requirement: Create
+	// #Bugfix: 665c9a4
 	@Test
 	public void createAntwortWithProperDbValuesNegierteKorrektheit()
 	{

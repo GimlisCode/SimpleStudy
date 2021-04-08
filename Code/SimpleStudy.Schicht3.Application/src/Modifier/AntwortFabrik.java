@@ -43,7 +43,7 @@ public class AntwortFabrik
 		neueAntwort.setText(antwortAttribute.get(Antwort.textText));
 		if (antwortAttribute.get(Antwort.correctText)
 				.contains("1")
-				&& antwortAttribute.get(Antwort.correctText)
+				|| antwortAttribute.get(Antwort.correctText)
 						.contains("0"))
 			if (Integer.parseInt(antwortAttribute.get(Antwort.correctText)) != 0)
 				neueAntwort.setCorrect(true);

@@ -34,7 +34,7 @@ public class AntwortFabrik
 
 	public static void create(HashMap<String, String> antwortAttribute)
 	{
-		if (antwortAttribute.get(Antwort.idText) != null || antwortAttribute.get(Antwort.idText)
+		if (antwortAttribute.get(Antwort.idText) == null || antwortAttribute.get(Antwort.idText)
 				.isEmpty() || antwortAttribute.get(Antwort.idText)
 						.isBlank())
 			return;
@@ -43,7 +43,7 @@ public class AntwortFabrik
 		neueAntwort.setText(antwortAttribute.get(Antwort.textText));
 		if (antwortAttribute.get(Antwort.correctText)
 				.contains("1")
-				|| antwortAttribute.get(Antwort.correctText)
+				&& antwortAttribute.get(Antwort.correctText)
 						.contains("1"))
 			if (Integer.parseInt(antwortAttribute.get(Antwort.correctText)) != 0)
 				neueAntwort.setCorrect(true);

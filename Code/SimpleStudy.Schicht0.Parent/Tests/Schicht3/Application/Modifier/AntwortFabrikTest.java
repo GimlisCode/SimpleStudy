@@ -14,6 +14,8 @@ public class AntwortFabrikTest
 {
 	String antwortText = "gut";
 	Boolean isKorrekteAntwort = true;
+	Boolean isKorrekteAntwortNegiert = false;
+	int isKorrekteAntwortDbLanguage = 1;
 	int antwortId = 13;
 
 	// #Requirement: Create
@@ -57,6 +59,58 @@ public class AntwortFabrikTest
 		assertEquals(antwortText,
 				erzeugteAntwort.getText());
 		assertEquals(isKorrekteAntwort,
+				erzeugteAntwort.isCorrect());
+	}
+
+	// #Bugfix: 665c9a4
+	@Test
+	public void createAntwortWithProperDbValues()
+	{
+		final var antwortAttribute = AntwortFabrik.getAntwortAttribute();
+		antwortAttribute.put(Antwort.idText,
+				antwortId + "");
+		antwortAttribute.put(Antwort.textText,
+				antwortText);
+		antwortAttribute.put(Antwort.correctText,
+				isKorrekteAntwortDbLanguage + "");
+
+		AntwortFabrik.create(antwortAttribute);
+		final var erzeugteAntwort = AntwortVerwaltung.getInstance()
+				.get(antwortId);
+
+		assertNotEquals(null,
+				erzeugteAntwort);
+		assertEquals(antwortId,
+				erzeugteAntwort.getId());
+		assertEquals(antwortText,
+				erzeugteAntwort.getText());
+		assertEquals(isKorrekteAntwort,
+				erzeugteAntwort.isCorrect());
+	}
+
+	// #Bugfix: 665c9a4
+	@Test
+	public void createAntwortWithProperDbValuesNegierteKorrektheit()
+	{
+		final var antwortAttribute = AntwortFabrik.getAntwortAttribute();
+		antwortAttribute.put(Antwort.idText,
+				antwortId + "");
+		antwortAttribute.put(Antwort.textText,
+				antwortText);
+		antwortAttribute.put(Antwort.correctText,
+				isKorrekteAntwortDbLanguage - 1 + "");
+
+		AntwortFabrik.create(antwortAttribute);
+		final var erzeugteAntwort = AntwortVerwaltung.getInstance()
+				.get(antwortId);
+
+		assertNotEquals(null,
+				erzeugteAntwort);
+		assertEquals(antwortId,
+				erzeugteAntwort.getId());
+		assertEquals(antwortText,
+				erzeugteAntwort.getText());
+		assertEquals(isKorrekteAntwortNegiert,
 				erzeugteAntwort.isCorrect());
 	}
 

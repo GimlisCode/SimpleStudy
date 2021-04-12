@@ -27,8 +27,8 @@ public class DbController
 	public DbController(DatenVerbindung datenVerbindung)
 	{
 		this.datenVerbindung = datenVerbindung;
-		initiliazeData();
-		resolveAll();
+//		initiliazeData();
+//		resolveAll();
 	}
 
 	public void resolveAll()
@@ -193,7 +193,7 @@ public class DbController
 
 	}
 
-	private void initializeAntwort()
+	public void initializeAntwort()
 	{
 		final var alleAntworten = datenVerbindung.getAllFromTable(Antwort.class.getSimpleName());
 		for (final HashMap<String, String> antwort : alleAntworten)

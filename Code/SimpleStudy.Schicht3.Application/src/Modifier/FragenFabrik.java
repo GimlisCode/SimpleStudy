@@ -27,13 +27,13 @@ public class FragenFabrik
 
 	public static HashMap<String, String> getFragenAttribute()
 	{
-		final HashMap<String, String> antwortAttribute = new HashMap<>();
+		final HashMap<String, String> fragenAttribute = new HashMap<>();
 		final String[] attributNamen = neueFrage.getAttributeNames();
 		for (final String attributName : attributNamen)
-			antwortAttribute.put(attributName,
+			fragenAttribute.put(attributName,
 					"");
 
-		return antwortAttribute;
+		return fragenAttribute;
 	}
 
 	public static void create(HashMap<String, String> fragenAttribute)

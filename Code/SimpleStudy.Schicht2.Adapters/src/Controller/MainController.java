@@ -36,8 +36,10 @@ import Modifier.StatistikVerwaltung;
 import Modifier.StudentenFabrik;
 import Modifier.StudentenVerwaltung;
 import OpcChecker.IdChecker;
+import OpcChecker.IsBlankId;
 import OpcChecker.IsEmptyId;
 import OpcChecker.IsNullId;
+import OpcChecker.IsNumericId;
 import Renderer.AntwortenRenderer;
 import Renderer.DozentenRenderer;
 import Renderer.FragenRenderer;
@@ -61,6 +63,8 @@ public final class MainController implements UiBeobachtete
 		idChecker = new IdChecker();
 		idChecker.register(new IsNullId());
 		idChecker.register(new IsEmptyId());
+		idChecker.register(new IsBlankId());
+		idChecker.register(new IsNumericId());
 	}
 
 	public static MainController getInstance()

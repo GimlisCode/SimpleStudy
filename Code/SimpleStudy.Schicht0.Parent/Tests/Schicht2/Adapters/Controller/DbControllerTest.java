@@ -22,6 +22,7 @@ public class DbControllerTest
 	String antwortTextForTest = "gut";
 	Boolean isKorrekteAntwortForTest = true;
 	int antwortIdForTest = 13;
+	String wrongIdNotNumeric = "wrongIdNotNumeric";
 	String antwortTabelleForMock = Antwort.class.getSimpleName();
 
 	// #Requirement: Create
@@ -64,6 +65,42 @@ public class DbControllerTest
 	{
 		final DatenVerbindung databaseMock = EasyMock.createMock(DatenVerbindung.class);
 		final var testAntwortAttributeOhneId = AntwortFabrik.getAntwortAttribute();
+		testAntwortAttributeOhneId.put(Antwort.textText,
+				antwortTextForTest);
+		testAntwortAttributeOhneId.put(Antwort.correctText,
+				isKorrekteAntwortForTest.toString());
+		final ArrayList<HashMap<String, String>> antwortAttributeListeMock = new ArrayList<>();
+		antwortAttributeListeMock.add(testAntwortAttributeOhneId);
+		EasyMock.expect(databaseMock.getAllFromTable(antwortTabelleForMock))
+				.andReturn(antwortAttributeListeMock);
+		EasyMock.replay(databaseMock);
+		final int expectedIdForNewAntwort = MainController.getInstance()
+				.getNewIdFor(Antwort.class.getSimpleName());
+
+		final DbController zuTestendenDbController = new DbController(databaseMock);
+		zuTestendenDbController.initializeAntwort();
+		final var erzeugteAntwort = AntwortVerwaltung.getInstance()
+				.get(expectedIdForNewAntwort);
+
+		assertNotEquals(null,
+				erzeugteAntwort);
+		assertEquals(expectedIdForNewAntwort,
+				erzeugteAntwort.getId());
+		assertEquals(antwortTextForTest,
+				erzeugteAntwort.getText());
+		assertEquals(isKorrekteAntwortForTest,
+				erzeugteAntwort.isCorrect());
+
+	}
+
+	// #Requirement: Create
+	@Test
+	public void properlyInitializeAnswerFromDbWithWrongNotNumericUi()
+	{
+		final DatenVerbindung databaseMock = EasyMock.createMock(DatenVerbindung.class);
+		final var testAntwortAttributeOhneId = AntwortFabrik.getAntwortAttribute();
+		testAntwortAttributeOhneId.put(Antwort.idText,
+				wrongIdNotNumeric);
 		testAntwortAttributeOhneId.put(Antwort.textText,
 				antwortTextForTest);
 		testAntwortAttributeOhneId.put(Antwort.correctText,

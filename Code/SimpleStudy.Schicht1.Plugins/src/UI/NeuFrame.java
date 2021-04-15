@@ -30,7 +30,7 @@ import Renderer.PrettyHashMap;
 
 public class NeuFrame extends JFrame implements ActionListener, UiBeobachter
 {
-	private JLabel lbl_model;
+	private final JLabel lbl_model;
 	private JLabel lbl_1;
 	private JLabel lbl_2;
 	private JLabel lbl_3;
@@ -48,23 +48,23 @@ public class NeuFrame extends JFrame implements ActionListener, UiBeobachter
 
 	private JComboBox cb_1;
 
-	private JPanel pnl_kopf;
+	private final JPanel pnl_kopf;
 	private JPanel pnl_mitte;
-	private JPanel pnl_fuss;
+	private final JPanel pnl_fuss;
 
-	private JButton btn_speichern;
-	private JButton btn_abbrechen;
+	private final JButton btn_speichern;
+	private final JButton btn_abbrechen;
 
-	private String model;
+	private final String model;
 
-	private HashMap<String, String> modelAttribute;
+	private final HashMap<String, String> modelAttribute;
 
 	public NeuFrame(String model, HashMap<String, String> hashMap)
 	{
 		this.model = model;
-		this.modelAttribute = hashMap;
-		this.setLayout(new BorderLayout());
-		this.setTitle("Neu");
+		modelAttribute = hashMap;
+		setLayout(new BorderLayout());
+		setTitle("Neu");
 
 		pnl_kopf = new JPanel();
 		lbl_model = new JLabel(model);
@@ -79,29 +79,22 @@ public class NeuFrame extends JFrame implements ActionListener, UiBeobachter
 
 			tf_1 = new JTextField(modelAttribute.get(Hochschule.nameText));
 
-			ArrayList<PrettyHashMap> dozenten = MainController.getDozenten();
+			final ArrayList<PrettyHashMap> dozenten = MainController.getInstance()
+					.getDozenten();
 			lst_1 = new JList(dozenten.toArray());
 			String[] selektierteDozenten;
-			ArrayList<Integer> selektierteEintraege = new ArrayList<>();
+			final ArrayList<Integer> selektierteEintraege = new ArrayList<>();
 			if (modelAttribute.get(Hochschule.dozentenText) != null)
 			{
 				selektierteDozenten = modelAttribute.get(Hochschule.dozentenText)
 						.split(";");
 				for (int i = 0; i < selektierteDozenten.length; i++)
-				{
 					for (int j = 0; j < dozenten.size(); j++)
-					{
 						if (dozenten.get(j)
 								.getNormalHashMap()
 								.get(Entity.idText)
 								.equals(selektierteDozenten[i]))
-						{
-
 							selektierteEintraege.add(j);
-
-						}
-					}
-				}
 				lst_1.setSelectedIndices(selektierteEintraege.stream()
 						.mapToInt(i -> i)
 						.toArray());
@@ -126,32 +119,26 @@ public class NeuFrame extends JFrame implements ActionListener, UiBeobachter
 
 			tf_1 = new JTextField(modelAttribute.get(Dozent.nameText));
 
-			lst_1 = new JList(MainController.getLernfaecher()
+			lst_1 = new JList(MainController.getInstance()
+					.getLernfaecher()
 					.toArray());
 
-			ArrayList<PrettyHashMap> faecher = MainController.getLernfaecher();
+			final ArrayList<PrettyHashMap> faecher = MainController.getInstance()
+					.getLernfaecher();
 			lst_1 = new JList(faecher.toArray());
 			String[] selektierteFaecher;
-			ArrayList<Integer> selektierteEintraege = new ArrayList<>();
+			final ArrayList<Integer> selektierteEintraege = new ArrayList<>();
 			if (modelAttribute.get(Dozent.kurseText) != null)
 			{
 				selektierteFaecher = modelAttribute.get(Dozent.kurseText)
 						.split(";");
 				for (int i = 0; i < selektierteFaecher.length; i++)
-				{
 					for (int j = 0; j < faecher.size(); j++)
-					{
 						if (faecher.get(j)
 								.getNormalHashMap()
 								.get(Entity.idText)
 								.equals(selektierteFaecher[i]))
-						{
-
 							selektierteEintraege.add(j);
-
-						}
-					}
-				}
 				lst_1.setSelectedIndices(selektierteEintraege.stream()
 						.mapToInt(i -> i)
 						.toArray());
@@ -179,32 +166,26 @@ public class NeuFrame extends JFrame implements ActionListener, UiBeobachter
 			tf_2 = new JTextField(modelAttribute.get(Lernfach.creditsText));
 			tf_3 = new JTextField(modelAttribute.get(Lernfach.kapitelText));
 
-			lst_1 = new JList(MainController.getKapitel()
+			lst_1 = new JList(MainController.getInstance()
+					.getKapitel()
 					.toArray());
 
-			ArrayList<PrettyHashMap> kapitel = MainController.getKapitel();
+			final ArrayList<PrettyHashMap> kapitel = MainController.getInstance()
+					.getKapitel();
 			lst_1 = new JList(kapitel.toArray());
 			String[] selektierteKapitel;
-			ArrayList<Integer> selektierteEintraege = new ArrayList<>();
+			final ArrayList<Integer> selektierteEintraege = new ArrayList<>();
 			if (modelAttribute.get(Lernfach.kapitelText) != null)
 			{
 				selektierteKapitel = modelAttribute.get(Lernfach.kapitelText)
 						.split(";");
 				for (int i = 0; i < selektierteKapitel.length; i++)
-				{
 					for (int j = 0; j < kapitel.size(); j++)
-					{
 						if (kapitel.get(j)
 								.getNormalHashMap()
 								.get(Entity.idText)
 								.equals(selektierteKapitel[i]))
-						{
-
 							selektierteEintraege.add(j);
-
-						}
-					}
-				}
 				lst_1.setSelectedIndices(selektierteEintraege.stream()
 						.mapToInt(i -> i)
 						.toArray());
@@ -234,30 +215,26 @@ public class NeuFrame extends JFrame implements ActionListener, UiBeobachter
 			tf_1 = new JTextField(modelAttribute.get(Kapitel.nameText));
 			tf_2 = new JTextField(modelAttribute.get(Kapitel.nrText));
 
-			lst_1 = new JList(MainController.getFragen()
+			lst_1 = new JList(MainController.getInstance()
+					.getFragen()
 					.toArray());
 
-			ArrayList<PrettyHashMap> fragen = MainController.getFragen();
+			final ArrayList<PrettyHashMap> fragen = MainController.getInstance()
+					.getFragen();
 			lst_1 = new JList(fragen.toArray());
 			String[] selektierteFragen;
-			ArrayList<Integer> selektierteEintraege = new ArrayList<>();
+			final ArrayList<Integer> selektierteEintraege = new ArrayList<>();
 			if (modelAttribute.get(Kapitel.fragenText) != null)
 			{
 				selektierteFragen = modelAttribute.get(Kapitel.fragenText)
 						.split(";");
 				for (int i = 0; i < selektierteFragen.length; i++)
-				{
 					for (int j = 0; j < fragen.size(); j++)
-					{
 						if (fragen.get(j)
 								.getNormalHashMap()
 								.get(Entity.idText)
 								.equals(selektierteFragen[i]))
-						{
 							selektierteEintraege.add(j);
-						}
-					}
-				}
 				lst_1.setSelectedIndices(selektierteEintraege.stream()
 						.mapToInt(i -> i)
 						.toArray());
@@ -285,33 +262,29 @@ public class NeuFrame extends JFrame implements ActionListener, UiBeobachter
 
 			tf_1 = new JTextField(modelAttribute.get(Frage.textText));
 
-			Integer[] typVarianten =
+			final Integer[] typVarianten =
 				{ 1, 2, 3 };
 			lst_1 = new JList<Integer>(typVarianten);
-			lst_2 = new JList(MainController.getAntworten()
+			lst_2 = new JList(MainController.getInstance()
+					.getAntworten()
 					.toArray());
 
-			ArrayList<PrettyHashMap> antworten = MainController.getAntworten();
+			final ArrayList<PrettyHashMap> antworten = MainController.getInstance()
+					.getAntworten();
 			lst_2 = new JList(antworten.toArray());
 			String[] selektierteAntworten;
-			ArrayList<Integer> selektierteEintraege = new ArrayList<>();
+			final ArrayList<Integer> selektierteEintraege = new ArrayList<>();
 			if (modelAttribute.get(Frage.antwortenText) != null)
 			{
 				selektierteAntworten = modelAttribute.get(Frage.antwortenText)
 						.split(";");
 				for (int i = 0; i < selektierteAntworten.length; i++)
-				{
 					for (int j = 0; j < antworten.size(); j++)
-					{
 						if (antworten.get(j)
 								.getNormalHashMap()
 								.get(Entity.idText)
 								.equals(selektierteAntworten[i]))
-						{
 							selektierteEintraege.add(j);
-						}
-					}
-				}
 				lst_2.setSelectedIndices(selektierteEintraege.stream()
 						.mapToInt(i -> i)
 						.toArray());
@@ -346,8 +319,8 @@ public class NeuFrame extends JFrame implements ActionListener, UiBeobachter
 				BorderLayout.SOUTH);
 
 		this.setSize(new Dimension(400, 200));
-		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		this.setVisible(true);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		setVisible(true);
 	}
 
 	@Override
@@ -359,26 +332,22 @@ public class NeuFrame extends JFrame implements ActionListener, UiBeobachter
 			{
 				if (lst_1.getSelectedValuesList()
 						.isEmpty() || tf_1.getText() == "")
-				{
 					JOptionPane.showMessageDialog(this,
 							"Bitte füllen Sie alle Felder aus!");
-
-				}
 				else
 				{
 					String dozenten = new String();
 					modelAttribute.replace(Hochschule.nameText,
 							tf_1.getText());
-					for (Object doz : lst_1.getSelectedValuesList())
-					{
+					for (final Object doz : lst_1.getSelectedValuesList())
 						dozenten += ((PrettyHashMap) doz).getNormalHashMap()
 								.get(Models.Entity.idText) + ";";
-					}
 
 					modelAttribute.replace(Hochschule.dozentenText,
 							dozenten);
-					MainController.createHochschule(modelAttribute);
-					this.dispose();
+					MainController.getInstance()
+							.createHochschule(modelAttribute);
+					dispose();
 				}
 
 			}
@@ -388,16 +357,15 @@ public class NeuFrame extends JFrame implements ActionListener, UiBeobachter
 				String kurse = new String();
 				modelAttribute.replace(Dozent.nameText,
 						tf_1.getText());
-				for (Object kurs : lst_1.getSelectedValuesList())
-				{
+				for (final Object kurs : lst_1.getSelectedValuesList())
 					kurse += ((PrettyHashMap) kurs).getNormalHashMap()
 							.get(Models.Entity.idText) + ";";
-				}
 
 				modelAttribute.replace(Dozent.kurseText,
 						kurse);
-				MainController.createDozent(modelAttribute);
-				this.dispose();
+				MainController.getInstance()
+						.createDozent(modelAttribute);
+				dispose();
 
 			}
 
@@ -406,15 +374,14 @@ public class NeuFrame extends JFrame implements ActionListener, UiBeobachter
 				String kapitels = new String();
 				modelAttribute.replace(Lernfach.nameText,
 						tf_1.getText());
-				for (Object kapitel : lst_1.getSelectedValuesList())
-				{
+				for (final Object kapitel : lst_1.getSelectedValuesList())
 					kapitels += ((PrettyHashMap) kapitel).getNormalHashMap()
 							.get(Models.Entity.idText) + ";";
-				}
 				modelAttribute.replace(Lernfach.kapitelText,
 						kapitels);
-				MainController.createLernfach(modelAttribute);
-				this.dispose();
+				MainController.getInstance()
+						.createLernfach(modelAttribute);
+				dispose();
 			}
 
 			else if (model == Kapitel.class.getSimpleName())
@@ -422,15 +389,14 @@ public class NeuFrame extends JFrame implements ActionListener, UiBeobachter
 				String fragen = new String();
 				modelAttribute.replace(Kapitel.nameText,
 						tf_1.getText());
-				for (Object frage : lst_1.getSelectedValuesList())
-				{
+				for (final Object frage : lst_1.getSelectedValuesList())
 					fragen += ((PrettyHashMap) frage).getNormalHashMap()
 							.get(Models.Entity.idText) + ";";
-				}
 				modelAttribute.replace(Kapitel.fragenText,
 						fragen);
-				MainController.createKapitel(modelAttribute);
-				this.dispose();
+				MainController.getInstance()
+						.createKapitel(modelAttribute);
+				dispose();
 			}
 
 			else if (model == Frage.class.getSimpleName())
@@ -441,16 +407,14 @@ public class NeuFrame extends JFrame implements ActionListener, UiBeobachter
 				modelAttribute.replace(Frage.typText,
 						lst_1.getSelectedValue()
 								.toString());
-				for (Object antwort : lst_2.getSelectedValuesList())
-				{
+				for (final Object antwort : lst_2.getSelectedValuesList())
 					antworten += ((PrettyHashMap) antwort).getNormalHashMap()
 							.get(Models.Entity.idText) + ";";
-
-				}
 				modelAttribute.replace(Frage.antwortenText,
 						antworten);
-				MainController.createFrage(modelAttribute);
-				this.dispose();
+				MainController.getInstance()
+						.createFrage(modelAttribute);
+				dispose();
 
 			}
 
@@ -458,12 +422,10 @@ public class NeuFrame extends JFrame implements ActionListener, UiBeobachter
 
 		else if (e.getSource() == btn_abbrechen)
 		{
-			int ret = JOptionPane.showConfirmDialog(this,
+			final int ret = JOptionPane.showConfirmDialog(this,
 					"Durch das Abbrechen des Vorgangs, werden die Änderungen nicht gespeichert. Sicher?");
 			if (ret == JOptionPane.YES_OPTION)
-			{
-				this.dispose();
-			}
+				dispose();
 		}
 
 	}

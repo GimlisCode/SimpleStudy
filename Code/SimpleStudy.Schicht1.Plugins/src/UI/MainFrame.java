@@ -162,27 +162,27 @@ public class MainFrame extends JFrame implements ActionListener, UiBeobachter
 		pnlListenlbl.add(lblKapitel);
 		pnlListenlbl.add(lblFragen);
 
-		hochschulListe = new JList<>(MainController.getHochschulen()
+		hochschulListe = new JList<>(MainController.getInstance().getHochschulen()
 				.toArray());
 		hochschulListe.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		hochScrollPane = new JScrollPane(hochschulListe);
 
-		dozentenListe = new JList<>(MainController.getDozenten()
+		dozentenListe = new JList<>(MainController.getInstance().getDozenten()
 				.toArray());
 		dozentenListe.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		dozScrollPane = new JScrollPane(dozentenListe);
 
-		lernfachListe = new JList<>(MainController.getLernfaecher()
+		lernfachListe = new JList<>(MainController.getInstance().getLernfaecher()
 				.toArray());
 		lernfachListe.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		lernScrollPane = new JScrollPane(lernfachListe);
 
-		kapitelListe = new JList<>(MainController.getKapitel()
+		kapitelListe = new JList<>(MainController.getInstance().getKapitel()
 				.toArray());
 		kapitelListe.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		kapScrollPane = new JScrollPane(kapitelListe);
 
-		fragenListe = new JList<>(MainController.getFragen()
+		fragenListe = new JList<>(MainController.getInstance().getFragen()
 				.toArray());
 		fragenListe.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		fragScrollPane = new JScrollPane(fragenListe);
@@ -320,7 +320,7 @@ public class MainFrame extends JFrame implements ActionListener, UiBeobachter
 						"Soll die gewählte Hochschule wirklich gelöscht werden?");
 				if (ret == JOptionPane.YES_OPTION)
 				{
-					MainController
+					MainController.getInstance()
 							.deleteHochschule(((PrettyHashMap) hochschulListe.getSelectedValue()).visible.get(Entity.idText));
 				}
 			}
@@ -360,7 +360,7 @@ public class MainFrame extends JFrame implements ActionListener, UiBeobachter
 						"Soll der/die gewählte Dozent/in wirklich gelöscht werden?");
 				if (ret == JOptionPane.YES_OPTION)
 				{
-					MainController.deleteDozent(((PrettyHashMap) dozentenListe.getSelectedValue()).visible.get(Entity.idText));
+					MainController.getInstance().deleteDozent(((PrettyHashMap) dozentenListe.getSelectedValue()).visible.get(Entity.idText));
 				}
 			}
 			else
@@ -399,7 +399,7 @@ public class MainFrame extends JFrame implements ActionListener, UiBeobachter
 						"Soll das gewählte Lernfach wirklich gelöscht werden?");
 				if (ret == JOptionPane.YES_OPTION)
 				{
-					MainController.deleteLernfach(((PrettyHashMap) lernfachListe.getSelectedValue()).visible.get(Entity.idText));
+					MainController.getInstance().deleteLernfach(((PrettyHashMap) lernfachListe.getSelectedValue()).visible.get(Entity.idText));
 				}
 			}
 			else
@@ -438,7 +438,7 @@ public class MainFrame extends JFrame implements ActionListener, UiBeobachter
 						"Soll das gewählte Kapitel wirklich gelöscht werden?");
 				if (ret == JOptionPane.YES_OPTION)
 				{
-					MainController.deleteKapitel(((PrettyHashMap) kapitelListe.getSelectedValue()).visible.get(Entity.idText));
+					MainController.getInstance().deleteKapitel(((PrettyHashMap) kapitelListe.getSelectedValue()).visible.get(Entity.idText));
 				}
 			}
 			else
@@ -477,7 +477,7 @@ public class MainFrame extends JFrame implements ActionListener, UiBeobachter
 						"Soll die gewählte Frage wirklich gelöscht werden?");
 				if (ret == JOptionPane.YES_OPTION)
 				{
-					MainController.deleteFrage(((PrettyHashMap) fragenListe.getSelectedValue()).visible.get(Entity.idText));
+					MainController.getInstance().deleteFrage(((PrettyHashMap) fragenListe.getSelectedValue()).visible.get(Entity.idText));
 				}
 			}
 			else
@@ -507,7 +507,7 @@ public class MainFrame extends JFrame implements ActionListener, UiBeobachter
 					fragen.add(((PrettyHashMap) value).getNormalHashMap());
 				}
 
-				AbfrageFrame af = new AbfrageFrame(MainController.createAbfrage(fragen));
+				AbfrageFrame af = new AbfrageFrame(MainController.getInstance().createAbfrage(fragen));
 			}
 
 		}
@@ -536,19 +536,19 @@ public class MainFrame extends JFrame implements ActionListener, UiBeobachter
 	public void aktualisiere()
 	{
 
-		hochschulListe.setListData(MainController.getHochschulen()
+		hochschulListe.setListData(MainController.getInstance().getHochschulen()
 				.toArray());
 
-		dozentenListe.setListData(MainController.getDozenten()
+		dozentenListe.setListData(MainController.getInstance().getDozenten()
 				.toArray());
 
-		lernfachListe.setListData(MainController.getLernfaecher()
+		lernfachListe.setListData(MainController.getInstance().getLernfaecher()
 				.toArray());
 
-		kapitelListe.setListData(MainController.getKapitel()
+		kapitelListe.setListData(MainController.getInstance().getKapitel()
 				.toArray());
 
-		fragenListe.setListData(MainController.getFragen()
+		fragenListe.setListData(MainController.getInstance().getFragen()
 				.toArray());
 
 	}

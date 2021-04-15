@@ -19,7 +19,8 @@ public class StatistikFrame extends JFrame implements UiBeobachter
 	public StatistikFrame()
 	{
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		currentUser = MainController.getCurrentUser();
+		currentUser = MainController.getInstance()
+				.getCurrentUser();
 		setTitle("Simple Study: Statistik von Nutzer: " + currentUser.getName());
 		this.setSize(1600,
 				900);

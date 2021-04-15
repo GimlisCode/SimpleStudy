@@ -80,7 +80,8 @@ public class DbController
 
 		final var alleFragen = datenVerbindung.getResultFromQuerry(select);
 		for (final HashMap<String, String> frage : alleFragen)
-			MainController.createFrage(frage);
+			MainController.getInstance()
+					.createFrage(frage);
 
 	}
 
@@ -107,7 +108,8 @@ public class DbController
 
 		final var alleKapitel = datenVerbindung.getResultFromQuerry(select);
 		for (final HashMap<String, String> kapitel : alleKapitel)
-			MainController.createKapitel(kapitel);
+			MainController.getInstance()
+					.createKapitel(kapitel);
 
 	}
 
@@ -135,7 +137,8 @@ public class DbController
 
 		final var alleLernfaecher = datenVerbindung.getResultFromQuerry(select);
 		for (final HashMap<String, String> lernfach : alleLernfaecher)
-			MainController.createLernfach(lernfach);
+			MainController.getInstance()
+					.createLernfach(lernfach);
 
 	}
 
@@ -162,7 +165,8 @@ public class DbController
 
 		final var alleDozenten = datenVerbindung.getResultFromQuerry(select);
 		for (final HashMap<String, String> dozent : alleDozenten)
-			MainController.createDozent(dozent);
+			MainController.getInstance()
+					.createDozent(dozent);
 
 	}
 
@@ -189,7 +193,8 @@ public class DbController
 
 		final var alleHochschulen = datenVerbindung.getResultFromQuerry(select);
 		for (final HashMap<String, String> hochschulen : alleHochschulen)
-			MainController.createHochschule(hochschulen);
+			MainController.getInstance()
+					.createHochschule(hochschulen);
 
 	}
 
@@ -197,7 +202,8 @@ public class DbController
 	{
 		final var alleAntworten = datenVerbindung.getAllFromTable(Antwort.class.getSimpleName());
 		for (final HashMap<String, String> antwort : alleAntworten)
-			MainController.createAntwort(antwort);
+			MainController.getInstance()
+					.createAntwort(antwort);
 
 	}
 
@@ -225,7 +231,8 @@ public class DbController
 
 		final var alleStudenten = datenVerbindung.getResultFromQuerry(studentenSelect);
 		for (final HashMap<String, String> student : alleStudenten)
-			MainController.createStudent(student);
+			MainController.getInstance()
+					.createStudent(student);
 	}
 
 	private void initializeStatistik()
@@ -257,7 +264,8 @@ public class DbController
 
 			currentNewStatistik.put(Statistik.statistikText,
 					richtigkeitText);
-			MainController.createStatistik(currentNewStatistik);
+			MainController.getInstance()
+					.createStatistik(currentNewStatistik);
 			currentNewStatistik = StatistikFabrik.getStatistikAttribute();
 		}
 	}

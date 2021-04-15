@@ -28,9 +28,9 @@ public class UserAnlegenFrame extends JFrame implements ActionListener
 
 	public UserAnlegenFrame()
 	{
-		this.setTitle("Neuer Student*in");
+		setTitle("Neuer Student*in");
 
-		this.setLayout(new BorderLayout());
+		setLayout(new BorderLayout());
 
 		pn_eingaben.setLayout(new GridLayout(1, 1));
 		tf_benutzer = new JTextField();
@@ -46,10 +46,10 @@ public class UserAnlegenFrame extends JFrame implements ActionListener
 		this.add(pn_button,
 				BorderLayout.SOUTH);
 
-		this.setVisible(true);
+		setVisible(true);
 		this.setSize(300,
 				150);
-		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 	}
 
@@ -59,7 +59,7 @@ public class UserAnlegenFrame extends JFrame implements ActionListener
 		if (tf_benutzer.getText()
 				.isEmpty())
 		{
-			JOptionPane fehlermeldung = new JOptionPane();
+			final JOptionPane fehlermeldung = new JOptionPane();
 			fehlermeldung.showMessageDialog(null,
 					"Sie müssen einen Namen eingeben",
 					"Fehler",
@@ -70,11 +70,12 @@ public class UserAnlegenFrame extends JFrame implements ActionListener
 		{
 			final var benutzer = tf_benutzer.getText();
 
-			HashMap<String, String> student = new HashMap<>();
+			final HashMap<String, String> student = new HashMap<>();
 			student.put(Student.nameText,
 					benutzer);
-			MainController.updateStudent(student);
-			this.dispose();
+			MainController.getInstance()
+					.updateStudent(student);
+			dispose();
 		}
 
 	}

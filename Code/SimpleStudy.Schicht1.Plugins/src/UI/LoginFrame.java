@@ -48,7 +48,7 @@ public class LoginFrame extends JFrame implements ActionListener, UiBeobachter
 		oben.setLayout(new GridLayout(1, 1));
 
 		lbl_benutzer = new JLabel("Benutzer");
-		cb_benutzer = new JComboBox(MainController.getStudenten()
+		cb_benutzer = new JComboBox(MainController.getInstance().getStudenten()
 				.toArray());
 
 		oben.add(lbl_benutzer);
@@ -91,7 +91,7 @@ public class LoginFrame extends JFrame implements ActionListener, UiBeobachter
 		else if (e.getSource()
 				.equals(login))
 		{
-			MainController.setCurrentUser((PrettyHashMap) cb_benutzer.getSelectedItem());
+			MainController.getInstance().setCurrentUser((PrettyHashMap) cb_benutzer.getSelectedItem());
 			MainFrame mf = new MainFrame();
 			this.dispose();
 		}
@@ -106,7 +106,7 @@ public class LoginFrame extends JFrame implements ActionListener, UiBeobachter
 			}
 			else
 			{
-				MainController.deleteStudent(((PrettyHashMap) cb_benutzer.getSelectedItem()).visible.get(Entity.idText));
+				MainController.getInstance().deleteStudent(((PrettyHashMap) cb_benutzer.getSelectedItem()).visible.get(Entity.idText));
 			}
 
 		}
@@ -116,7 +116,7 @@ public class LoginFrame extends JFrame implements ActionListener, UiBeobachter
 	@Override
 	public void aktualisiere()
 	{
-		cb_benutzer.setModel(new DefaultComboBoxModel(MainController.getStudenten()
+		cb_benutzer.setModel(new DefaultComboBoxModel(MainController.getInstance().getStudenten()
 				.toArray()));
 	}
 

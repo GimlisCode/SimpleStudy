@@ -35,6 +35,9 @@ import Modifier.StatistikFabrik;
 import Modifier.StatistikVerwaltung;
 import Modifier.StudentenFabrik;
 import Modifier.StudentenVerwaltung;
+import OpcChecker.IdChecker;
+import OpcChecker.IsEmptyId;
+import OpcChecker.IsNullId;
 import Renderer.AntwortenRenderer;
 import Renderer.DozentenRenderer;
 import Renderer.FragenRenderer;
@@ -44,16 +47,20 @@ import Renderer.LernfachRenderer;
 import Renderer.PrettyHashMap;
 import Renderer.StudentenRenderer;
 
-public class MainController implements UiBeobachtete
+public final class MainController implements UiBeobachtete
 {
 
 	private static MainController mainControllerSingleton = new MainController();
-	private static Student currentUser = null;
-	private static ArrayList<UiBeobachter> registrierteUiBeobachter = new ArrayList<UiBeobachter>();
+	private Student currentUser = null;
+	private final ArrayList<UiBeobachter> registrierteUiBeobachter = new ArrayList<UiBeobachter>();
+	private IdChecker idChecker = null;
 
 	private MainController()
 	{
 		super();
+		idChecker = new IdChecker();
+		idChecker.register(new IsNullId());
+		idChecker.register(new IsEmptyId());
 	}
 
 	public static MainController getInstance()
@@ -61,7 +68,7 @@ public class MainController implements UiBeobachtete
 		return mainControllerSingleton;
 	}
 
-	public static Abfrage createAbfrage(ArrayList<HashMap<String, String>> fragenWerte)
+	public Abfrage createAbfrage(ArrayList<HashMap<String, String>> fragenWerte)
 	{
 		final ArrayList<Frage> fragen = new ArrayList<Frage>();
 		for (final HashMap<String, String> frage : fragenWerte)
@@ -74,13 +81,13 @@ public class MainController implements UiBeobachtete
 						currentUser);
 	}
 
-	public static void abfrageAuswerten(Abfrage abfrage)
+	public void abfrageAuswerten(Abfrage abfrage)
 	{
 		AbfrageVerwaltung.getInstance()
 				.abfrageAuswerten(abfrage);
 	}
 
-	public static int getNewIdFor(String className)
+	public int getNewIdFor(String className)
 	{
 		List<Integer> keyList = new ArrayList<Integer>();
 		if (className == Antwort.class.getSimpleName())
@@ -124,14 +131,14 @@ public class MainController implements UiBeobachtete
 
 	}
 
-	public static void createAntwort(HashMap<String, String> antwortWerte)
+	public void createAntwort(HashMap<String, String> antwortWerte)
 	{
 		final var antwortAttribute = AntwortFabrik.getAntwortAttribute();
 		for (final Entry<String, String> antwortAttribut : antwortAttribute.entrySet())
 			antwortAttribut.setValue(antwortWerte.get(antwortAttribut.getKey()));
 
 		final String id = antwortAttribute.get(Entity.idText);
-		if (id == null || id.isEmpty())
+		if (!idChecker.isValid(id))
 			antwortAttribute.replace(Entity.idText,
 					getNewIdFor(Antwort.class.getSimpleName()) + "");
 
@@ -140,20 +147,20 @@ public class MainController implements UiBeobachtete
 
 	}
 
-	public static void updateAntwort(HashMap<String, String> antwortWerte)
+	public void updateAntwort(HashMap<String, String> antwortWerte)
 	{
 		createAntwort(antwortWerte);
 		getInstance().benachrichtigeUis();
 	}
 
-	public static void createDozent(HashMap<String, String> dozentWerte)
+	public void createDozent(HashMap<String, String> dozentWerte)
 	{
 		final var dozentAttribute = DozentenFabrik.getDozentAttribute();
 		for (final Entry<String, String> dozentAttribut : dozentAttribute.entrySet())
 			dozentAttribut.setValue(dozentWerte.get(dozentAttribut.getKey()));
 
 		final String id = dozentAttribute.get(Entity.idText);
-		if (id == null || id.isEmpty())
+		if (!idChecker.isValid(id))
 			dozentAttribute.replace(Entity.idText,
 					getNewIdFor(Dozent.class.getSimpleName()) + "");
 
@@ -161,26 +168,26 @@ public class MainController implements UiBeobachtete
 		getInstance().benachrichtigeUis();
 	}
 
-	public static void updateDozent(HashMap<String, String> dozentWerte)
+	public void updateDozent(HashMap<String, String> dozentWerte)
 	{
 		createDozent(dozentWerte);
 		DozentenFabrik.resolveReferences();
 		getInstance().benachrichtigeUis();
 	}
 
-	public static void createStudent(HashMap<String, String> studentWerte)
+	public void createStudent(HashMap<String, String> studentWerte)
 	{
 		final var studentAttribute = StudentenFabrik.getStudentenAttribute();
 		for (final Entry<String, String> studentAttribut : studentAttribute.entrySet())
 			studentAttribut.setValue(studentWerte.get(studentAttribut.getKey()));
 
 		final String id = studentAttribute.get(Entity.idText);
-		if (id == null || id.isEmpty())
+		if (!idChecker.isValid(id))
 			studentAttribute.replace(Entity.idText,
 					getNewIdFor(Student.class.getSimpleName()) + "");
 
 		final String statistikId = studentAttribute.get(Student.statistikText);
-		if (statistikId == null || statistikId.isEmpty())
+		if (!idChecker.isValid(statistikId))
 		{
 			final int newStatistik = getNewIdFor(Student.class.getSimpleName());
 			final var newStatistikForUser = StatistikFabrik.getStatistikAttribute();
@@ -197,21 +204,21 @@ public class MainController implements UiBeobachtete
 		getInstance().benachrichtigeUis();
 	}
 
-	public static void updateStudent(HashMap<String, String> studentWerte)
+	public void updateStudent(HashMap<String, String> studentWerte)
 	{
 		createStudent(studentWerte);
 		StudentenFabrik.resolveReferences();
 		getInstance().benachrichtigeUis();
 	}
 
-	public static void createHochschule(HashMap<String, String> hochschulen)
+	public void createHochschule(HashMap<String, String> hochschulen)
 	{
 		final var hochschulAttribute = HochschulFabrik.getHochschulAttribute();
 		for (final Entry<String, String> hochschulAttribut : hochschulAttribute.entrySet())
 			hochschulAttribut.setValue(hochschulen.get(hochschulAttribut.getKey())); // TODO: Stilbruch im Namen, durch
 																						// autogenerate
 		final String id = hochschulAttribute.get(Entity.idText);
-		if (id == null || id.isEmpty())
+		if (!idChecker.isValid(id))
 			hochschulAttribute.replace(Entity.idText,
 					getNewIdFor(Hochschule.class.getSimpleName()) + "");
 
@@ -219,21 +226,21 @@ public class MainController implements UiBeobachtete
 		getInstance().benachrichtigeUis();
 	}
 
-	public static void updateHochschule(HashMap<String, String> hochschuleWerte)
+	public void updateHochschule(HashMap<String, String> hochschuleWerte)
 	{
 		createHochschule(hochschuleWerte);
 		HochschulFabrik.resolveReferences();
 		getInstance().benachrichtigeUis();
 	}
 
-	public static void createStatistik(HashMap<String, String> currentNewStatistik)
+	public void createStatistik(HashMap<String, String> currentNewStatistik)
 	{
 		final var statistikAttribute = StatistikFabrik.getStatistikAttribute();
 		for (final Entry<String, String> statistikAttribut : statistikAttribute.entrySet())
 			statistikAttribut.setValue(currentNewStatistik.get(statistikAttribut.getKey()));
 
 		final String id = statistikAttribute.get(Entity.idText);
-		if (id == null || id.isEmpty())
+		if (!idChecker.isValid(id))
 			statistikAttribute.replace(Entity.idText,
 					getNewIdFor(Statistik.class.getSimpleName()) + "");
 
@@ -242,20 +249,20 @@ public class MainController implements UiBeobachtete
 
 	}
 
-	public static void updateStatistik(HashMap<String, String> statistikWerte)
+	public void updateStatistik(HashMap<String, String> statistikWerte)
 	{
 		createStatistik(statistikWerte);
 		getInstance().benachrichtigeUis();
 	}
 
-	public static void createLernfach(HashMap<String, String> lernfach)
+	public void createLernfach(HashMap<String, String> lernfach)
 	{
 		final var lernfachAttribute = LernfachFabrik.getLernfachAttribute();
 		for (final Entry<String, String> lernfachAttribut : lernfachAttribute.entrySet())
 			lernfachAttribut.setValue(lernfach.get(lernfachAttribut.getKey()));
 
 		final String id = lernfachAttribute.get(Entity.idText);
-		if (id == null || id.isEmpty())
+		if (!idChecker.isValid(id))
 			lernfachAttribute.replace(Entity.idText,
 					getNewIdFor(Lernfach.class.getSimpleName()) + "");
 
@@ -263,21 +270,21 @@ public class MainController implements UiBeobachtete
 		getInstance().benachrichtigeUis();
 	}
 
-	public static void updateLernfach(HashMap<String, String> lernfachWerte)
+	public void updateLernfach(HashMap<String, String> lernfachWerte)
 	{
 		createLernfach(lernfachWerte);
 		LernfachFabrik.resolveReferences();
 		getInstance().benachrichtigeUis();
 	}
 
-	public static void createKapitel(HashMap<String, String> kapitel)
+	public void createKapitel(HashMap<String, String> kapitel)
 	{
 		final var kapitelAttribute = KapitelFabrik.getKaptielAttribute();
 		for (final Entry<String, String> kapitelAttribut : kapitelAttribute.entrySet())
 			kapitelAttribut.setValue(kapitel.get(kapitelAttribut.getKey()));
 
 		final String id = kapitelAttribute.get(Entity.idText);
-		if (id == null || id.isEmpty())
+		if (!idChecker.isValid(id))
 			kapitelAttribute.replace(Entity.idText,
 					getNewIdFor(Kapitel.class.getSimpleName()) + "");
 
@@ -285,21 +292,21 @@ public class MainController implements UiBeobachtete
 		getInstance().benachrichtigeUis();
 	}
 
-	public static void updateKapitel(HashMap<String, String> kapitelWerte)
+	public void updateKapitel(HashMap<String, String> kapitelWerte)
 	{
 		createKapitel(kapitelWerte);
 		KapitelFabrik.resolveReferences();
 		getInstance().benachrichtigeUis();
 	}
 
-	public static void createFrage(HashMap<String, String> frage)
+	public void createFrage(HashMap<String, String> frage)
 	{
 		final var fragenAttribute = FragenFabrik.getFragenAttribute();
 		for (final Entry<String, String> frageAttribut : fragenAttribute.entrySet())
 			frageAttribut.setValue(frage.get(frageAttribut.getKey()));
 
 		final String id = fragenAttribute.get(Entity.idText);
-		if (id == null || id.isEmpty())
+		if (!idChecker.isValid(id))
 			fragenAttribute.replace(Entity.idText,
 					getNewIdFor(Frage.class.getSimpleName()) + "");
 
@@ -307,14 +314,14 @@ public class MainController implements UiBeobachtete
 		getInstance().benachrichtigeUis();
 	}
 
-	public static void updateFrage(HashMap<String, String> frageWerte)
+	public void updateFrage(HashMap<String, String> frageWerte)
 	{
 		createFrage(frageWerte);
 		FragenFabrik.resolveReferences();
 		getInstance().benachrichtigeUis();
 	}
 
-	public static void deleteStudent(String studentenId)
+	public void deleteStudent(String studentenId)
 	{
 		final var student = StudentenVerwaltung.get(Integer.parseInt(studentenId));
 		if (student.getStatistik() != null)
@@ -325,13 +332,13 @@ public class MainController implements UiBeobachtete
 		getInstance().benachrichtigeUis();
 	}
 
-	public static void deleteStatistik(String statistikId)
+	public void deleteStatistik(String statistikId)
 	{
 		StatistikVerwaltung.remove(Integer.parseInt(statistikId));
 		getInstance().benachrichtigeUis();
 	}
 
-	public static void deleteHochschule(String hocschulId)
+	public void deleteHochschule(String hocschulId)
 	{
 		final var hochschule = HochschulVerwaltung.get(Integer.parseInt(hocschulId));
 		final var dozenten = hochschule.getDozenten();
@@ -344,7 +351,7 @@ public class MainController implements UiBeobachtete
 
 	}
 
-	public static void deleteDozent(String dozentId)
+	public void deleteDozent(String dozentId)
 	{
 		final var dozent = DozentenVerwaltung.get(Integer.parseInt(dozentId));
 		final var kurse = dozent.getKurse();
@@ -363,7 +370,7 @@ public class MainController implements UiBeobachtete
 
 	}
 
-	public static void deleteLernfach(String lernfachId)
+	public void deleteLernfach(String lernfachId)
 	{
 		final var lernfach = LernfachVerwaltung.get(Integer.parseInt(lernfachId));
 		final var kapitel = lernfach.getLernkapitel();
@@ -381,7 +388,7 @@ public class MainController implements UiBeobachtete
 		getInstance().benachrichtigeUis();
 	}
 
-	public static void deleteKapitel(String kapitelId)
+	public void deleteKapitel(String kapitelId)
 	{
 		final var kapitel = KapitelVerwaltung.get(Integer.parseInt(kapitelId));
 		final var fragen = kapitel.getFragen();
@@ -399,7 +406,7 @@ public class MainController implements UiBeobachtete
 		getInstance().benachrichtigeUis();
 	}
 
-	public static void deleteFrage(String fragenId)
+	public void deleteFrage(String fragenId)
 	{
 		final var frage = FragenVerwaltung.get(Integer.parseInt(fragenId));
 		final var antworten = frage.getAntworten();
@@ -417,7 +424,7 @@ public class MainController implements UiBeobachtete
 		getInstance().benachrichtigeUis();
 	}
 
-	public static void deleteAntwort(String antwortId)
+	public void deleteAntwort(String antwortId)
 	{
 		final var antwort = AntwortVerwaltung.getInstance()
 				.get(Integer.parseInt(antwortId));
@@ -433,56 +440,56 @@ public class MainController implements UiBeobachtete
 		getInstance().benachrichtigeUis();
 	}
 
-	public static ArrayList<PrettyHashMap> getStudenten()
+	public ArrayList<PrettyHashMap> getStudenten()
 	{
 		return StudentenRenderer.getStudentForView(StudentenVerwaltung.getAll()
 				.values());
 	}
 
-	public static ArrayList<PrettyHashMap> getHochschulen()
+	public ArrayList<PrettyHashMap> getHochschulen()
 	{
 		return HochschulRenderer.getHochschuleForView(HochschulVerwaltung.getAll()
 				.values());
 	}
 
-	public static ArrayList<PrettyHashMap> getDozenten()
+	public ArrayList<PrettyHashMap> getDozenten()
 	{
 		return DozentenRenderer.getDozentenForView(DozentenVerwaltung.getAll()
 				.values());
 	}
 
-	public static ArrayList<PrettyHashMap> getLernfaecher()
+	public ArrayList<PrettyHashMap> getLernfaecher()
 	{
 		return LernfachRenderer.getLernfaecherForView(LernfachVerwaltung.getAll()
 				.values());
 	}
 
-	public static ArrayList<PrettyHashMap> getKapitel()
+	public ArrayList<PrettyHashMap> getKapitel()
 	{
 		return KapitelRenderer.getKapitelForView(KapitelVerwaltung.getAll()
 				.values());
 	}
 
-	public static ArrayList<PrettyHashMap> getFragen()
+	public ArrayList<PrettyHashMap> getFragen()
 	{
 		return FragenRenderer.getFragenForView(FragenVerwaltung.getAll()
 				.values());
 	}
 
-	public static ArrayList<PrettyHashMap> getAntworten()
+	public ArrayList<PrettyHashMap> getAntworten()
 	{
 		return AntwortenRenderer.getAntwortenForView(AntwortVerwaltung.getInstance()
 				.getAll()
 				.values());
 	}
 
-	public static void setCurrentUser(PrettyHashMap selectedItem)
+	public void setCurrentUser(PrettyHashMap selectedItem)
 	{
 		currentUser = StudentenVerwaltung.get(Integer.parseInt(selectedItem.visible.get(Entity.idText)));
 
 	}
 
-	public static Student getCurrentUser()
+	public Student getCurrentUser()
 	{
 		return currentUser;
 	}

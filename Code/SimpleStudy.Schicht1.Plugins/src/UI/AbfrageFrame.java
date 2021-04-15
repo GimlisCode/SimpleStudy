@@ -131,26 +131,21 @@ public class AbfrageFrame extends JFrame implements ActionListener
 			if (beantworteteFragen >= currentAbfrage.getFragen()
 					.size())
 			{
-				MainController.abfrageAuswerten(currentAbfrage);
+				MainController.getInstance()
+						.abfrageAuswerten(currentAbfrage);
 
 				int richtige = 0;
 				int falsche = 0;
 
-				for (var ergebnis : currentAbfrage.getErgebnis()
+				for (final var ergebnis : currentAbfrage.getErgebnis()
 						.getErgebnis()
 						.entrySet())
-				{
 					if (ergebnis.getValue())
-					{
 						richtige++;
-					}
 					else
-					{
 						falsche++;
-					}
-				}
 
-				String testergebnis = "Das Ergebnis deiner heutigen Abfrage lautet: \n\r Richtige Antworten: " + richtige
+				final String testergebnis = "Das Ergebnis deiner heutigen Abfrage lautet: \n\r Richtige Antworten: " + richtige
 						+ "\r\n Falsche Antworten: " + falsche;
 				JOptionPane.showMessageDialog(null,
 						testergebnis);
@@ -164,12 +159,10 @@ public class AbfrageFrame extends JFrame implements ActionListener
 
 		else if (e.getSource() == btnAbrechen)
 		{
-			int ret = JOptionPane.showConfirmDialog(null,
+			final int ret = JOptionPane.showConfirmDialog(null,
 					"Soll die Abfrage wirklich abgebrochen werden? \n\r Das Ergebnis wird nicht gespeichert.");
 			if (ret == JOptionPane.YES_OPTION)
-			{
-				this.dispose();
-			}
+				dispose();
 		}
 
 		else if (e.getSource() == btnUeberspringen)
@@ -178,26 +171,21 @@ public class AbfrageFrame extends JFrame implements ActionListener
 			if (beantworteteFragen >= currentAbfrage.getFragen()
 					.size())
 			{
-				MainController.abfrageAuswerten(currentAbfrage);
+				MainController.getInstance()
+						.abfrageAuswerten(currentAbfrage);
 
 				int richtige = 0;
 				int falsche = 0;
 
-				for (var ergebnis : currentAbfrage.getErgebnis()
+				for (final var ergebnis : currentAbfrage.getErgebnis()
 						.getErgebnis()
 						.entrySet())
-				{
 					if (ergebnis.getValue())
-					{
 						richtige++;
-					}
 					else
-					{
 						falsche++;
-					}
-				}
 
-				String testergebnis = "Das Ergebnis deiner heutigen Abfrage lautet: \n\r Richtige Antworten: " + richtige
+				final String testergebnis = "Das Ergebnis deiner heutigen Abfrage lautet: \n\r Richtige Antworten: " + richtige
 						+ "\r\n Falsche Antworten: " + falsche;
 				JOptionPane.showMessageDialog(null,
 						testergebnis);

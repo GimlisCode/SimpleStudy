@@ -73,7 +73,8 @@ public class DbControllerTest
 		EasyMock.expect(databaseMock.getAllFromTable(antwortTabelleForMock))
 				.andReturn(antwortAttributeListeMock);
 		EasyMock.replay(databaseMock);
-		final int expectedIdForNewAntwort = MainController.getNewIdFor(Antwort.class.getSimpleName());
+		final int expectedIdForNewAntwort = MainController.getInstance()
+				.getNewIdFor(Antwort.class.getSimpleName());
 
 		final DbController zuTestendenDbController = new DbController(databaseMock);
 		zuTestendenDbController.initializeAntwort();

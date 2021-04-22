@@ -6,7 +6,7 @@ import java.util.Map.Entry;
 
 import Models.Dozent;
 
-public final class DozentenVerwaltung
+public final class DozentenVerwaltung implements Verwalter<Dozent>
 {
 
 	static private HashMap<Integer, Dozent> dozenten = new HashMap<>();
@@ -27,7 +27,7 @@ public final class DozentenVerwaltung
 		return dozenten.get(id);
 	}
 
-	public static HashMap<Integer, Dozent> getAll()
+	public HashMap<Integer, Dozent> getAll()
 	{
 		return dozenten;
 	}

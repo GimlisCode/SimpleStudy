@@ -35,6 +35,7 @@ import Modifier.StatistikFabrik;
 import Modifier.StatistikVerwaltung;
 import Modifier.StudentenFabrik;
 import Modifier.StudentenVerwaltung;
+import Modifier.Verwalter;
 import OpcChecker.IdChecker;
 import OpcChecker.IsBlankId;
 import OpcChecker.IsEmptyId;
@@ -56,6 +57,7 @@ public final class MainController implements UiBeobachtete
 	private Student currentUser = null;
 	private final ArrayList<UiBeobachter> registrierteUiBeobachter = new ArrayList<UiBeobachter>();
 	private IdChecker idChecker = null;
+	private Verwalter<Dozent> dozentenVerwalter = null;
 
 	private MainController()
 	{
@@ -65,6 +67,7 @@ public final class MainController implements UiBeobachtete
 		idChecker.register(new IsEmptyId());
 		idChecker.register(new IsBlankId());
 		idChecker.register(new IsNumericId());
+		dozentenVerwalter = DozentenVerwaltung.getInstance();
 	}
 
 	public static MainController getInstance()
@@ -91,6 +94,18 @@ public final class MainController implements UiBeobachtete
 				.abfrageAuswerten(abfrage);
 	}
 
+	public int getNewIdFor(Verwalter verwaltung)
+	{
+		List<Integer> keyList = new ArrayList<Integer>();
+		keyList = new ArrayList<>(verwaltung.getAll()
+				.keySet());
+		if (keyList.size() <= 0)
+			return 1;
+
+		Collections.sort(keyList);
+		return keyList.get(keyList.size() - 1) + 1;
+	}
+
 	public int getNewIdFor(String className)
 	{
 		List<Integer> keyList = new ArrayList<Integer>();
@@ -100,7 +115,8 @@ public final class MainController implements UiBeobachtete
 					.keySet());
 
 		else if (className == Dozent.class.getSimpleName())
-			keyList = new ArrayList<>(DozentenVerwaltung.getAll()
+			keyList = new ArrayList<>(DozentenVerwaltung.getInstance()
+					.getAll()
 					.keySet());
 
 		else if (className == Student.class.getSimpleName())
@@ -166,7 +182,7 @@ public final class MainController implements UiBeobachtete
 		final String id = dozentAttribute.get(Entity.idText);
 		if (!idChecker.isValid(id))
 			dozentAttribute.replace(Entity.idText,
-					getNewIdFor(Dozent.class.getSimpleName()) + "");
+					getNewIdFor(dozentenVerwalter) + "");
 
 		DozentenFabrik.create(dozentAttribute);
 		getInstance().benachrichtigeUis();
@@ -383,7 +399,8 @@ public final class MainController implements UiBeobachtete
 		for (final Kapitel kapi : kapitel)
 			deleteKapitel(kapi.getId() + "");
 
-		DozentenVerwaltung.getAll()
+		DozentenVerwaltung.getInstance()
+				.getAll()
 				.forEach((dozentId, dozent) ->
 				{
 					dozent.removeKurs(lernfach);
@@ -458,7 +475,8 @@ public final class MainController implements UiBeobachtete
 
 	public ArrayList<PrettyHashMap> getDozenten()
 	{
-		return DozentenRenderer.getDozentenForView(DozentenVerwaltung.getAll()
+		return DozentenRenderer.getDozentenForView(DozentenVerwaltung.getInstance()
+				.getAll()
 				.values());
 	}
 

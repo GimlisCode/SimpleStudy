@@ -29,7 +29,8 @@ public class StatistikFrame extends JFrame implements UiBeobachter, ActionListen
 	public StatistikFrame()
 	{
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		currentUser = MainController.getCurrentUser();
+		currentUser = MainController.getInstance()
+				.getCurrentUser();
 		setTitle("Simple Study: Statistik");
 		this.setSize(1600,
 				900);
@@ -96,6 +97,6 @@ public class StatistikFrame extends JFrame implements UiBeobachter, ActionListen
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-		this.dispose();
+		dispose();
 	}
 }

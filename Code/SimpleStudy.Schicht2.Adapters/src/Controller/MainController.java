@@ -480,7 +480,12 @@ public final class MainController implements UiBeobachtete
 				.values());
 	}
 
-	public ArrayList<PrettyHashMap> getAntworten()
+	public static Frage getFrage(int ID)
+	{
+		return FragenVerwaltung.get(ID);
+	}
+
+	public static ArrayList<PrettyHashMap> getAntworten()
 	{
 		return AntwortenRenderer.getAntwortenForView(AntwortVerwaltung.getInstance()
 				.getAll()

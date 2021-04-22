@@ -41,7 +41,7 @@ public class DbController
 		FragenFabrik.resolveReferences();
 	}
 
-	public void initiliazeData()
+	public void initilizeData()
 	{
 
 		// final var alleDozenten = datenVerbindung.getAllFromTable("Dozent");

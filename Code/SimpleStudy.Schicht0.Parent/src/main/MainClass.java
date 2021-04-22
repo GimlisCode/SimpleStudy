@@ -12,7 +12,7 @@ public class MainClass
 		final SQLite db = SQLite.getInstance();
 
 		final DbController dbController = new DbController(db);
-		dbController.initiliazeData();
+		dbController.initilizeData();
 		dbController.resolveAll();
 
 		final LoginFrame lframe = new LoginFrame();

@@ -22,39 +22,39 @@ public class StudentenVerwaltung
 		return studentenVerwaltungSingleton;
 	}
 
-	public static Student get(int id)
+	public Student get(int id)
 	{
 		return studenten.get(id);
 	}
 
-	public static HashMap<Integer, Student> getAll()
+	public HashMap<Integer, Student> getAll()
 	{
 		return studenten;
 	}
 
-	static void add(Student student)
+	public void add(Student student)
 	{
 		studenten.put(student.getId(),
 				student);
 	}
 
-	public static void remove(Student student)
+	public void remove(Student student)
 	{
 		remove(student.getId());
 	}
 
-	public static void remove(int id)
+	public void remove(int id)
 	{
 		studenten.remove(id);
 	}
 
-	static void update(Student student)
+	public void update(Student student)
 	{
 		studenten.put(student.getId(),
 				student);
 	}
 
-	static ArrayList<Student> suche(String suchstring)
+	public ArrayList<Student> suche(String suchstring)
 	{
 		final ArrayList<Student> passendeStudentenZumSuchstring = new ArrayList<>();
 		for (final Entry<Integer, Student> student : studenten.entrySet())

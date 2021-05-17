@@ -17,44 +17,44 @@ public class FragenVerwaltung
 		super();
 	}
 
-	static FragenVerwaltung getInstance()
+	public static FragenVerwaltung getInstance()
 	{
 		return fragenVerwaltungSingleton;
 	}
 
-	public static Frage get(int id)
+	public Frage get(int id)
 	{
 		return fragen.get(id);
 	}
 
-	public static HashMap<Integer, Frage> getAll()
+	public HashMap<Integer, Frage> getAll()
 	{
 		return fragen;
 	}
 
-	static void add(Frage frage)
+	public void add(Frage frage)
 	{
 		fragen.put(frage.getId(),
 				frage);
 	}
 
-	public static void remove(Frage frage)
+	public void remove(Frage frage)
 	{
 		remove(frage.getId());
 	}
 
-	public static void remove(int id)
+	public void remove(int id)
 	{
 		fragen.remove(id);
 	}
 
-	static void update(Frage frage)
+	public void update(Frage frage)
 	{
 		fragen.put(frage.getId(),
 				frage);
 	}
 
-	static ArrayList<Frage> suche(String suchstring)
+	public ArrayList<Frage> suche(String suchstring)
 	{
 		final ArrayList<Frage> passendeFragenZumSuchstring = new ArrayList<>();
 		for (final Entry<Integer, Frage> frage : fragen.entrySet())

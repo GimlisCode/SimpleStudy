@@ -22,39 +22,39 @@ public class KapitelVerwaltung
 		return kapitelVerwaltungSingleton;
 	}
 
-	public static Kapitel get(int id)
+	public Kapitel get(int id)
 	{
 		return kapitel.get(id);
 	}
 
-	public static HashMap<Integer, Kapitel> getAll()
+	public HashMap<Integer, Kapitel> getAll()
 	{
 		return kapitel;
 	}
 
-	static void add(Kapitel neuesKapitel)
+	public void add(Kapitel neuesKapitel)
 	{
 		kapitel.put(neuesKapitel.getId(),
 				neuesKapitel);
 	}
 
-	public static void remove(Kapitel kapitel)
+	public void remove(Kapitel kapitel)
 	{
 		remove(kapitel.getId());
 	}
 
-	public static void remove(int id)
+	public void remove(int id)
 	{
 		kapitel.remove(id);
 	}
 
-	static void update(Kapitel kapitelUpdate)
+	public void update(Kapitel kapitelUpdate)
 	{
 		kapitel.put(kapitelUpdate.getId(),
 				kapitelUpdate);
 	}
 
-	static ArrayList<Kapitel> suche(String suchstring)
+	public ArrayList<Kapitel> suche(String suchstring)
 	{
 		final ArrayList<Kapitel> passendeLernfaecherZumSuchstring = new ArrayList<>();
 		for (final Entry<Integer, Kapitel> kapitel : kapitel.entrySet())

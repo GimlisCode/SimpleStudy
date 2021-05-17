@@ -25,7 +25,7 @@ public class KapitelFabrik
 		return kapitelFabrikSingleton;
 	}
 
-	public static HashMap<String, String> getKaptielAttribute()
+	public HashMap<String, String> getKaptielAttribute()
 	{
 		final HashMap<String, String> kapitelAttribute = new HashMap<>();
 		final String[] attributNamen = neuesKapitel.getAttributeNames();
@@ -36,7 +36,7 @@ public class KapitelFabrik
 		return kapitelAttribute;
 	}
 
-	public static void create(HashMap<String, String> kapitelAttribute)
+	public void create(HashMap<String, String> kapitelAttribute)
 	{
 		neuesKapitel.setId(Integer.parseInt(kapitelAttribute.get(Kapitel.idText)));
 		neuesKapitel.setName(kapitelAttribute.get(Kapitel.nameText));
@@ -47,7 +47,8 @@ public class KapitelFabrik
 			final String[] alleFragenId = fragenIds.split(";");
 			for (final String fragenId : alleFragenId)
 			{
-				final Frage frage = FragenVerwaltung.get(Integer.parseInt(fragenId));
+				final Frage frage = FragenVerwaltung.getInstance()
+						.get(Integer.parseInt(fragenId));
 				if (frage != null)
 					neuesKapitel.add(frage);
 				else
@@ -56,15 +57,17 @@ public class KapitelFabrik
 			}
 		}
 
-		KapitelVerwaltung.add(neuesKapitel);
+		KapitelVerwaltung.getInstance()
+				.add(neuesKapitel);
 		neuesKapitel = new Kapitel("", 0);
 	}
 
-	public static void resolveReferences()
+	public void resolveReferences()
 	{
 		for (final Tupel<Integer, Integer> tupel : fragenReferenzen)
 		{
-			final Frage frage = FragenVerwaltung.get(tupel.y);
+			final Frage frage = FragenVerwaltung.getInstance()
+					.get(tupel.y);
 			if (frage != null)
 				kapitelVerwaltung.get(tupel.x)
 						.add(frage);

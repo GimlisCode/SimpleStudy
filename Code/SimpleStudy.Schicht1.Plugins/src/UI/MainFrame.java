@@ -162,27 +162,32 @@ public class MainFrame extends JFrame implements ActionListener, UiBeobachter
 		pnlListenlbl.add(lblKapitel);
 		pnlListenlbl.add(lblFragen);
 
-		hochschulListe = new JList<>(MainController.getInstance().getHochschulen()
+		hochschulListe = new JList<>(MainController.getInstance()
+				.getHochschulen()
 				.toArray());
 		hochschulListe.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		hochScrollPane = new JScrollPane(hochschulListe);
 
-		dozentenListe = new JList<>(MainController.getInstance().getDozenten()
+		dozentenListe = new JList<>(MainController.getInstance()
+				.getDozenten()
 				.toArray());
 		dozentenListe.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		dozScrollPane = new JScrollPane(dozentenListe);
 
-		lernfachListe = new JList<>(MainController.getInstance().getLernfaecher()
+		lernfachListe = new JList<>(MainController.getInstance()
+				.getLernfaecher()
 				.toArray());
 		lernfachListe.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		lernScrollPane = new JScrollPane(lernfachListe);
 
-		kapitelListe = new JList<>(MainController.getInstance().getKapitel()
+		kapitelListe = new JList<>(MainController.getInstance()
+				.getKapitel()
 				.toArray());
 		kapitelListe.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		kapScrollPane = new JScrollPane(kapitelListe);
 
-		fragenListe = new JList<>(MainController.getInstance().getFragen()
+		fragenListe = new JList<>(MainController.getInstance()
+				.getFragen()
 				.toArray());
 		fragenListe.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		fragScrollPane = new JScrollPane(fragenListe);
@@ -294,7 +299,8 @@ public class MainFrame extends JFrame implements ActionListener, UiBeobachter
 	{
 		if (e.getSource() == btnHochNeu)
 		{
-			NeuFrame nf = new NeuFrame(Hochschule.class.getSimpleName(), HochschulFabrik.getHochschulAttribute());
+			NeuFrame nf = new NeuFrame(Hochschule.class.getSimpleName(), HochschulFabrik.getInstance()
+					.getHochschulAttribute());
 		}
 
 		else if (e.getSource() == btnHochBear)
@@ -334,7 +340,8 @@ public class MainFrame extends JFrame implements ActionListener, UiBeobachter
 
 		else if (e.getSource() == btnDozNeu)
 		{
-			NeuFrame nf = new NeuFrame(Dozent.class.getSimpleName(), DozentenFabrik.getDozentAttribute());
+			NeuFrame nf = new NeuFrame(Dozent.class.getSimpleName(), DozentenFabrik.getInstance()
+					.getDozentAttribute());
 		}
 
 		else if (e.getSource() == btnDozBear)
@@ -360,7 +367,8 @@ public class MainFrame extends JFrame implements ActionListener, UiBeobachter
 						"Soll der/die gewählte Dozent/in wirklich gelöscht werden?");
 				if (ret == JOptionPane.YES_OPTION)
 				{
-					MainController.getInstance().deleteDozent(((PrettyHashMap) dozentenListe.getSelectedValue()).visible.get(Entity.idText));
+					MainController.getInstance()
+							.deleteDozent(((PrettyHashMap) dozentenListe.getSelectedValue()).visible.get(Entity.idText));
 				}
 			}
 			else
@@ -373,7 +381,8 @@ public class MainFrame extends JFrame implements ActionListener, UiBeobachter
 
 		else if (e.getSource() == btnLernNeu)
 		{
-			NeuFrame nf = new NeuFrame(Lernfach.class.getSimpleName(), LernfachFabrik.getLernfachAttribute());
+			NeuFrame nf = new NeuFrame(Lernfach.class.getSimpleName(), LernfachFabrik.getInstance()
+					.getLernfachAttribute());
 		}
 
 		else if (e.getSource() == btnLernBear)
@@ -399,7 +408,8 @@ public class MainFrame extends JFrame implements ActionListener, UiBeobachter
 						"Soll das gewählte Lernfach wirklich gelöscht werden?");
 				if (ret == JOptionPane.YES_OPTION)
 				{
-					MainController.getInstance().deleteLernfach(((PrettyHashMap) lernfachListe.getSelectedValue()).visible.get(Entity.idText));
+					MainController.getInstance()
+							.deleteLernfach(((PrettyHashMap) lernfachListe.getSelectedValue()).visible.get(Entity.idText));
 				}
 			}
 			else
@@ -412,7 +422,8 @@ public class MainFrame extends JFrame implements ActionListener, UiBeobachter
 
 		else if (e.getSource() == btnKapNeu)
 		{
-			NeuFrame nf = new NeuFrame(Kapitel.class.getSimpleName(), KapitelFabrik.getKaptielAttribute());
+			NeuFrame nf = new NeuFrame(Kapitel.class.getSimpleName(), KapitelFabrik.getInstance()
+					.getKaptielAttribute());
 		}
 
 		else if (e.getSource() == btnKapBear)
@@ -438,7 +449,8 @@ public class MainFrame extends JFrame implements ActionListener, UiBeobachter
 						"Soll das gewählte Kapitel wirklich gelöscht werden?");
 				if (ret == JOptionPane.YES_OPTION)
 				{
-					MainController.getInstance().deleteKapitel(((PrettyHashMap) kapitelListe.getSelectedValue()).visible.get(Entity.idText));
+					MainController.getInstance()
+							.deleteKapitel(((PrettyHashMap) kapitelListe.getSelectedValue()).visible.get(Entity.idText));
 				}
 			}
 			else
@@ -451,7 +463,8 @@ public class MainFrame extends JFrame implements ActionListener, UiBeobachter
 
 		else if (e.getSource() == btnFragNeu)
 		{
-			NeuFrame nf = new NeuFrame(Frage.class.getSimpleName(), FragenFabrik.getFragenAttribute());
+			NeuFrame nf = new NeuFrame(Frage.class.getSimpleName(), FragenFabrik.getInstance()
+					.getFragenAttribute());
 		}
 
 		else if (e.getSource() == btnFragBear)
@@ -477,7 +490,8 @@ public class MainFrame extends JFrame implements ActionListener, UiBeobachter
 						"Soll die gewählte Frage wirklich gelöscht werden?");
 				if (ret == JOptionPane.YES_OPTION)
 				{
-					MainController.getInstance().deleteFrage(((PrettyHashMap) fragenListe.getSelectedValue()).visible.get(Entity.idText));
+					MainController.getInstance()
+							.deleteFrage(((PrettyHashMap) fragenListe.getSelectedValue()).visible.get(Entity.idText));
 				}
 			}
 			else
@@ -507,7 +521,8 @@ public class MainFrame extends JFrame implements ActionListener, UiBeobachter
 					fragen.add(((PrettyHashMap) value).getNormalHashMap());
 				}
 
-				AbfrageFrame af = new AbfrageFrame(MainController.getInstance().createAbfrage(fragen));
+				AbfrageFrame af = new AbfrageFrame(MainController.getInstance()
+						.createAbfrage(fragen));
 			}
 
 		}
@@ -536,19 +551,24 @@ public class MainFrame extends JFrame implements ActionListener, UiBeobachter
 	public void aktualisiere()
 	{
 
-		hochschulListe.setListData(MainController.getInstance().getHochschulen()
+		hochschulListe.setListData(MainController.getInstance()
+				.getHochschulen()
 				.toArray());
 
-		dozentenListe.setListData(MainController.getInstance().getDozenten()
+		dozentenListe.setListData(MainController.getInstance()
+				.getDozenten()
 				.toArray());
 
-		lernfachListe.setListData(MainController.getInstance().getLernfaecher()
+		lernfachListe.setListData(MainController.getInstance()
+				.getLernfaecher()
 				.toArray());
 
-		kapitelListe.setListData(MainController.getInstance().getKapitel()
+		kapitelListe.setListData(MainController.getInstance()
+				.getKapitel()
 				.toArray());
 
-		fragenListe.setListData(MainController.getInstance().getFragen()
+		fragenListe.setListData(MainController.getInstance()
+				.getFragen()
 				.toArray());
 
 	}

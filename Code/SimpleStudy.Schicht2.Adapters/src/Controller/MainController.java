@@ -76,7 +76,8 @@ public final class MainController implements UiBeobachtete
 	{
 		final ArrayList<Frage> fragen = new ArrayList<Frage>();
 		for (final HashMap<String, String> frage : fragenWerte)
-			fragen.add(FragenVerwaltung.get(Integer.parseInt(frage.get(Entity.idText))));
+			fragen.add(FragenVerwaltung.getInstance()
+					.get(Integer.parseInt(frage.get(Entity.idText))));
 
 		return AbfrageVerwaltung.getInstance()
 				.neueAbfrage(Modus.ABFRAGE,
@@ -100,31 +101,38 @@ public final class MainController implements UiBeobachtete
 					.keySet());
 
 		else if (className == Dozent.class.getSimpleName())
-			keyList = new ArrayList<>(DozentenVerwaltung.getAll()
+			keyList = new ArrayList<>(DozentenVerwaltung.getInstance()
+					.getAll()
 					.keySet());
 
 		else if (className == Student.class.getSimpleName())
-			keyList = new ArrayList<>(StudentenVerwaltung.getAll()
+			keyList = new ArrayList<>(StudentenVerwaltung.getInstance()
+					.getAll()
 					.keySet());
 
 		else if (className == Hochschule.class.getSimpleName())
-			keyList = new ArrayList<>(HochschulVerwaltung.getAll()
+			keyList = new ArrayList<>(HochschulVerwaltung.getInstance()
+					.getAll()
 					.keySet());
 
 		else if (className == Lernfach.class.getSimpleName())
-			keyList = new ArrayList<>(LernfachVerwaltung.getAll()
+			keyList = new ArrayList<>(LernfachVerwaltung.getInstance()
+					.getAll()
 					.keySet());
 
 		else if (className == Kapitel.class.getSimpleName())
-			keyList = new ArrayList<>(KapitelVerwaltung.getAll()
+			keyList = new ArrayList<>(KapitelVerwaltung.getInstance()
+					.getAll()
 					.keySet());
 
 		else if (className == Frage.class.getSimpleName())
-			keyList = new ArrayList<>(FragenVerwaltung.getAll()
+			keyList = new ArrayList<>(FragenVerwaltung.getInstance()
+					.getAll()
 					.keySet());
 
 		else if (className == Statistik.class.getSimpleName())
-			keyList = new ArrayList<>(StatistikVerwaltung.getAll()
+			keyList = new ArrayList<>(StatistikVerwaltung.getInstance()
+					.getAll()
 					.keySet());
 
 		if (keyList.size() <= 0)
@@ -137,7 +145,8 @@ public final class MainController implements UiBeobachtete
 
 	public void createAntwort(HashMap<String, String> antwortWerte)
 	{
-		final var antwortAttribute = AntwortFabrik.getAntwortAttribute();
+		final var antwortAttribute = AntwortFabrik.getInstance()
+				.getAntwortAttribute();
 		for (final Entry<String, String> antwortAttribut : antwortAttribute.entrySet())
 			antwortAttribut.setValue(antwortWerte.get(antwortAttribut.getKey()));
 
@@ -146,7 +155,8 @@ public final class MainController implements UiBeobachtete
 			antwortAttribute.replace(Entity.idText,
 					getNewIdFor(Antwort.class.getSimpleName()) + "");
 
-		AntwortFabrik.create(antwortAttribute);
+		AntwortFabrik.getInstance()
+				.create(antwortAttribute);
 		getInstance().benachrichtigeUis();
 
 	}
@@ -159,7 +169,8 @@ public final class MainController implements UiBeobachtete
 
 	public void createDozent(HashMap<String, String> dozentWerte)
 	{
-		final var dozentAttribute = DozentenFabrik.getDozentAttribute();
+		final var dozentAttribute = DozentenFabrik.getInstance()
+				.getDozentAttribute();
 		for (final Entry<String, String> dozentAttribut : dozentAttribute.entrySet())
 			dozentAttribut.setValue(dozentWerte.get(dozentAttribut.getKey()));
 
@@ -168,14 +179,16 @@ public final class MainController implements UiBeobachtete
 			dozentAttribute.replace(Entity.idText,
 					getNewIdFor(Dozent.class.getSimpleName()) + "");
 
-		DozentenFabrik.create(dozentAttribute);
+		DozentenFabrik.getInstance()
+				.create(dozentAttribute);
 		getInstance().benachrichtigeUis();
 	}
 
 	public void updateDozent(HashMap<String, String> dozentWerte)
 	{
 		createDozent(dozentWerte);
-		DozentenFabrik.resolveReferences();
+		DozentenFabrik.getInstance()
+				.resolveReferences();
 		getInstance().benachrichtigeUis();
 	}
 
@@ -194,7 +207,8 @@ public final class MainController implements UiBeobachtete
 		if (!idChecker.isValid(statistikId))
 		{
 			final int newStatistik = getNewIdFor(Student.class.getSimpleName());
-			final var newStatistikForUser = StatistikFabrik.getStatistikAttribute();
+			final var newStatistikForUser = StatistikFabrik.getInstance()
+					.getStatistikAttribute();
 			newStatistikForUser.put(Entity.idText,
 					newStatistik + "");
 			newStatistikForUser.put(Statistik.statistikText,
@@ -217,7 +231,8 @@ public final class MainController implements UiBeobachtete
 
 	public void createHochschule(HashMap<String, String> hochschulen)
 	{
-		final var hochschulAttribute = HochschulFabrik.getHochschulAttribute();
+		final var hochschulAttribute = HochschulFabrik.getInstance()
+				.getHochschulAttribute();
 		for (final Entry<String, String> hochschulAttribut : hochschulAttribute.entrySet())
 			hochschulAttribut.setValue(hochschulen.get(hochschulAttribut.getKey())); // TODO: Stilbruch im Namen, durch
 																						// autogenerate
@@ -226,20 +241,23 @@ public final class MainController implements UiBeobachtete
 			hochschulAttribute.replace(Entity.idText,
 					getNewIdFor(Hochschule.class.getSimpleName()) + "");
 
-		HochschulFabrik.create(hochschulAttribute);
+		HochschulFabrik.getInstance()
+				.create(hochschulAttribute);
 		getInstance().benachrichtigeUis();
 	}
 
 	public void updateHochschule(HashMap<String, String> hochschuleWerte)
 	{
 		createHochschule(hochschuleWerte);
-		HochschulFabrik.resolveReferences();
+		HochschulFabrik.getInstance()
+				.resolveReferences();
 		getInstance().benachrichtigeUis();
 	}
 
 	public void createStatistik(HashMap<String, String> currentNewStatistik)
 	{
-		final var statistikAttribute = StatistikFabrik.getStatistikAttribute();
+		final var statistikAttribute = StatistikFabrik.getInstance()
+				.getStatistikAttribute();
 		for (final Entry<String, String> statistikAttribut : statistikAttribute.entrySet())
 			statistikAttribut.setValue(currentNewStatistik.get(statistikAttribut.getKey()));
 
@@ -248,7 +266,8 @@ public final class MainController implements UiBeobachtete
 			statistikAttribute.replace(Entity.idText,
 					getNewIdFor(Statistik.class.getSimpleName()) + "");
 
-		StatistikFabrik.create(statistikAttribute);
+		StatistikFabrik.getInstance()
+				.create(statistikAttribute);
 		getInstance().benachrichtigeUis();
 
 	}
@@ -261,7 +280,8 @@ public final class MainController implements UiBeobachtete
 
 	public void createLernfach(HashMap<String, String> lernfach)
 	{
-		final var lernfachAttribute = LernfachFabrik.getLernfachAttribute();
+		final var lernfachAttribute = LernfachFabrik.getInstance()
+				.getLernfachAttribute();
 		for (final Entry<String, String> lernfachAttribut : lernfachAttribute.entrySet())
 			lernfachAttribut.setValue(lernfach.get(lernfachAttribut.getKey()));
 
@@ -270,20 +290,23 @@ public final class MainController implements UiBeobachtete
 			lernfachAttribute.replace(Entity.idText,
 					getNewIdFor(Lernfach.class.getSimpleName()) + "");
 
-		LernfachFabrik.create(lernfachAttribute);
+		LernfachFabrik.getInstance()
+				.create(lernfachAttribute);
 		getInstance().benachrichtigeUis();
 	}
 
 	public void updateLernfach(HashMap<String, String> lernfachWerte)
 	{
 		createLernfach(lernfachWerte);
-		LernfachFabrik.resolveReferences();
+		LernfachFabrik.getInstance()
+				.resolveReferences();
 		getInstance().benachrichtigeUis();
 	}
 
 	public void createKapitel(HashMap<String, String> kapitel)
 	{
-		final var kapitelAttribute = KapitelFabrik.getKaptielAttribute();
+		final var kapitelAttribute = KapitelFabrik.getInstance()
+				.getKaptielAttribute();
 		for (final Entry<String, String> kapitelAttribut : kapitelAttribute.entrySet())
 			kapitelAttribut.setValue(kapitel.get(kapitelAttribut.getKey()));
 
@@ -292,20 +315,23 @@ public final class MainController implements UiBeobachtete
 			kapitelAttribute.replace(Entity.idText,
 					getNewIdFor(Kapitel.class.getSimpleName()) + "");
 
-		KapitelFabrik.create(kapitelAttribute);
+		KapitelFabrik.getInstance()
+				.create(kapitelAttribute);
 		getInstance().benachrichtigeUis();
 	}
 
 	public void updateKapitel(HashMap<String, String> kapitelWerte)
 	{
 		createKapitel(kapitelWerte);
-		KapitelFabrik.resolveReferences();
+		KapitelFabrik.getInstance()
+				.resolveReferences();
 		getInstance().benachrichtigeUis();
 	}
 
 	public void createFrage(HashMap<String, String> frage)
 	{
-		final var fragenAttribute = FragenFabrik.getFragenAttribute();
+		final var fragenAttribute = FragenFabrik.getInstance()
+				.getFragenAttribute();
 		for (final Entry<String, String> frageAttribut : fragenAttribute.entrySet())
 			frageAttribut.setValue(frage.get(frageAttribut.getKey()));
 
@@ -314,39 +340,46 @@ public final class MainController implements UiBeobachtete
 			fragenAttribute.replace(Entity.idText,
 					getNewIdFor(Frage.class.getSimpleName()) + "");
 
-		FragenFabrik.create(fragenAttribute);
+		FragenFabrik.getInstance()
+				.create(fragenAttribute);
 		getInstance().benachrichtigeUis();
 	}
 
 	public void updateFrage(HashMap<String, String> frageWerte)
 	{
 		createFrage(frageWerte);
-		FragenFabrik.resolveReferences();
+		FragenFabrik.getInstance()
+				.resolveReferences();
 		getInstance().benachrichtigeUis();
 	}
 
 	public void deleteStudent(String studentenId)
 	{
-		final var student = StudentenVerwaltung.get(Integer.parseInt(studentenId));
+		final var student = StudentenVerwaltung.getInstance()
+				.get(Integer.parseInt(studentenId));
 		if (student.getStatistik() != null)
 			deleteStatistik(student.getStatistik()
 					.getId() + "");
 
-		StudentenVerwaltung.remove(Integer.parseInt(studentenId));
+		StudentenVerwaltung.getInstance()
+				.remove(Integer.parseInt(studentenId));
 		getInstance().benachrichtigeUis();
 	}
 
 	public void deleteStatistik(String statistikId)
 	{
-		StatistikVerwaltung.remove(Integer.parseInt(statistikId));
+		StatistikVerwaltung.getInstance()
+				.remove(Integer.parseInt(statistikId));
 		getInstance().benachrichtigeUis();
 	}
 
 	public void deleteHochschule(String hocschulId)
 	{
-		final var hochschule = HochschulVerwaltung.get(Integer.parseInt(hocschulId));
+		final var hochschule = HochschulVerwaltung.getInstance()
+				.get(Integer.parseInt(hocschulId));
 		final var dozenten = hochschule.getDozenten();
-		HochschulVerwaltung.remove(Integer.parseInt(hocschulId));
+		HochschulVerwaltung.getInstance()
+				.remove(Integer.parseInt(hocschulId));
 
 		for (final Dozent dozent : dozenten)
 			deleteDozent(dozent.getId() + "");
@@ -357,14 +390,17 @@ public final class MainController implements UiBeobachtete
 
 	public void deleteDozent(String dozentId)
 	{
-		final var dozent = DozentenVerwaltung.get(Integer.parseInt(dozentId));
+		final var dozent = DozentenVerwaltung.getInstance()
+				.get(Integer.parseInt(dozentId));
 		final var kurse = dozent.getKurse();
-		DozentenVerwaltung.remove(dozent);
+		DozentenVerwaltung.getInstance()
+				.remove(dozent);
 
 		for (final Lernfach kurs : kurse)
 			deleteLernfach(kurs.getId() + "");
 
-		HochschulVerwaltung.getAll()
+		HochschulVerwaltung.getInstance()
+				.getAll()
 				.forEach((hochschulId, hochschule) ->
 				{
 					hochschule.remove(dozent);
@@ -376,14 +412,17 @@ public final class MainController implements UiBeobachtete
 
 	public void deleteLernfach(String lernfachId)
 	{
-		final var lernfach = LernfachVerwaltung.get(Integer.parseInt(lernfachId));
+		final var lernfach = LernfachVerwaltung.getInstance()
+				.get(Integer.parseInt(lernfachId));
 		final var kapitel = lernfach.getLernkapitel();
-		LernfachVerwaltung.remove(lernfach);
+		LernfachVerwaltung.getInstance()
+				.remove(lernfach);
 
 		for (final Kapitel kapi : kapitel)
 			deleteKapitel(kapi.getId() + "");
 
-		DozentenVerwaltung.getAll()
+		DozentenVerwaltung.getInstance()
+				.getAll()
 				.forEach((dozentId, dozent) ->
 				{
 					dozent.removeKurs(lernfach);
@@ -394,14 +433,17 @@ public final class MainController implements UiBeobachtete
 
 	public void deleteKapitel(String kapitelId)
 	{
-		final var kapitel = KapitelVerwaltung.get(Integer.parseInt(kapitelId));
+		final var kapitel = KapitelVerwaltung.getInstance()
+				.get(Integer.parseInt(kapitelId));
 		final var fragen = kapitel.getFragen();
-		KapitelVerwaltung.remove(kapitel);
+		KapitelVerwaltung.getInstance()
+				.remove(kapitel);
 
 		for (final Frage frage : fragen)
 			deleteFrage(frage.getId() + "");
 
-		LernfachVerwaltung.getAll()
+		LernfachVerwaltung.getInstance()
+				.getAll()
 				.forEach((lernfachId, lernfach) ->
 				{
 					lernfach.remove(kapitel);
@@ -412,14 +454,17 @@ public final class MainController implements UiBeobachtete
 
 	public void deleteFrage(String fragenId)
 	{
-		final var frage = FragenVerwaltung.get(Integer.parseInt(fragenId));
+		final var frage = FragenVerwaltung.getInstance()
+				.get(Integer.parseInt(fragenId));
 		final var antworten = frage.getAntworten();
-		FragenVerwaltung.remove(frage);
+		FragenVerwaltung.getInstance()
+				.remove(frage);
 
 		for (final Antwort antwort : antworten)
 			deleteAntwort(antwort.getId() + "");
 
-		KapitelVerwaltung.getAll()
+		KapitelVerwaltung.getInstance()
+				.getAll()
 				.forEach((kapitelId, kapitel) ->
 				{
 					kapitel.remove(frage);
@@ -435,7 +480,8 @@ public final class MainController implements UiBeobachtete
 		AntwortVerwaltung.getInstance()
 				.remove(antwort);
 
-		FragenVerwaltung.getAll()
+		FragenVerwaltung.getInstance()
+				.getAll()
 				.forEach((fragenId, frage) ->
 				{
 					frage.remove(antwort);
@@ -446,43 +492,50 @@ public final class MainController implements UiBeobachtete
 
 	public ArrayList<PrettyHashMap> getStudenten()
 	{
-		return StudentenRenderer.getStudentForView(StudentenVerwaltung.getAll()
+		return StudentenRenderer.getStudentForView(StudentenVerwaltung.getInstance()
+				.getAll()
 				.values());
 	}
 
 	public ArrayList<PrettyHashMap> getHochschulen()
 	{
-		return HochschulRenderer.getHochschuleForView(HochschulVerwaltung.getAll()
+		return HochschulRenderer.getHochschuleForView(HochschulVerwaltung.getInstance()
+				.getAll()
 				.values());
 	}
 
 	public ArrayList<PrettyHashMap> getDozenten()
 	{
-		return DozentenRenderer.getDozentenForView(DozentenVerwaltung.getAll()
+		return DozentenRenderer.getDozentenForView(DozentenVerwaltung.getInstance()
+				.getAll()
 				.values());
 	}
 
 	public ArrayList<PrettyHashMap> getLernfaecher()
 	{
-		return LernfachRenderer.getLernfaecherForView(LernfachVerwaltung.getAll()
+		return LernfachRenderer.getLernfaecherForView(LernfachVerwaltung.getInstance()
+				.getAll()
 				.values());
 	}
 
 	public ArrayList<PrettyHashMap> getKapitel()
 	{
-		return KapitelRenderer.getKapitelForView(KapitelVerwaltung.getAll()
+		return KapitelRenderer.getKapitelForView(KapitelVerwaltung.getInstance()
+				.getAll()
 				.values());
 	}
 
 	public ArrayList<PrettyHashMap> getFragen()
 	{
-		return FragenRenderer.getFragenForView(FragenVerwaltung.getAll()
+		return FragenRenderer.getFragenForView(FragenVerwaltung.getInstance()
+				.getAll()
 				.values());
 	}
 
 	public static Frage getFrage(int ID)
 	{
-		return FragenVerwaltung.get(ID);
+		return FragenVerwaltung.getInstance()
+				.get(ID);
 	}
 
 	public static ArrayList<PrettyHashMap> getAntworten()
@@ -494,7 +547,8 @@ public final class MainController implements UiBeobachtete
 
 	public void setCurrentUser(PrettyHashMap selectedItem)
 	{
-		currentUser = StudentenVerwaltung.get(Integer.parseInt(selectedItem.visible.get(Entity.idText)));
+		currentUser = StudentenVerwaltung.getInstance()
+				.get(Integer.parseInt(selectedItem.visible.get(Entity.idText)));
 
 	}
 

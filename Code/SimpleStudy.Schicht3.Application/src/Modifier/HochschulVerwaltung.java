@@ -22,39 +22,39 @@ public class HochschulVerwaltung
 		return hochschulVerwaltungSingleton;
 	}
 
-	public static Hochschule get(int id)
+	public Hochschule get(int id)
 	{
 		return hochschulen.get(id);
 	}
 
-	public static HashMap<Integer, Hochschule> getAll()
+	public HashMap<Integer, Hochschule> getAll()
 	{
 		return hochschulen;
 	}
 
-	static void add(Hochschule neuesKapitel)
+	public void add(Hochschule neuesKapitel)
 	{
 		hochschulen.put(neuesKapitel.getId(),
 				neuesKapitel);
 	}
 
-	static void remove(Hochschule kapitel)
+	public void remove(Hochschule kapitel)
 	{
 		remove(kapitel.getId());
 	}
 
-	public static void remove(int id)
+	public void remove(int id)
 	{
 		hochschulen.remove(id);
 	}
 
-	static void update(Hochschule kapitelUpdate)
+	public void update(Hochschule kapitelUpdate)
 	{
 		hochschulen.put(kapitelUpdate.getId(),
 				kapitelUpdate);
 	}
 
-	static ArrayList<Hochschule> suche(String suchstring)
+	public ArrayList<Hochschule> suche(String suchstring)
 	{
 		final ArrayList<Hochschule> passendeLernfaecherZumSuchstring = new ArrayList<>();
 		for (final Entry<Integer, Hochschule> hochschule : hochschulen.entrySet())

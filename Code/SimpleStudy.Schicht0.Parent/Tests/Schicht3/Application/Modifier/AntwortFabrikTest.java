@@ -22,7 +22,8 @@ public class AntwortFabrikTest
 	@Test
 	public void getCorrectAntwortAttributesFromAntwortFabrik()
 	{
-		final var antwortAttribute = AntwortFabrik.getAntwortAttribute();
+		final var antwortAttribute = AntwortFabrik.getInstance()
+				.getAntwortAttribute();
 		final var antwortAttributeKeys = antwortAttribute.keySet();
 
 		assertEquals(3,
@@ -40,7 +41,8 @@ public class AntwortFabrikTest
 	@Test
 	public void createAntwortWithProperValues()
 	{
-		final var antwortAttribute = AntwortFabrik.getAntwortAttribute();
+		final var antwortAttribute = AntwortFabrik.getInstance()
+				.getAntwortAttribute();
 		antwortAttribute.put(Antwort.idText,
 				antwortId + "");
 		antwortAttribute.put(Antwort.textText,
@@ -48,7 +50,8 @@ public class AntwortFabrikTest
 		antwortAttribute.put(Antwort.correctText,
 				isKorrekteAntwort.toString());
 
-		AntwortFabrik.create(antwortAttribute);
+		AntwortFabrik.getInstance()
+				.create(antwortAttribute);
 		final var erzeugteAntwort = AntwortVerwaltung.getInstance()
 				.get(antwortId);
 
@@ -66,7 +69,8 @@ public class AntwortFabrikTest
 	@Test
 	public void createAntwortWithProperDbValues()
 	{
-		final var antwortAttribute = AntwortFabrik.getAntwortAttribute();
+		final var antwortAttribute = AntwortFabrik.getInstance()
+				.getAntwortAttribute();
 		antwortAttribute.put(Antwort.idText,
 				antwortId + "");
 		antwortAttribute.put(Antwort.textText,
@@ -74,7 +78,8 @@ public class AntwortFabrikTest
 		antwortAttribute.put(Antwort.correctText,
 				isKorrekteAntwortDbLanguage + "");
 
-		AntwortFabrik.create(antwortAttribute);
+		AntwortFabrik.getInstance()
+				.create(antwortAttribute);
 		final var erzeugteAntwort = AntwortVerwaltung.getInstance()
 				.get(antwortId);
 
@@ -92,7 +97,8 @@ public class AntwortFabrikTest
 	@Test
 	public void createAntwortWithProperDbValuesNegierteKorrektheit()
 	{
-		final var antwortAttribute = AntwortFabrik.getAntwortAttribute();
+		final var antwortAttribute = AntwortFabrik.getInstance()
+				.getAntwortAttribute();
 		antwortAttribute.put(Antwort.idText,
 				antwortId + "");
 		antwortAttribute.put(Antwort.textText,
@@ -100,7 +106,8 @@ public class AntwortFabrikTest
 		antwortAttribute.put(Antwort.correctText,
 				isKorrekteAntwortDbLanguage - 1 + "");
 
-		AntwortFabrik.create(antwortAttribute);
+		AntwortFabrik.getInstance()
+				.create(antwortAttribute);
 		final var erzeugteAntwort = AntwortVerwaltung.getInstance()
 				.get(antwortId);
 
@@ -118,14 +125,16 @@ public class AntwortFabrikTest
 	@Test
 	public void createAntwortWithMissingCorrectValue()
 	{
-		final var antwortAttribute = AntwortFabrik.getAntwortAttribute();
+		final var antwortAttribute = AntwortFabrik.getInstance()
+				.getAntwortAttribute();
 		antwortAttribute.put(Antwort.idText,
 				antwortId + "");
 		antwortAttribute.put(Antwort.textText,
 				antwortText);
 		final Boolean defaultAnswerCorrectness = false;
 
-		AntwortFabrik.create(antwortAttribute);
+		AntwortFabrik.getInstance()
+				.create(antwortAttribute);
 		final var erzeugteAntwort = AntwortVerwaltung.getInstance()
 				.get(antwortId);
 
@@ -143,13 +152,15 @@ public class AntwortFabrikTest
 	@Test
 	public void createAntwortWithMissingCorrectAndTextValue()
 	{
-		final var antwortAttribute = AntwortFabrik.getAntwortAttribute();
+		final var antwortAttribute = AntwortFabrik.getInstance()
+				.getAntwortAttribute();
 		antwortAttribute.put(Antwort.idText,
 				antwortId + "");
 		final String defaultAnswerText = "";
 		final Boolean defaultAnswerCorrectness = false;
 
-		AntwortFabrik.create(antwortAttribute);
+		AntwortFabrik.getInstance()
+				.create(antwortAttribute);
 		final var erzeugteAntwort = AntwortVerwaltung.getInstance()
 				.get(antwortId);
 
@@ -168,9 +179,11 @@ public class AntwortFabrikTest
 	@Test
 	public void createAntwortWithMissingCorrectAndTextAndIdValue()
 	{
-		final var antwortAttribute = AntwortFabrik.getAntwortAttribute();
+		final var antwortAttribute = AntwortFabrik.getInstance()
+				.getAntwortAttribute();
 
-		AntwortFabrik.create(antwortAttribute);
+		AntwortFabrik.getInstance()
+				.create(antwortAttribute);
 		final var erzeugteAntwort = AntwortVerwaltung.getInstance()
 				.get(antwortId);
 

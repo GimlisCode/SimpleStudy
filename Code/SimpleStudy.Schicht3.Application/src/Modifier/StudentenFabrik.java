@@ -10,7 +10,7 @@ public class StudentenFabrik
 {
 	private static Student neuerStudent = new Student(null, null);
 	private static StudentenVerwaltung studentenVerwaltung;
-	private static StudentenFabrik studentenFabrikSingleton;
+	private static StudentenFabrik studentenFabrikSingleton = new StudentenFabrik();
 	private static ArrayList<Tupel<Integer, Integer>> statistikReferenzen = new ArrayList<>();
 
 	private StudentenFabrik()
@@ -42,14 +42,16 @@ public class StudentenFabrik
 		final String statistikId = studentenAttribute.get(Student.statistikText);
 		if (statistikId != null)
 		{
-			final Statistik statistik = StatistikVerwaltung.get(Integer.parseInt(statistikId));
+			final Statistik statistik = StatistikVerwaltung.getInstance()
+					.get(Integer.parseInt(statistikId));
 			if (statistik != null)
 				neuerStudent.setStatistik(statistik);
 			else
 				statistikReferenzen.add(new Tupel<>(neuerStudent.getId(), Integer.parseInt(statistikId)));
 		}
 
-		studentenVerwaltung.add(neuerStudent);
+		studentenVerwaltung.getInstance()
+				.add(neuerStudent);
 		neuerStudent = new Student("", null);
 	}
 
@@ -57,7 +59,8 @@ public class StudentenFabrik
 	{
 		for (final Tupel<Integer, Integer> tupel : statistikReferenzen)
 		{
-			final Statistik statistik = StatistikVerwaltung.get(tupel.y);
+			final Statistik statistik = StatistikVerwaltung.getInstance()
+					.get(tupel.y);
 			if (statistik != null)
 				studentenVerwaltung.get(tupel.x)
 						.setStatistik(statistik);

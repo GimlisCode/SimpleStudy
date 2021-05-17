@@ -30,7 +30,8 @@ public class DbControllerTest
 	public void properlyInitializeAnswerFromDb()
 	{
 		final DatenVerbindung databaseMock = EasyMock.createMock(DatenVerbindung.class);
-		final var testAntwortAttributeOhneId = AntwortFabrik.getAntwortAttribute();
+		final var testAntwortAttributeOhneId = AntwortFabrik.getInstance()
+				.getAntwortAttribute();
 		testAntwortAttributeOhneId.put(Antwort.idText,
 				antwortIdForTest + "");
 		testAntwortAttributeOhneId.put(Antwort.textText,
@@ -64,7 +65,8 @@ public class DbControllerTest
 	public void properlyInitializeAnswerFromDbWithoutId()
 	{
 		final DatenVerbindung databaseMock = EasyMock.createMock(DatenVerbindung.class);
-		final var testAntwortAttributeOhneId = AntwortFabrik.getAntwortAttribute();
+		final var testAntwortAttributeOhneId = AntwortFabrik.getInstance()
+				.getAntwortAttribute();
 		testAntwortAttributeOhneId.put(Antwort.textText,
 				antwortTextForTest);
 		testAntwortAttributeOhneId.put(Antwort.correctText,
@@ -98,7 +100,8 @@ public class DbControllerTest
 	public void properlyInitializeAnswerFromDbWithWrongNotNumericUi()
 	{
 		final DatenVerbindung databaseMock = EasyMock.createMock(DatenVerbindung.class);
-		final var testAntwortAttributeOhneId = AntwortFabrik.getAntwortAttribute();
+		final var testAntwortAttributeOhneId = AntwortFabrik.getInstance()
+				.getAntwortAttribute();
 		testAntwortAttributeOhneId.put(Antwort.idText,
 				wrongIdNotNumeric);
 		testAntwortAttributeOhneId.put(Antwort.textText,

@@ -22,39 +22,39 @@ public final class DozentenVerwaltung
 		return dozentenVerwaltungSingleton;
 	}
 
-	public static Dozent get(int id)
+	public Dozent get(int id)
 	{
 		return dozenten.get(id);
 	}
 
-	public static HashMap<Integer, Dozent> getAll()
+	public HashMap<Integer, Dozent> getAll()
 	{
 		return dozenten;
 	}
 
-	static void add(Dozent dozent)
+	public void add(Dozent dozent)
 	{
 		dozenten.put(dozent.getId(),
 				dozent);
 	}
 
-	public static void remove(Dozent dozent)
+	public void remove(Dozent dozent)
 	{
 		remove(dozent.getId());
 	}
 
-	public static void remove(int id)
+	public void remove(int id)
 	{
 		dozenten.remove(id);
 	}
 
-	static void update(Dozent dozent)
+	public void update(Dozent dozent)
 	{
 		dozenten.put(dozent.getId(),
 				dozent);
 	}
 
-	static ArrayList<Dozent> suche(String suchstring)
+	public ArrayList<Dozent> suche(String suchstring)
 	{
 		final ArrayList<Dozent> passendeDozentenZumSuchstring = new ArrayList<>();
 		for (final Entry<Integer, Dozent> dozent : dozenten.entrySet())

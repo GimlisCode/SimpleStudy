@@ -24,7 +24,7 @@ public class LernfachFabrik
 		return lernfachFabrikSingleton;
 	}
 
-	public static HashMap<String, String> getLernfachAttribute()
+	public HashMap<String, String> getLernfachAttribute()
 	{
 		final HashMap<String, String> lernfachAttribute = new HashMap<>();
 		final String[] attributNamen = neuesLernfach.getAttributeNames();
@@ -35,7 +35,7 @@ public class LernfachFabrik
 		return lernfachAttribute;
 	}
 
-	public static void create(HashMap<String, String> lernfachAttribute)
+	public void create(HashMap<String, String> lernfachAttribute)
 	{
 		neuesLernfach.setId(Integer.parseInt(lernfachAttribute.get(Lernfach.idText)));
 		neuesLernfach.setName(lernfachAttribute.get(Lernfach.nameText));
@@ -48,7 +48,8 @@ public class LernfachFabrik
 			final String[] alleKapitelId = kapitelIds.split(";");
 			for (final String kapitelId : alleKapitelId)
 			{
-				final Kapitel kapitel = KapitelVerwaltung.get(Integer.parseInt(kapitelId));
+				final Kapitel kapitel = KapitelVerwaltung.getInstance()
+						.get(Integer.parseInt(kapitelId));
 				if (kapitel != null)
 					neuesLernfach.add(kapitel);
 				else
@@ -61,11 +62,12 @@ public class LernfachFabrik
 		neuesLernfach = new Lernfach("", 0, 0);
 	}
 
-	public static void resolveReferences()
+	public void resolveReferences()
 	{
 		for (final Tupel<Integer, Integer> tupel : kapitelReferenzen)
 		{
-			final Kapitel kapitel = KapitelVerwaltung.get(tupel.y);
+			final Kapitel kapitel = KapitelVerwaltung.getInstance()
+					.get(tupel.y);
 			if (kapitel != null)
 				lernfachVerwaltung.get(tupel.x)
 						.add(kapitel);

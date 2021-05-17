@@ -25,7 +25,7 @@ public class FragenFabrik
 		return fragenFabrikSingleton;
 	}
 
-	public static HashMap<String, String> getFragenAttribute()
+	public HashMap<String, String> getFragenAttribute()
 	{
 		final HashMap<String, String> fragenAttribute = new HashMap<>();
 		final String[] attributNamen = neueFrage.getAttributeNames();
@@ -36,7 +36,7 @@ public class FragenFabrik
 		return fragenAttribute;
 	}
 
-	public static void create(HashMap<String, String> fragenAttribute)
+	public void create(HashMap<String, String> fragenAttribute)
 	{
 		neueFrage.setId(Integer.parseInt(fragenAttribute.get(Frage.idText)));
 		neueFrage.setText(fragenAttribute.get(Frage.textText));
@@ -61,7 +61,7 @@ public class FragenFabrik
 		neueFrage = new Frage("", 0);
 	}
 
-	public static void resolveReferences()
+	public void resolveReferences()
 	{
 		for (final Tupel<Integer, Integer> tupel : antwortReferenzen)
 		{

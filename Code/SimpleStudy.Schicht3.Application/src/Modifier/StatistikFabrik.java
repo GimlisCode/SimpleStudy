@@ -9,7 +9,7 @@ public class StatistikFabrik
 {
 	private static Statistik neueStatistik = new Statistik();
 	private static StatistikVerwaltung statistikVerwaltung;
-	private static StatistikFabrik statistikFabrikSingleton;
+	private static StatistikFabrik statistikFabrikSingleton = new StatistikFabrik();
 
 	private StatistikFabrik()
 	{
@@ -21,21 +21,23 @@ public class StatistikFabrik
 		return statistikFabrikSingleton;
 	}
 
-	public static HashMap<String, String> getStatistikAttribute()
+	public HashMap<String, String> getStatistikAttribute()
 	{
 		HashMap<String, String> statistikAttribute = new HashMap<>();
 		String[] attributNamen = neueStatistik.getAttributeNames();
 		for (String attributName : attributNamen)
-			statistikAttribute.put(attributName, "");
+			statistikAttribute.put(attributName,
+					"");
 
 		return statistikAttribute;
 	}
 
-	public static void create(HashMap<String, String> statistikAttribute)
+	public void create(HashMap<String, String> statistikAttribute)
 	{
 		neueStatistik.setId(Integer.parseInt(statistikAttribute.get(Statistik.idText)));
 
-		String[] alleRichtigkeiten = statistikAttribute.get(Statistik.statistikText).split(";");
+		String[] alleRichtigkeiten = statistikAttribute.get(Statistik.statistikText)
+				.split(";");
 		for (String richtigkeit : alleRichtigkeiten)
 		{
 			String[] richtigkeitenWerte = richtigkeit.split(",");

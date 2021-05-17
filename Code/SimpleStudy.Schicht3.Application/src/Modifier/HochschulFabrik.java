@@ -25,7 +25,7 @@ public class HochschulFabrik
 		return hochschulFabrikSingleton;
 	}
 
-	public static HashMap<String, String> getHochschulAttribute()
+	public HashMap<String, String> getHochschulAttribute()
 	{
 		final HashMap<String, String> hochschulAttribute = new HashMap<>();
 		final String[] attributNamen = neueHochschule.getAttributeNames();
@@ -36,7 +36,7 @@ public class HochschulFabrik
 		return hochschulAttribute;
 	}
 
-	public static void create(HashMap<String, String> hochschulAttribute)
+	public void create(HashMap<String, String> hochschulAttribute)
 	{
 		neueHochschule.setId(Integer.parseInt(hochschulAttribute.get(Hochschule.idText)));
 		neueHochschule.setName(hochschulAttribute.get(Hochschule.nameText));
@@ -46,7 +46,8 @@ public class HochschulFabrik
 			final String[] alleDozentenId = dozentenIds.split(";");
 			for (final String dozentenId : alleDozentenId)
 			{
-				final Dozent dozent = DozentenVerwaltung.get(Integer.parseInt(dozentenId));
+				final Dozent dozent = DozentenVerwaltung.getInstance()
+						.get(Integer.parseInt(dozentenId));
 				if (dozent != null)
 					neueHochschule.add(dozent);
 				else
@@ -59,11 +60,12 @@ public class HochschulFabrik
 		neueHochschule = new Hochschule("");
 	}
 
-	public static void resolveReferences()
+	public void resolveReferences()
 	{
 		for (final Tupel<Integer, Integer> tupel : dozentenReferenzen)
 		{
-			final Dozent dozent = DozentenVerwaltung.get(tupel.y);
+			final Dozent dozent = DozentenVerwaltung.getInstance()
+					.get(tupel.y);
 			if (dozent != null)
 				hochschulVerwaltung.get(tupel.x)
 						.add(dozent);

@@ -22,39 +22,39 @@ public class LernfachVerwaltung
 		return lernfachVerwaltungSingleton;
 	}
 
-	public static Lernfach get(int id)
+	public Lernfach get(int id)
 	{
 		return lernfaecher.get(id);
 	}
 
-	public static HashMap<Integer, Lernfach> getAll()
+	public HashMap<Integer, Lernfach> getAll()
 	{
 		return lernfaecher;
 	}
 
-	static void add(Lernfach lernfach)
+	public void add(Lernfach lernfach)
 	{
 		lernfaecher.put(lernfach.getId(),
 				lernfach);
 	}
 
-	public static void remove(Lernfach lernfach)
+	public void remove(Lernfach lernfach)
 	{
 		remove(lernfach.getId());
 	}
 
-	public static void remove(int id)
+	public void remove(int id)
 	{
 		lernfaecher.remove(id);
 	}
 
-	static void update(Lernfach lernfach)
+	public void update(Lernfach lernfach)
 	{
 		lernfaecher.put(lernfach.getId(),
 				lernfach);
 	}
 
-	static ArrayList<Lernfach> suche(String suchstring)
+	public ArrayList<Lernfach> suche(String suchstring)
 	{
 		final ArrayList<Lernfach> passendeLernfaecherZumSuchstring = new ArrayList<>();
 		for (final Entry<Integer, Lernfach> student : lernfaecher.entrySet())

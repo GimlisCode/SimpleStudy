@@ -21,7 +21,7 @@ public class AntwortFabrik
 		return antwortFabrikSingleton;
 	}
 
-	public static HashMap<String, String> getAntwortAttribute()
+	public HashMap<String, String> getAntwortAttribute()
 	{
 		final HashMap<String, String> antwortAttribute = new HashMap<>();
 		final String[] attributNamen = neueAntwort.getAttributeNames();
@@ -32,7 +32,7 @@ public class AntwortFabrik
 		return antwortAttribute;
 	}
 
-	public static void create(HashMap<String, String> antwortAttribute)
+	public void create(HashMap<String, String> antwortAttribute)
 	{
 		if (antwortAttribute.get(Antwort.idText) == null || antwortAttribute.get(Antwort.idText)
 				.isEmpty() || antwortAttribute.get(Antwort.idText)

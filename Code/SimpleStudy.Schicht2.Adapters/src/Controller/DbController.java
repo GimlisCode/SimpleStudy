@@ -34,11 +34,16 @@ public class DbController
 	public void resolveAll()
 	{
 		StudentenFabrik.resolveReferences();
-		HochschulFabrik.resolveReferences();
-		DozentenFabrik.resolveReferences();
-		LernfachFabrik.resolveReferences();
-		KapitelFabrik.resolveReferences();
-		FragenFabrik.resolveReferences();
+		HochschulFabrik.getInstance()
+				.resolveReferences();
+		DozentenFabrik.getInstance()
+				.resolveReferences();
+		LernfachFabrik.getInstance()
+				.resolveReferences();
+		KapitelFabrik.getInstance()
+				.resolveReferences();
+		FragenFabrik.getInstance()
+				.resolveReferences();
 	}
 
 	public void initilizeData()
@@ -244,7 +249,8 @@ public class DbController
 				"DISTINCT")
 				.build());
 
-		var currentNewStatistik = StatistikFabrik.getStatistikAttribute();
+		var currentNewStatistik = StatistikFabrik.getInstance()
+				.getStatistikAttribute();
 		for (final HashMap<String, String> statistikId : alleStatistikIds)
 		{
 			final String currentId = statistikId.get(Entity.idText);
@@ -266,7 +272,8 @@ public class DbController
 					richtigkeitText);
 			MainController.getInstance()
 					.createStatistik(currentNewStatistik);
-			currentNewStatistik = StatistikFabrik.getStatistikAttribute();
+			currentNewStatistik = StatistikFabrik.getInstance()
+					.getStatistikAttribute();
 		}
 	}
 }

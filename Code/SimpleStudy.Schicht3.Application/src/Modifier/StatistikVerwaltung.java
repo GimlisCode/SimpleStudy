@@ -24,39 +24,39 @@ public class StatistikVerwaltung
 		return statistikVerwaltungSingleton;
 	}
 
-	public static Statistik get(int id)
+	public Statistik get(int id)
 	{
 		return statistiken.get(id);
 	}
 
-	public static HashMap<Integer, Statistik> getAll()
+	public HashMap<Integer, Statistik> getAll()
 	{
 		return statistiken;
 	}
 
-	static void add(Statistik statistik)
+	public void add(Statistik statistik)
 	{
 		statistiken.put(statistik.getId(),
 				statistik);
 	}
 
-	public static void remove(Statistik statistik)
+	public void remove(Statistik statistik)
 	{
 		statistiken.remove(statistik.getId());
 	}
 
-	public static void remove(int id)
+	public void remove(int id)
 	{
 		statistiken.remove(id);
 	}
 
-	static void update(Statistik statistik)
+	public void update(Statistik statistik)
 	{
 		statistiken.put(statistik.getId(),
 				statistik);
 	}
 
-	static ArrayList<Statistik> suche(String suchstring)
+	public ArrayList<Statistik> suche(String suchstring)
 	{
 		final ArrayList<Statistik> passendeStatistikZumSuchstring = new ArrayList<>();
 		for (final Entry<Integer, Statistik> statistik : statistiken.entrySet())
@@ -74,7 +74,7 @@ public class StatistikVerwaltung
 
 	// TODO: Fragenstufe
 
-	public static void update(Statistik currentStatistik, Ergebnis ergebnis)
+	public void update(Statistik currentStatistik, Ergebnis ergebnis)
 	{
 		for (final Entry<Integer, Boolean> ergebnisEinerFrage : ergebnis.getErgebnis()
 				.entrySet())

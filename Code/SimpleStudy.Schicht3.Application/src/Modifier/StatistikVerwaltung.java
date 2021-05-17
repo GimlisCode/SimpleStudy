@@ -72,8 +72,6 @@ public class StatistikVerwaltung
 
 	}
 
-	// TODO: Fragenstufe
-
 	public void update(Statistik currentStatistik, Ergebnis ergebnis)
 	{
 		for (final Entry<Integer, Boolean> ergebnisEinerFrage : ergebnis.getErgebnis()

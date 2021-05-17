@@ -110,7 +110,6 @@ public class SQLite implements DatenVerbindung
 		}
 		catch (final SQLException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -126,7 +125,6 @@ public class SQLite implements DatenVerbindung
 		}
 		catch (final SQLException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
@@ -159,7 +157,6 @@ public class SQLite implements DatenVerbindung
 		}
 		catch (final SQLException e)
 		{
-			// TODO: handle exception
 			e.printStackTrace();
 		}
 		return resultsMapped;

@@ -249,8 +249,8 @@ public final class MainController implements UiBeobachtete
 		final var hochschulAttribute = HochschulFabrik.getInstance()
 				.getHochschulAttribute();
 		for (final Entry<String, String> hochschulAttribut : hochschulAttribute.entrySet())
-			hochschulAttribut.setValue(hochschulen.get(hochschulAttribut.getKey())); // TODO: Stilbruch im Namen, durch
-																						// autogenerate
+			hochschulAttribut.setValue(hochschulen.get(hochschulAttribut.getKey())); 
+																						
 		final String id = hochschulAttribute.get(Entity.idText);
 		if (!idChecker.isValid(id))
 			hochschulAttribute.replace(Entity.idText,
@@ -471,12 +471,12 @@ public final class MainController implements UiBeobachtete
 	{
 		final var frage = FragenVerwaltung.getInstance()
 				.get(Integer.parseInt(fragenId));
-		final var antworten = frage.getAntworten();
+		// final var antworten = frage.getAntworten();
 		FragenVerwaltung.getInstance()
 				.remove(frage);
 
-		for (final Antwort antwort : antworten)
-			deleteAntwort(antwort.getId() + "");
+		// for (final Antwort antwort : antworten)
+		// deleteAntwort(antwort.getId() + "");
 
 		KapitelVerwaltung.getInstance()
 				.getAll()

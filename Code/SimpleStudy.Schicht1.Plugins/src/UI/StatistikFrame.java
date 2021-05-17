@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -68,24 +69,31 @@ public class StatistikFrame extends JFrame implements UiBeobachter, ActionListen
 	{
 		final var userStatistik = currentUser.getStatistik()
 				.getStatistik();
-		pnlStatistik.setLayout(new GridLayout(userStatistik.size(), 3));
+		int counter = 0;
+		ArrayList<JLabel> eintraege = new ArrayList<>();
 		for (final var statistikEintrag : userStatistik.entrySet())
 			try
 			{
 				final var fragenText = MainController.getFrage(statistikEintrag.getKey())
 						.getText();
-				pnlStatistik.add(new JLabel("Frage (" + statistikEintrag.getKey() + "): " + fragenText));
+				counter++;
+				eintraege.add(new JLabel("Frage (" + statistikEintrag.getKey() + "): " + fragenText));
 
-				pnlStatistik.add(new JLabel("Richtig beantwortet: " + Integer.toString(statistikEintrag.getValue()
+				eintraege.add(new JLabel("Richtig beantwortet: " + Integer.toString(statistikEintrag.getValue()
 						.getRichtig())));
 
-				pnlStatistik.add(new JLabel("Falsch beantwortet: " + Integer.toString(statistikEintrag.getValue()
+				eintraege.add(new JLabel("Falsch beantwortet: " + Integer.toString(statistikEintrag.getValue()
 						.getFalsch())));
 			}
 			catch (final Exception e)
 			{
 
 			}
+		pnlStatistik.setLayout(new GridLayout(counter, 3));
+		for (JLabel label : eintraege)
+		{
+			pnlStatistik.add(label);
+		}
 
 		this.repaint();
 		revalidate();

@@ -433,7 +433,6 @@ public class NeuFrame extends JFrame implements ActionListener, UiBeobachter
 	@Override
 	public void aktualisiere()
 	{
-		// TODO Auto-generated method stub
 
 	}
 

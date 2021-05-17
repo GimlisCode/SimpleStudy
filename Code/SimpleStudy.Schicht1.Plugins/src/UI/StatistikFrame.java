@@ -70,18 +70,22 @@ public class StatistikFrame extends JFrame implements UiBeobachter, ActionListen
 				.getStatistik();
 		pnlStatistik.setLayout(new GridLayout(userStatistik.size(), 3));
 		for (final var statistikEintrag : userStatistik.entrySet())
-		{
-			pnlStatistik.add(
-					new JLabel("Frage (" + statistikEintrag.getKey() + "): " + MainController.getFrage(statistikEintrag.getKey())
-							.getText()));
+			try
+			{
+				final var fragenText = MainController.getFrage(statistikEintrag.getKey())
+						.getText();
+				pnlStatistik.add(new JLabel("Frage (" + statistikEintrag.getKey() + "): " + fragenText));
 
-			pnlStatistik.add(new JLabel("Richtig beantwortet: " + Integer.toString(statistikEintrag.getValue()
-					.getRichtig())));
+				pnlStatistik.add(new JLabel("Richtig beantwortet: " + Integer.toString(statistikEintrag.getValue()
+						.getRichtig())));
 
-			pnlStatistik.add(new JLabel("Falsch beantwortet: " + Integer.toString(statistikEintrag.getValue()
-					.getFalsch())));
+				pnlStatistik.add(new JLabel("Falsch beantwortet: " + Integer.toString(statistikEintrag.getValue()
+						.getFalsch())));
+			}
+			catch (final Exception e)
+			{
 
-		}
+			}
 
 		this.repaint();
 		revalidate();

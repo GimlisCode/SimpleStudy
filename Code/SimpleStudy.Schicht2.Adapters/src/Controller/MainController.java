@@ -35,6 +35,7 @@ import Modifier.StatistikFabrik;
 import Modifier.StatistikVerwaltung;
 import Modifier.StudentenFabrik;
 import Modifier.StudentenVerwaltung;
+import Modifier.Verwalter;
 import OpcChecker.IdChecker;
 import OpcChecker.IsBlankId;
 import OpcChecker.IsEmptyId;
@@ -56,6 +57,7 @@ public final class MainController implements UiBeobachtete
 	private Student currentUser = null;
 	private final ArrayList<UiBeobachter> registrierteUiBeobachter = new ArrayList<UiBeobachter>();
 	private IdChecker idChecker = null;
+	private Verwalter<Dozent> dozentenVerwalter = null;
 
 	private MainController()
 	{
@@ -65,6 +67,7 @@ public final class MainController implements UiBeobachtete
 		idChecker.register(new IsEmptyId());
 		idChecker.register(new IsBlankId());
 		idChecker.register(new IsNumericId());
+		dozentenVerwalter = DozentenVerwaltung.getInstance();
 	}
 
 	public static MainController getInstance()
@@ -90,6 +93,18 @@ public final class MainController implements UiBeobachtete
 	{
 		AbfrageVerwaltung.getInstance()
 				.abfrageAuswerten(abfrage);
+	}
+
+	public int getNewIdFor(Verwalter verwaltung)
+	{
+		List<Integer> keyList = new ArrayList<Integer>();
+		keyList = new ArrayList<>(verwaltung.getAll()
+				.keySet());
+		if (keyList.size() <= 0)
+			return 1;
+
+		Collections.sort(keyList);
+		return keyList.get(keyList.size() - 1) + 1;
 	}
 
 	public int getNewIdFor(String className)
@@ -177,7 +192,7 @@ public final class MainController implements UiBeobachtete
 		final String id = dozentAttribute.get(Entity.idText);
 		if (!idChecker.isValid(id))
 			dozentAttribute.replace(Entity.idText,
-					getNewIdFor(Dozent.class.getSimpleName()) + "");
+					getNewIdFor(dozentenVerwalter) + "");
 
 		DozentenFabrik.getInstance()
 				.create(dozentAttribute);

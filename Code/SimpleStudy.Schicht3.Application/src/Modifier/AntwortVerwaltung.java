@@ -6,7 +6,7 @@ import java.util.Map.Entry;
 
 import Models.Antwort;
 
-public final class AntwortVerwaltung
+public final class AntwortVerwaltung implements Verwalter<Antwort>
 {
 
 	static private HashMap<Integer, Antwort> antworten = new HashMap<>();

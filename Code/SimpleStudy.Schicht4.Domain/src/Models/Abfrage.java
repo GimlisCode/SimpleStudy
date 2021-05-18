@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Abfrage
 {
 
-	private Ergebnis ergebnis;
+	private final Ergebnis ergebnis;
 	private final Modus modus;
 	private final Abfragesystem abfragesystem;
 	private final ArrayList<Frage> fragen;

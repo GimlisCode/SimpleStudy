@@ -249,8 +249,8 @@ public final class MainController implements UiBeobachtete
 		final var hochschulAttribute = HochschulFabrik.getInstance()
 				.getHochschulAttribute();
 		for (final Entry<String, String> hochschulAttribut : hochschulAttribute.entrySet())
-			hochschulAttribut.setValue(hochschulen.get(hochschulAttribut.getKey())); 
-																						
+			hochschulAttribut.setValue(hochschulen.get(hochschulAttribut.getKey()));
+
 		final String id = hochschulAttribute.get(Entity.idText);
 		if (!idChecker.isValid(id))
 			hochschulAttribute.replace(Entity.idText,
@@ -271,10 +271,9 @@ public final class MainController implements UiBeobachtete
 
 	public void createStatistik(HashMap<String, String> currentNewStatistik)
 	{
-		final var statistikAttribute = StatistikFabrik.getInstance()
-				.getStatistikAttribute();
-		for (final Entry<String, String> statistikAttribut : statistikAttribute.entrySet())
-			statistikAttribut.setValue(currentNewStatistik.get(statistikAttribut.getKey()));
+		final var statistikAttribute = attributeInitialization(StatistikFabrik.getInstance()
+				.getStatistikAttribute(),
+				currentNewStatistik);
 
 		final String id = statistikAttribute.get(Entity.idText);
 		if (!idChecker.isValid(id))
@@ -285,6 +284,14 @@ public final class MainController implements UiBeobachtete
 				.create(statistikAttribute);
 		getInstance().benachrichtigeUis();
 
+	}
+
+	private HashMap<String, String> attributeInitialization(HashMap<String, String> entityAttributes,
+			HashMap<String, String> newEntitiy)
+	{
+		for (final Entry<String, String> statistikAttribut : entityAttributes.entrySet())
+			statistikAttribut.setValue(newEntitiy.get(statistikAttribut.getKey()));
+		return newEntitiy;
 	}
 
 	public void updateStatistik(HashMap<String, String> statistikWerte)

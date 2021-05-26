@@ -72,7 +72,6 @@ public class LernfachFabrik
 				lernfachVerwaltung.get(tupel.x)
 						.add(kapitel);
 
-
 		}
 	}
 }

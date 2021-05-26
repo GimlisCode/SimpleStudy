@@ -246,8 +246,10 @@ public final class MainController implements UiBeobachtete
 
 	public void createHochschule(HashMap<String, String> hochschulen)
 	{
-		final var hochschulAttribute = HochschulFabrik.getInstance()
-				.getHochschulAttribute();
+		final var hochschulAttribute = attributeInitialization(HochschulFabrik.getInstance()
+				.getHochschulAttribute(),
+				hochschulen);
+
 		for (final Entry<String, String> hochschulAttribut : hochschulAttribute.entrySet())
 			hochschulAttribut.setValue(hochschulen.get(hochschulAttribut.getKey()));
 

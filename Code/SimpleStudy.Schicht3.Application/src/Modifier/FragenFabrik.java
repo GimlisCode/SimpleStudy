@@ -70,8 +70,6 @@ public class FragenFabrik
 			if (antwort != null)
 				fragenVerwaltung.get(tupel.x)
 						.add(antwort);
-			// else
-			// throw error ask User
 
 		}
 	}

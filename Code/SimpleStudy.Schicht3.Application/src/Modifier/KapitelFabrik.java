@@ -71,8 +71,6 @@ public class KapitelFabrik
 			if (frage != null)
 				kapitelVerwaltung.get(tupel.x)
 						.add(frage);
-			// else
-			// throw error ask User
 
 		}
 	}

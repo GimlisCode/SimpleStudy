@@ -69,8 +69,6 @@ public class HochschulFabrik
 			if (dozent != null)
 				hochschulVerwaltung.get(tupel.x)
 						.add(dozent);
-			// else
-			// throw error ask User
 
 		}
 	}

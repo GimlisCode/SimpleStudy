@@ -64,8 +64,6 @@ public class StudentenFabrik
 			if (statistik != null)
 				studentenVerwaltung.get(tupel.x)
 						.setStatistik(statistik);
-			// else
-			// throw error ask User
 
 		}
 	}

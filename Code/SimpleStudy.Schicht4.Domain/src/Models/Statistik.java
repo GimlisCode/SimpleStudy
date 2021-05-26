@@ -6,7 +6,7 @@ import java.util.Map;
 public class Statistik extends Entity
 {
 
-	// DOKU: Tupel ersetzt durch Wrapper
+	//Tupel ersetzt durch Wrapper
 	private Map<Integer, Richtigkeit> statistik = new HashMap<>();
 	public final static String statistikText = "richtigkeiten";
 

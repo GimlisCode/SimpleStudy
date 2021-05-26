@@ -68,8 +68,6 @@ public class DozentenFabrik
 			if (fach != null)
 				dozentenVerwaltung.get(tupel.x)
 						.addKurs(fach);
-			// else
-			// throw error ask User
 
 		}
 	}

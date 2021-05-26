@@ -423,7 +423,7 @@ public class MainFrame extends JFrame implements ActionListener, UiBeobachter
 		else if (e.getSource() == btnKapNeu)
 		{
 			NeuFrame nf = new NeuFrame(Kapitel.class.getSimpleName(), KapitelFabrik.getInstance()
-					.getKaptielAttribute());
+					.getKapitelAttribute());
 		}
 
 		else if (e.getSource() == btnKapBear)

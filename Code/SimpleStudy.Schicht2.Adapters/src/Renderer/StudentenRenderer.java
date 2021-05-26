@@ -29,10 +29,6 @@ public class StudentenRenderer
 
 			gerenderteStudenten.add(gerenderterStudent);
 
-//			for ( var attribute : student.getDetails().entrySet())
-//			{
-//				gerenderterStudent.put(attribute.getKey().toString(), attribute.getValue().toString())
-//			}
 		}
 
 		return gerenderteStudenten;

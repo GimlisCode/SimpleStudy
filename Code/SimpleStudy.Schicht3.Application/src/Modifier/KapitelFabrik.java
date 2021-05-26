@@ -25,7 +25,7 @@ public class KapitelFabrik
 		return kapitelFabrikSingleton;
 	}
 
-	public HashMap<String, String> getKaptielAttribute()
+	public HashMap<String, String> getKapitelAttribute()
 	{
 		final HashMap<String, String> kapitelAttribute = new HashMap<>();
 		final String[] attributNamen = neuesKapitel.getAttributeNames();

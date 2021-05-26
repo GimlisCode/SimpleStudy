@@ -41,20 +41,14 @@ public class Student extends Entity
 	public HashMap<String, Object> getDetails()
 	{
 		HashMap<String, Object> details = new HashMap<String, Object>();
-		details.put(idText, this.id);
-		details.put(nameText, this.name);
-		details.put(statistikText, this.statistik);
+		details.put(idText,
+				this.id);
+		details.put(nameText,
+				this.name);
+		details.put(statistikText,
+				this.statistik);
 
 		return details;
 	}
 
-//	public void add(Statistik newStatistik) {
-//		if (!statistik.contains(newStatistik))		
-//			statistik.add(newStatistik);		
-//	}
-//	
-//	public void remove(Statistik removeStatistik) {
-//		if (statistik.contains(removeStatistik))
-//			statistik.remove(removeStatistik);
-//	}
 }

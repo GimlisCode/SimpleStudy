@@ -83,7 +83,7 @@ public final class MainController implements UiBeobachtete
 					.get(Integer.parseInt(frage.get(Entity.idText))));
 
 		return AbfrageVerwaltung.getInstance()
-				.neueAbfrage(Modus.ABFRAGE,
+				.create(Modus.ABFRAGE,
 						Abfragesystem.LINEAR,
 						fragen,
 						currentUser);
@@ -249,8 +249,8 @@ public final class MainController implements UiBeobachtete
 		final var hochschulAttribute = HochschulFabrik.getInstance()
 				.getHochschulAttribute();
 		for (final Entry<String, String> hochschulAttribut : hochschulAttribute.entrySet())
-			hochschulAttribut.setValue(hochschulen.get(hochschulAttribut.getKey())); 
-																						
+			hochschulAttribut.setValue(hochschulen.get(hochschulAttribut.getKey()));
+
 		final String id = hochschulAttribute.get(Entity.idText);
 		if (!idChecker.isValid(id))
 			hochschulAttribute.replace(Entity.idText,
@@ -321,7 +321,7 @@ public final class MainController implements UiBeobachtete
 	public void createKapitel(HashMap<String, String> kapitel)
 	{
 		final var kapitelAttribute = KapitelFabrik.getInstance()
-				.getKaptielAttribute();
+				.getKapitelAttribute();
 		for (final Entry<String, String> kapitelAttribut : kapitelAttribute.entrySet())
 			kapitelAttribut.setValue(kapitel.get(kapitelAttribut.getKey()));
 
@@ -471,12 +471,8 @@ public final class MainController implements UiBeobachtete
 	{
 		final var frage = FragenVerwaltung.getInstance()
 				.get(Integer.parseInt(fragenId));
-		// final var antworten = frage.getAntworten();
 		FragenVerwaltung.getInstance()
 				.remove(frage);
-
-		// for (final Antwort antwort : antworten)
-		// deleteAntwort(antwort.getId() + "");
 
 		KapitelVerwaltung.getInstance()
 				.getAll()

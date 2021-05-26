@@ -71,8 +71,7 @@ public class LernfachFabrik
 			if (kapitel != null)
 				lernfachVerwaltung.get(tupel.x)
 						.add(kapitel);
-			// else
-			// throw error ask User
+
 
 		}
 	}

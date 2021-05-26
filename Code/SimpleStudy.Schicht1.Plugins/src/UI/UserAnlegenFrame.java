@@ -20,11 +20,11 @@ public class UserAnlegenFrame extends JFrame implements ActionListener
 
 {
 
-	JPanel pn_eingaben = new JPanel();
-	JPanel pn_button = new JPanel();
-	JLabel lbl_benutzer;
-	JTextField tf_benutzer;
-	JButton btn_anlegen;
+	JPanel pnlEingaben = new JPanel();
+	JPanel pnlButton = new JPanel();
+	JLabel lblBenutzer;
+	JTextField tfBenutzer;
+	JButton btnAnlegen;
 
 	public UserAnlegenFrame()
 	{
@@ -32,18 +32,18 @@ public class UserAnlegenFrame extends JFrame implements ActionListener
 
 		setLayout(new BorderLayout());
 
-		pn_eingaben.setLayout(new GridLayout(1, 1));
-		tf_benutzer = new JTextField();
-		lbl_benutzer = new JLabel("Name des Studierenden:");
-		pn_eingaben.add(lbl_benutzer);
-		pn_eingaben.add(tf_benutzer);
-		this.add(pn_eingaben,
+		pnlEingaben.setLayout(new GridLayout(1, 1));
+		tfBenutzer = new JTextField();
+		lblBenutzer = new JLabel("Name des Studierenden:");
+		pnlEingaben.add(lblBenutzer);
+		pnlEingaben.add(tfBenutzer);
+		this.add(pnlEingaben,
 				BorderLayout.CENTER);
 
-		btn_anlegen = new JButton("Anlegen");
-		btn_anlegen.addActionListener(this);
-		pn_button.add(btn_anlegen);
-		this.add(pn_button,
+		btnAnlegen = new JButton("Anlegen");
+		btnAnlegen.addActionListener(this);
+		pnlButton.add(btnAnlegen);
+		this.add(pnlButton,
 				BorderLayout.SOUTH);
 
 		setVisible(true);
@@ -56,7 +56,7 @@ public class UserAnlegenFrame extends JFrame implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-		if (tf_benutzer.getText()
+		if (tfBenutzer.getText()
 				.isEmpty())
 		{
 			final JOptionPane fehlermeldung = new JOptionPane();
@@ -68,7 +68,7 @@ public class UserAnlegenFrame extends JFrame implements ActionListener
 
 		else
 		{
-			final var benutzer = tf_benutzer.getText();
+			final var benutzer = tfBenutzer.getText();
 
 			final HashMap<String, String> student = new HashMap<>();
 			student.put(Student.nameText,

@@ -22,7 +22,7 @@ public class AbfrageVerwaltung
 		return abfrageVerwaltungSingleton;
 	}
 
-	public Abfrage neueAbfrage(Modus modus, Abfragesystem abfragesystem, ArrayList<Frage> fragen, Student student)
+	public Abfrage create(Modus modus, Abfragesystem abfragesystem, ArrayList<Frage> fragen, Student student)
 	{
 		return new Abfrage(modus, abfragesystem, fragen, student);
 	}

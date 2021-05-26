@@ -27,8 +27,6 @@ public class DbController
 	public DbController(DatenVerbindung datenVerbindung)
 	{
 		this.datenVerbindung = datenVerbindung;
-//		initiliazeData();
-//		resolveAll();
 	}
 
 	public void resolveAll()
@@ -49,9 +47,6 @@ public class DbController
 	public void initilizeData()
 	{
 
-		// final var alleDozenten = datenVerbindung.getAllFromTable("Dozent");
-		// for (final HashMap<String, String> dozent : alleDozenten)
-		// MainController.createDozent(dozent);
 		initializeAntwort();
 		initializeStudent();
 		initializeStatistik();

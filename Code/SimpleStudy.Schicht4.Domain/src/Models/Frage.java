@@ -6,7 +6,6 @@ import java.util.HashMap;
 public class Frage extends Entity
 {
 
-	// private int nr;
 	private String text;
 	public final static String textText = "text";
 	private int typ;
@@ -17,7 +16,6 @@ public class Frage extends Entity
 	public Frage(String text, int typ, ArrayList<Antwort> antworten)
 	{
 		super();
-		// this.nr = nr;
 		this.text = text;
 		this.typ = typ;
 		this.antworten = antworten;
@@ -25,19 +23,10 @@ public class Frage extends Entity
 
 	public Frage(String text, int typ)
 	{
-		super(); //
+		super(); 
 		this.text = text;
 		this.typ = typ;
 	}
-
-//	public int getNr() {
-//		return nr;
-//	}
-//
-//
-//	public void setNr(int nr) {
-//		this.nr = nr;
-//	}
 
 	public String getText()
 	{
@@ -85,7 +74,6 @@ public class Frage extends Entity
 	public HashMap<String, Object> getDetails()
 	{
 		final HashMap<String, Object> details = new HashMap<String, Object>();
-		// details.put("nr", this.nr);
 		details.put(idText,
 				id);
 		details.put(textText,
